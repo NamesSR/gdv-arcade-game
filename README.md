@@ -2,11 +2,13 @@
 
 rogue like pack man of zo iets
 
-als alle points gecolect of als alle enemys/points gecolect zijn zijn volgende levels/screen
+als alle points gecolect of als alle enemys/points gecolect zijn zijn volgende levels/screen je krijgt points waneer je de screen geleard hebt hoe sneller je het hebt gedaan hoe meer points je krijgt
 als enemy doot gaan hebben ze een kans om een upgrade te droppen hp speed en damage 
 elke 5 levels/sceen een boss waar voor je orbs moet collecten als je die obs heb collect dan word de boss invonerable dat moet je 3 keer doen dan is die dood en gaa je naar de volgend level/sceen
-om enemy invonerable temalde orbs rond de map of je gebruik points om er voor te zorgen dat de enemys invonerable temaken
-de levels/sceen is infinte je kan door gaan tot dat je dood gaat
+om enemy vonerable temaken collect je special orbs rond de map of je gebruik points om er voor te zorgen dat de enemys invonerable temaken
+de levels/sceen is infinte je kan door gaan tot dat je dood gaat of wanner je all de special obs hebt op gepackt en er zijn nog enemy's en ze zijn niet meer te killen 
+classes knight assasian monk wizard
+als screen gehaalt is dan kan je kiezen tussen 2 screens die randomzijn en die moelijkerzijn maar je krijgt meer rewards
 
 | Als speler wil ik...                                  | Zodat...                              |
 | ----------------------------------------------------- | ------------------------------------- |
