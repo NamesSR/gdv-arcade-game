@@ -15,6 +15,8 @@ public class test : MonoBehaviour
         {
             scoremanager.Instance.AddPoints(10);
             Debug.Log("a");
+            health.Instans.TakeDamage(1);
+
 
 
         }
