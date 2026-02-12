@@ -66,11 +66,7 @@ public class LevelGenerator : MonoBehaviour
         for (int y = 0; y < levelData[s].Length; y++)
         {
             string line = levelData[s][y];
-            if (line == " ")
-            {
-                break;
-
-            }
+           
             string row = line;
             for (int x = 0; x < row.Length; x++)
             {

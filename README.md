@@ -72,6 +72,9 @@ als screen gehaalt is dan kan je kiezen tussen 2 screens die randomzijn en die m
 | dat je in de UI kan zien dat je points krijcht    | zo dat je kan zien hoe goet je het doet |
 |Directe feedback op acties |Het spel responsief aanvoelt    |
 | Optionele uitdagingen voor extra beloning                  | Meesterschap wordt beloond        |
+# grid
+## ![](image/grid.gif)
+### [grid code](Assets/scripts/LevelGenerator.cs)
 
 
 
