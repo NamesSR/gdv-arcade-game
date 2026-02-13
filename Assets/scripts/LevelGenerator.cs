@@ -9,36 +9,38 @@ public class LevelGenerator : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
     public GameObject waypointPrefab;
+    public GameObject enemy2Prefab;
+
+    public Vector3[] waypoints = new Vector3[12];
     
-    public Vector3[] waypoints = new Vector3[6];
     private Transform t;
     int level;
-    
+    private int offsetwaypoint = 0;
     int gridx = 0;
     
 
     string[][] levelData = {new string[]{
         "###############",
         "#.............#",
-        "#.##.##.W1..W2..#",
+        "#.##.##.W11..W12..#",
         "#.............#",
-        "#..W5...EW0.....#",
+        "#..W15...E1W10.....#",
         "#.............#",
-        "#..W4.......W3..#",
+        "#..W14.......W13..#",
         "#....P........#",
         "#.............#",
         "###############",
     },
       new string[]  {
         "###############",
-        "#.............#",
+        "#......W25...W24..#",
         "#.##.##.......#",
-        "#W4........W5...#",
-        "#....P........#",
-        "#........EW0.W1.#",
-        "#.............#",
+        "#W14........W15...#",
+        "#....P.....W23.W22#",
+        "#........E1W10.W11.#",
+        "#.....E2W20.....W21#",
         "#.#########...#",
-        "#W3..........W2.#",
+        "#W13..........W12.#",
         "###############",
 
 
@@ -46,12 +48,12 @@ public class LevelGenerator : MonoBehaviour
       new string[]
       {
         "###############",
-        "#W2.........W1..#",
-        "#.##.##...EW0W5.#",
+        "#W12.........W11..#",
+        "#.##.##...E1W10W15.#",
         "#.............#",
         "#...P....###..#",
         "#..###........#",
-        "#W3..........W4.#",
+        "#W13..........W14.#",
         "#.#########...#",
         "#.............#",
         "###############"
@@ -69,7 +71,7 @@ public class LevelGenerator : MonoBehaviour
     void GenerateLevel()
     {
 
-        level = UnityEngine.Random.Range(0, levelData.Length);
+        level = 1;//UnityEngine.Random.Range(0, levelData.Length);
       
 
         for (int y = 0; y < levelData[level].Length; y++)
@@ -81,7 +83,7 @@ public class LevelGenerator : MonoBehaviour
             {
                 char tile = row[x];
                 Vector3 position = new Vector3(gridx  , -y, 0);
-                
+
                 switch (tile)
                 {
 
@@ -98,22 +100,44 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         break;
                     case 'E':
-                        Instantiate(enemyPrefab, position, Quaternion.identity);
+                        int esindex = row[x + 1] - '0';
+                        switch(esindex){
+                            case 1:
+                                Instantiate(enemyPrefab, position, Quaternion.identity);
+                                break;
+                            case 2:
+                                Instantiate(enemy2Prefab, position, Quaternion.identity);
+                                break;
+                        }
+                        
                         gridx++;
                         break;
                     case 'W':
-                        int index = row[x + 1] - '0';   
+                        int SIndex = row[x + 1] - '0';
+                        switch(SIndex){ 
+                            case 1:
+                                offsetwaypoint = 0;
+                                break;
+                            case 2:
+                                offsetwaypoint = 6;
+                                break;
+
+                        }
+                        
+                        int index = row[x + 2] - '0';
 
                         Vector3 Position = new Vector3(gridx, -y, 0);
 
-                       
-                        Instantiate(dotPrefab, position , Quaternion.identity);
-                        Instantiate(waypointPrefab, position , Quaternion.identity);
-                       
-                        Debug.Log("check 1: " + "index: " + index + position);
-                       
-                            waypoints[index] = position; // it works finaly
 
+                        Instantiate(dotPrefab, position, Quaternion.identity);
+                        Instantiate(waypointPrefab, position, Quaternion.identity);
+
+                        Debug.Log("check 1: " + "index: " + (index + offsetwaypoint)  + position);
+                        
+                            waypoints[index + offsetwaypoint] = position; // it works finaly
+                                
+                            
+                        
                         // Debug.Log("check 2: " + "index: " + index + position);
                         gridx++;
                         break;

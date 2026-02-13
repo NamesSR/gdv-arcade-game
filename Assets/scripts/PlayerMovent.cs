@@ -4,7 +4,7 @@ public class PlayerMovent : MonoBehaviour
 {
     public float speed = 5f;
     public int value = 10;
-
+    
     private Rigidbody2D rb;
     private Vector2 movement;
     void Start()
