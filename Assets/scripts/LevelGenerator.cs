@@ -62,7 +62,7 @@ public class LevelGenerator : MonoBehaviour
     void Start()
     {
        
-        GenerateLevel();
+        GenerateLevel(); 
     }
 
 
@@ -112,9 +112,9 @@ public class LevelGenerator : MonoBehaviour
                        
                         Debug.Log("check 1: " + "index: " + index + position);
                        
-                            waypoints[index] = position;
-                        
-                       // Debug.Log("check 2: " + "index: " + index + position);
+                            waypoints[index] = position; // it works finaly
+
+                        // Debug.Log("check 2: " + "index: " + index + position);
                         gridx++;
                         break;
                     
