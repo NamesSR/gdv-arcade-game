@@ -463,7 +463,14 @@ MonoBehaviour:
   playerPrefab: {fileID: 3138337735823010893, guid: 45c3cbb9a93efdb47bf5ee0db1838d8b, type: 3}
   enemyPrefab: {fileID: 3830393671419105786, guid: f7a27890873c3814e9966860e377b476, type: 3}
   waypointPrefab: {fileID: 604512072058839106, guid: da47edbe4bf18e64cba1cf5e2bdedb35, type: 3}
+  enemy2Prefab: {fileID: 108833225641186078, guid: 7491ce0823d488e4aa841c5408fd030e, type: 3}
   waypoints:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
