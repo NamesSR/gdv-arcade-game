@@ -5,10 +5,7 @@ public class health : MonoBehaviour
     public int hp = 3;
 
     public static health Instans;
-    void Start()
-    {
-        TakeDamage(1);
-    }
+   
     private void Awake()
     {
         // controleren of er al een ScoreManager bestaat

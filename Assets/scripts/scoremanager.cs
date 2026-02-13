@@ -6,10 +6,7 @@ public class scoremanager : MonoBehaviour
     public int score = 0;
     public static scoremanager Instance;
 
-    void Start()
-    {
-        
-    }
+  
     private void Awake()
     {
         // controleren of er al een ScoreManager bestaat
