@@ -25,21 +25,18 @@ public class PlayerMovent : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-       if(other.CompareTag("dot"))
+        
+        if (other.CompareTag("dot"))
         {
             
             Destroy(other.gameObject);
             scoremanager.Instance.AddPoints(value);
            // Debug.Log(scoremanager.Instance.score);
 
+
         }
         
+
     }
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Enemy")
-        {
-            health.Instans.TakeDamage(1);
-        }
-    }
+    
 }

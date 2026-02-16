@@ -1,9 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WayPoints : MonoBehaviour
 {
 
-
+    public Rigidbody2D rigidBod;
     public int offset = 0;
     public bool chase = false;
     public bool isChasing = false;
@@ -19,8 +20,11 @@ public class WayPoints : MonoBehaviour
         levlg = GameObject.Find("LevelGenerator");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         lg = levlg.GetComponent<LevelGenerator>();
-        
-        
+        if (!rigidBod)
+        {
+            rigidBod = GetComponent<Rigidbody2D>();
+        }
+
         currentWaypointIndex = offset;
     }
 
@@ -33,8 +37,8 @@ public class WayPoints : MonoBehaviour
         if (chase == true)
         {
             float distance = Vector3.Distance(transform.position, player.position);
-            Debug.Log(distance);
-            Debug.Log(player.position);
+           // Debug.Log(distance);
+           // Debug.Log(player.position);
 
             if (distance < chaseRange)
             {
@@ -48,6 +52,7 @@ public class WayPoints : MonoBehaviour
             }
 
         }
+
     }   
     void moveToWaypoint()
     {
@@ -79,4 +84,5 @@ public class WayPoints : MonoBehaviour
             }
        
     }
+   
 }
