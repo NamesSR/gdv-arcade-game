@@ -30,7 +30,7 @@ public class PlayerMovent : MonoBehaviour
             
             Destroy(other.gameObject);
             scoremanager.Instance.AddPoints(value);
-            Debug.Log(scoremanager.Instance.score);
+           // Debug.Log(scoremanager.Instance.score);
 
         }
         

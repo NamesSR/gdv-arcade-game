@@ -6,18 +6,18 @@ public class WayPoints : MonoBehaviour
 
     public int offset = 0;
     public bool chase = false;
-    public bool ischasing = false;
+    public bool isChasing = false;
     public float speed = 3f;
     public float chaseRange = 5f;
     LevelGenerator lg;
     private int currentWaypointIndex = 0;
     GameObject levlg;
     
-    public Transform player;
+    Transform player;
     private void Start()
     {
         levlg = GameObject.Find("LevelGenerator");
-      //  gpy = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         lg = levlg.GetComponent<LevelGenerator>();
         
         
@@ -26,54 +26,33 @@ public class WayPoints : MonoBehaviour
 
     void Update()
     {
-        
-        
+        if (isChasing == false)
+        {
             moveToWaypoint();
-        
-        
-        if (chase ==  true) // chasing script is broken
+        }
+        if (chase == true)
         {
             float distance = Vector3.Distance(transform.position, player.position);
             Debug.Log(distance);
+            Debug.Log(player.position);
 
             if (distance < chaseRange)
             {
-                ischasing = true;
+                isChasing = true;
                 Vector3 direction = (player.position - transform.position).normalized;
                 transform.position += direction * speed * Time.deltaTime;
-            }else if (ischasing == true)
+            }
+            else if (isChasing == true)
             {
-                
-                Vector3 target = lg.waypoints[currentWaypointIndex];
-
-                // Beweeg naar target
-                transform.position = Vector3.MoveTowards(
-                    transform.position,
-                    target,
-                    speed * Time.deltaTime
-                );
-
-                // Check of we er zijn
-                if (Vector3.Distance(transform.position, target) < 0.1f)
-                {
-                    // Volgende waypoint
-                    currentWaypointIndex++;
-
-                    // Loop terug naar begin
-                    if (currentWaypointIndex >= offset + 6)
-                    {
-                        currentWaypointIndex = offset;
-                    }
-                    ischasing = false;
-                }
+                isChasing = false;
             }
 
         }
-    }
+    }   
     void moveToWaypoint()
     {
-        if (ischasing == false)
-        {
+        
+        
             if (lg.waypoints.Length == currentWaypointIndex) return;
 
             // Huidige waypoint
@@ -98,10 +77,6 @@ public class WayPoints : MonoBehaviour
                     currentWaypointIndex = offset;
                 }
             }
-        }
-        if (ischasing == true)
-        { 
-            
-        }
+       
     }
 }

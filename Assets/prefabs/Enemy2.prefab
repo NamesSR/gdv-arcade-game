@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8827355206667240178}
   - component: {fileID: 1384688057694639528}
-  - component: {fileID: 5325512407133749644}
   - component: {fileID: 8800607654878956577}
   - component: {fileID: 8356322519930569495}
+  - component: {fileID: 8089858873837670657}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -93,24 +93,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5325512407133749644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 108833225641186078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7fe6f7efe621544d94b741643487446, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WayPoints
-  offset: 6
-  chase: 1
-  ischasing: 0
-  speed: 1.5
-  chaseRange: 5
-  player: {fileID: 5744303340759409979, guid: 45c3cbb9a93efdb47bf5ee0db1838d8b, type: 3}
 --- !u!61 &8800607654878956577
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -184,3 +166,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8089858873837670657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108833225641186078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fe6f7efe621544d94b741643487446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WayPoints
+  offset: 6
+  chase: 1
+  isChasing: 0
+  speed: 2
+  chaseRange: 3
