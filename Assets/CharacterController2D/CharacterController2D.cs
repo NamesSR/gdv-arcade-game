@@ -2,6 +2,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace Prime31 {
@@ -59,12 +60,15 @@ public class CharacterController2D : MonoBehaviour
 	public event Action<Collider2D> onTriggerEnterEvent;
 	public event Action<Collider2D> onTriggerStayEvent;
 	public event Action<Collider2D> onTriggerExitEvent;
+	public event Action<Collision2D> onCollisionEnterEvent;
+    public event Action<Collision2D> onCollisionExitEvent;
+    public event Action<Collision2D> onCollisionStayEvent;
 
 
-	/// <summary>
-	/// when true, one way platforms will be ignored when moving vertically for a single frame
-	/// </summary>
-	public bool ignoreOneWayPlatformsThisFrame;
+        /// <summary>
+        /// when true, one way platforms will be ignored when moving vertically for a single frame
+        /// </summary>
+        public bool ignoreOneWayPlatformsThisFrame;
 
 	[SerializeField]
 	[Range( 0.001f, 0.3f )]
@@ -209,6 +213,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
+
 	public void OnTriggerStay2D( Collider2D col )
 	{
 		if( onTriggerStayEvent != null )
@@ -221,11 +226,29 @@ public class CharacterController2D : MonoBehaviour
 		if( onTriggerExitEvent != null )
 			onTriggerExitEvent( col );
 	}
+        public void OnCollisionEnter2D(Collision2D col)
+        {
+			if (onCollisionEnterEvent != null)
+				onCollisionEnterEvent(col);
+        }
+        public void OnCollisionExit2D(Collision2D col)
+        {
+            if(onCollisionExitEvent != null)
+			
+				onCollisionExitEvent(col);
 
-	#endregion
+            
+        }
+        public void OnCollisionStay2D(Collision2D col)
+        {
+            if(onCollisionStayEvent != null)
+				onCollisionStayEvent(col);
+        }
+
+        #endregion
 
 
-	[System.Diagnostics.Conditional( "DEBUG_CC2D_RAYS" )]
+        [System.Diagnostics.Conditional( "DEBUG_CC2D_RAYS" )]
 	void DrawRay( Vector3 start, Vector3 dir, Color color )
 	{
 		Debug.DrawRay( start, dir, color );
