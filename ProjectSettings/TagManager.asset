@@ -17,8 +17,8 @@ TagManager:
   - Enemys
   - Players
   - PlayerColider
-  - 
-  - 
+  - walls
+  - dot
   - 
   - 
   - 

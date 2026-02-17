@@ -1,31 +1,46 @@
+using Prime31;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class WayPoints : MonoBehaviour
 {
 
-    public Rigidbody2D rigidBod;
+   // public Rigidbody2D rigidBod;
     public int offset = 0;
     public bool chase = false;
     public bool isChasing = false;
     public float speed = 3f;
     public float chaseRange = 5f;
     LevelGenerator lg;
+    private Vector3 dir;
     private int currentWaypointIndex = 0;
     GameObject levlg;
-    
+    CharacterController2D Controller2D;
     Transform player;
+    private RaycastHit2D _lastControllerColliderHit;
+    private Vector3 velocity;
     private void Start()
     {
         levlg = GameObject.Find("LevelGenerator");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         lg = levlg.GetComponent<LevelGenerator>();
-        if (!rigidBod)
-        {
-            rigidBod = GetComponent<Rigidbody2D>();
-        }
+        
 
         currentWaypointIndex = offset;
+    }
+    private void Awake()
+    {
+        Controller2D = GetComponent<CharacterController2D>();
+        Controller2D.onControllerCollidedEvent += onControllerCollider;
+    }
+    void onControllerCollider(RaycastHit2D hit)
+    {
+        // bail out on plain old ground hits cause they arent very interesting
+        if (hit.normal.y == 1f || hit.normal.x == 1f)
+            return;
+
+        // logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
+        // Debug.Log( "flags: " + Controller2D.collisionState + ", hit.normal: " + hit.normal );
     }
 
     void Update()
@@ -43,8 +58,10 @@ public class WayPoints : MonoBehaviour
             if (distance < chaseRange)
             {
                 isChasing = true;
-                Vector3 direction = (player.position - transform.position).normalized;
-                transform.position += direction * speed * Time.deltaTime;
+                dir = (player.position - transform.position).normalized;
+                velocity = dir * speed;
+                Controller2D.move(velocity * Time.deltaTime);
+                // transform.position += dir * speed * Time.deltaTime;
             }
             else if (isChasing == true)
             {
@@ -64,14 +81,17 @@ public class WayPoints : MonoBehaviour
             Vector3 target = lg.waypoints[currentWaypointIndex];
 
             // Beweeg naar target
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                target,
-                speed * Time.deltaTime
-            );
+            dir = (target - transform.position).normalized;
+            velocity = dir * speed;
+            Controller2D.move(velocity * Time.deltaTime);
+        //transform.position = Vector3.MoveTowards(
+        //    transform.position,
+        //    target,
+        //    speed * Time.deltaTime
+        // );
 
-            // Check of we er zijn
-            if (Vector3.Distance(transform.position, target) < 0.1f)
+        // Check of we er zijn
+        if (Vector3.Distance(transform.position, target) < 0.1f)
             {
                 // Volgende waypoint
                 currentWaypointIndex++;
