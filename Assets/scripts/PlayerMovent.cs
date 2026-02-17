@@ -7,12 +7,12 @@ public class PlayerMovent : MonoBehaviour
     public float speed = 8f;
     public int value = 10;
     public float groundDamping = 20f;
-    public float inAirDamping = 5f;
+    
 
     //private Rigidbody2D rb;
     private Vector3 velocity;
     private RaycastHit2D _lastControllerColliderHit;
-   private CharacterController2D Controller2D;
+    private CharacterController2D Controller2D;
 
     void Start()
     {
@@ -24,11 +24,12 @@ public class PlayerMovent : MonoBehaviour
     {
         Controller2D = GetComponent<CharacterController2D>();
         Controller2D.onControllerCollidedEvent += onControllerCollider;
+        
     }
     void onControllerCollider(RaycastHit2D hit)
     {
         // bail out on plain old ground hits cause they arent very interesting
-        if (hit.normal.y == 1f || hit.normal.x == 1f)
+        if (hit.normal.y == 1f)
             return;
 
         // logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
@@ -47,28 +48,27 @@ public class PlayerMovent : MonoBehaviour
 
     void Update()
     {
-       
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        var smoothedMovementFactor = Controller2D.isGrounded ? groundDamping : inAirDamping; // how fast do we change direction?
-        
-            velocity.x = Mathf.Lerp(velocity.x, x * speed, Time.deltaTime * smoothedMovementFactor);
-        
-        
-            velocity.y = Mathf.Lerp(velocity.y, y * speed, Time.deltaTime * smoothedMovementFactor);
-        
-        // Vector3 dir = new Vector3(x, y, 0);
-        // if (dir.magnitude >= 0.1f)
-        // {
-        //     Controller2D.move(dir * speed * Time.deltaTime);
-        //}
-        Controller2D.move(velocity * Time.deltaTime);
-        velocity = Controller2D.velocity;
+      
     }
 
     private void FixedUpdate()
     {
-      //  rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+
+        float x = Input.GetAxisRaw("Horizontal");
+
+        
+        float y = Input.GetAxisRaw("Vertical");
+        var smoothedMovementFactor = groundDamping; // how fast do we change direction?
+
+        velocity.x = Mathf.Lerp(velocity.x, x * speed, Time.deltaTime * smoothedMovementFactor);
+
+
+        velocity.y = Mathf.Lerp(velocity.y, y * speed, Time.deltaTime * smoothedMovementFactor);
+
+
+
+        Controller2D.move(velocity * Time.deltaTime);
+        velocity = Controller2D.velocity;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -85,5 +85,13 @@ public class PlayerMovent : MonoBehaviour
         
 
     }
-    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("collision");
+       if(other.gameObject.tag == "Enemy")
+        {
+            health.Instans.TakeDamage(1);
+        } 
+    }
+
 }

@@ -15,10 +15,10 @@ public class WayPoints : MonoBehaviour
     private Vector3 dir;
     private int currentWaypointIndex = 0;
     GameObject levlg;
-    CharacterController2D Controller2D;
+    CharacterController2D Controller2D2;
     Transform player;
     private RaycastHit2D _lastControllerColliderHit;
-    private Vector3 velocity;
+    private Vector3 velocity2;
     private void Start()
     {
         levlg = GameObject.Find("LevelGenerator");
@@ -30,20 +30,20 @@ public class WayPoints : MonoBehaviour
     }
     private void Awake()
     {
-        Controller2D = GetComponent<CharacterController2D>();
-        Controller2D.onControllerCollidedEvent += onControllerCollider;
+        Controller2D2 = GetComponent<CharacterController2D>();
+        Controller2D2.onControllerCollidedEvent += onControllerCollider2;
     }
-    void onControllerCollider(RaycastHit2D hit)
+    void onControllerCollider2(RaycastHit2D hit)
     {
         // bail out on plain old ground hits cause they arent very interesting
-        if (hit.normal.y == 1f || hit.normal.x == 1f)
+        if (hit.normal.y == 1f)
             return;
 
         // logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
         // Debug.Log( "flags: " + Controller2D.collisionState + ", hit.normal: " + hit.normal );
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (isChasing == false)
         {
@@ -59,9 +59,9 @@ public class WayPoints : MonoBehaviour
             {
                 isChasing = true;
                 dir = (player.position - transform.position).normalized;
-                velocity = dir * speed;
-                Controller2D.move(velocity * Time.deltaTime);
-                // transform.position += dir * speed * Time.deltaTime;
+                velocity2 = dir * speed;
+                Controller2D2.move(velocity2 * Time.deltaTime);
+                
             }
             else if (isChasing == true)
             {
@@ -82,13 +82,9 @@ public class WayPoints : MonoBehaviour
 
             // Beweeg naar target
             dir = (target - transform.position).normalized;
-            velocity = dir * speed;
-            Controller2D.move(velocity * Time.deltaTime);
-        //transform.position = Vector3.MoveTowards(
-        //    transform.position,
-        //    target,
-        //    speed * Time.deltaTime
-        // );
+            velocity2 = dir * speed;
+            Controller2D2.move(velocity2 * Time.deltaTime);
+       
 
         // Check of we er zijn
         if (Vector3.Distance(transform.position, target) < 0.1f)

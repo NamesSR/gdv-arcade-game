@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8089858873837670657}
   - component: {fileID: 4487844811101134396}
   - component: {fileID: -1972394501582409544}
-  - component: {fileID: -3827809241895749800}
+  - component: {fileID: 371643789594484817}
   m_Layer: 6
   m_Name: Enemy2
   m_TagString: Enemy
@@ -121,7 +121,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 0f721d884ff347e448aa0349738843dc, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -173,7 +173,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 0f721d884ff347e448aa0349738843dc, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -183,8 +183,8 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &-3827809241895749800
+  m_Constraints: 4
+--- !u!114 &371643789594484817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,17 +193,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 108833225641186078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4feafae4e9606345838dbcdc2adf89c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b005891a5d1c45cc8cea8c713a8bfe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Prime31.CharacterController2D
   ignoreOneWayPlatformsThisFrame: 0
-  _skinWidth: 0.01
+  _skinWidth: 0.02
   platformMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 640
   triggerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   oneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 0
