@@ -24,7 +24,7 @@ public class PlayerMovent : MonoBehaviour
     {
         Controller2D = GetComponent<CharacterController2D>();
         Controller2D.onControllerCollidedEvent += onControllerCollider;
-        Controller2D.onCollisionEnterEvent += OnCollisionEnterEvent;
+        
         Controller2D.onTriggerEnterEvent += onTriggerEnterEvent;
         
     }
@@ -37,18 +37,14 @@ public class PlayerMovent : MonoBehaviour
         // logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
        // Debug.Log( "flags: " + Controller2D.collisionState + ", hit.normal: " + hit.normal );
     }
-    void OnCollisionEnterEvent(Collision2D col)
-    {
-        Debug.Log("collision");
-        if (col.gameObject.tag == "Enemy")
-        {
-            health.Instans.TakeDamage(1);
-        }
 
-    }
     void onTriggerEnterEvent(Collider2D col)
     {
         Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
+        if(col.gameObject.tag == "Enemy")
+        {
+            health.Instans.TakeDamage(1);
+        }
     }
 
 

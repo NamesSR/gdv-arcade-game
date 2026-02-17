@@ -60,9 +60,7 @@ public class CharacterController2D : MonoBehaviour
 	public event Action<Collider2D> onTriggerEnterEvent;
 	public event Action<Collider2D> onTriggerStayEvent;
 	public event Action<Collider2D> onTriggerExitEvent;
-	public event Action<Collision2D> onCollisionEnterEvent;
-    public event Action<Collision2D> onCollisionExitEvent;
-    public event Action<Collision2D> onCollisionStayEvent;
+	
 
 
         /// <summary>
@@ -226,24 +224,7 @@ public class CharacterController2D : MonoBehaviour
 		if( onTriggerExitEvent != null )
 			onTriggerExitEvent( col );
 	}
-        public void OnCollisionEnter2D(Collision2D col)
-        {
-			if (onCollisionEnterEvent != null)
-				onCollisionEnterEvent(col);
-        }
-        public void OnCollisionExit2D(Collision2D col)
-        {
-            if(onCollisionExitEvent != null)
-			
-				onCollisionExitEvent(col);
-
-            
-        }
-        public void OnCollisionStay2D(Collision2D col)
-        {
-            if(onCollisionStayEvent != null)
-				onCollisionStayEvent(col);
-        }
+       
 
         #endregion
 
