@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 8827355206667240178}
   - component: {fileID: 1384688057694639528}
   - component: {fileID: 8089858873837670657}
-  - component: {fileID: 9199770756583436164}
-  - component: {fileID: 6188154415254034618}
+  - component: {fileID: 4487844811101134396}
+  - component: {fileID: -1972394501582409544}
+  - component: {fileID: -3827809241895749800}
   m_Layer: 6
   m_Name: Enemy2
   m_TagString: Enemy
@@ -105,13 +106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7fe6f7efe621544d94b741643487446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WayPoints
-  rigidBod: {fileID: 0}
   offset: 6
   chase: 1
   isChasing: 0
   speed: 2
   chaseRange: 3
---- !u!61 &9199770756583436164
+--- !u!61 &4487844811101134396
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,7 +157,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &6188154415254034618
+--- !u!50 &-1972394501582409544
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -165,14 +165,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108833225641186078}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0
-  m_GravityScale: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 0f721d884ff347e448aa0349738843dc, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -183,4 +183,64 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
+--- !u!114 &-3827809241895749800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108833225641186078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4feafae4e9606345838dbcdc2adf89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Prime31.CharacterController2D
+  ignoreOneWayPlatformsThisFrame: 0
+  _skinWidth: 0.01
+  platformMask:
+    serializedVersion: 2
+    m_Bits: 512
+  triggerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  oneWayPlatformMask:
+    serializedVersion: 2
+    m_Bits: 0
+  slopeLimit: 0
+  jumpingThreshold: 0.07
+  slopeSpeedMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 1.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  totalHorizontalRays: 8
+  totalVerticalRays: 4

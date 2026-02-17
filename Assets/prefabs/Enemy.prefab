@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2191977715222561837}
   - component: {fileID: 4063094370297289978}
-  - component: {fileID: 1299089125622646363}
   - component: {fileID: 2789901152326498180}
-  - component: {fileID: -331274966631463130}
+  - component: {fileID: -4836527493643688531}
+  - component: {fileID: 8885141812728520508}
+  - component: {fileID: -2570148683704494361}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -93,7 +94,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1299089125622646363
+--- !u!114 &2789901152326498180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3830393671419105786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fe6f7efe621544d94b741643487446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WayPoints
+  offset: 0
+  chase: 0
+  isChasing: 0
+  speed: 3
+  chaseRange: 5
+--- !u!61 &-4836527493643688531
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,25 +157,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2789901152326498180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3830393671419105786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7fe6f7efe621544d94b741643487446, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WayPoints
-  rigidBod: {fileID: 0}
-  offset: 0
-  chase: 0
-  isChasing: 0
-  speed: 3
-  chaseRange: 5
---- !u!50 &-331274966631463130
+--- !u!50 &8885141812728520508
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -165,14 +165,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3830393671419105786}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0
-  m_GravityScale: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -183,4 +183,64 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
+--- !u!114 &-2570148683704494361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3830393671419105786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4feafae4e9606345838dbcdc2adf89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Prime31.CharacterController2D
+  ignoreOneWayPlatformsThisFrame: 0
+  _skinWidth: 0.01
+  platformMask:
+    serializedVersion: 2
+    m_Bits: 512
+  triggerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  oneWayPlatformMask:
+    serializedVersion: 2
+    m_Bits: 0
+  slopeLimit: 30
+  jumpingThreshold: 0.07
+  slopeSpeedMultiplier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 1.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  totalHorizontalRays: 8
+  totalVerticalRays: 4
