@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
+    
     public GameObject wallPrefab;
     public GameObject dotPrefab;
     public GameObject playerPrefab;
@@ -11,14 +12,16 @@ public class LevelGenerator : MonoBehaviour
     public GameObject waypointPrefab;
     public GameObject enemy2Prefab;
     public GameObject PowerOrbPrefab;
-
+    public GameObject groundTilePrefab;
+    private SpriteRenderer TileColor;
     public Vector3[] waypoints = new Vector3[12];
     
     private Transform t;
     int level;
     private int offsetwaypoint = 0;
     int gridx = 0;
-    
+    int index3;
+    int index4;
 
     string[][] levelData = {new string[]{
         "###############",
@@ -33,15 +36,15 @@ public class LevelGenerator : MonoBehaviour
         "###############",
     },
       new string[]  {
-        "###############",
-        "#......W25...W24..#",
-        "#.##.##..B....#",
-        "#W14........W15...#",
-        "#....P.....W23.W22#",
-        "#B.......E1W10.W11.#",
-        "#.....E2W20.....W21#",
+        "####r###########",
+        "#......Wr25...Wr24..#",
+        "#.##.##..Br....#",
+        "#Wr14........Wr15...#",
+        "#....Pr.....Wr23.Wr22#",
+        "#Br...r....Er1Wr10.Wr11.#",
+        "#.....Er2Wr20.....Wr21#",
         "#.#########...#",
-        "#W13......B...W12.#",
+        "#Wr13......Br...Wr12.#",
         "###############",
 
 
@@ -72,7 +75,7 @@ public class LevelGenerator : MonoBehaviour
     void GenerateLevel()
     {
 
-        level = UnityEngine.Random.Range(0, levelData.Length);
+        level = 1;// UnityEngine.Random.Range(0, levelData.Length);
       
 
         for (int y = 0; y < levelData[level].Length; y++)
@@ -89,11 +92,46 @@ public class LevelGenerator : MonoBehaviour
                 {
 
                     case '#':
-                        Instantiate(wallPrefab, position, Quaternion.identity);
+                       var wall = Instantiate(wallPrefab, position, Quaternion.identity);
+                        TileColor = wall.GetComponent<SpriteRenderer>();
+                        index3 = x + 1;
+                        index4 = x + 2;
+                        if (index3<= row.Length && index4 <= row.Length)
+                        {
+                            switch (row[x + 1])
+                            {
+                                case 'g':
+                                    if (row[x] + 2 == 'd')
+                                    {
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                    break;
+                                case 'z':
+                                    break;
+                                case 'y':
+                                    if (row[x] + 2 == 'd')
+                                    {
+
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                    break;
+                                case 'r':
+                                    TileColor.color = new Color(255f, 0f, 0f, 255f);
+                                    break;
+                            }
+                        }
                         gridx++;
                         break;
                     case '.':
                         Instantiate(dotPrefab, position, Quaternion.identity);
+                        
                         gridx++;
                         break;
                     case 'P':
@@ -101,7 +139,7 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         break;
                     case 'E':
-                        int esindex = row[x + 1] - '0';
+                        int esindex = row[x + 2] - '0';
                         switch(esindex){
                             case 1:
                                 Instantiate(enemyPrefab, position, Quaternion.identity);
@@ -116,7 +154,7 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         break;
                     case 'W':
-                        int SIndex = row[x + 1] - '0';
+                        int SIndex = row[x + 2] - '0';
                         switch(SIndex){ 
                             case 1:
                                 offsetwaypoint = 0;
@@ -128,11 +166,10 @@ public class LevelGenerator : MonoBehaviour
                         }
                     
 
-                        int index = row[x + 2] - '0';
+                        int index = row[x + 3] - '0';
 
                         Vector3 Position = new Vector3(gridx, -y, 0);
-
-
+                        
                         Instantiate(dotPrefab, position, Quaternion.identity);
                         Instantiate(waypointPrefab, position, Quaternion.identity);
 
@@ -150,13 +187,55 @@ public class LevelGenerator : MonoBehaviour
                         GameManager.Instance.powerOrbCountAdd(1);
                         gridx++;
                         break;
-
-
+                        
+                       
+                        
+                        
+                        
 
 
 
                 }
-                
+                if (tile != '#')
+                {
+                    var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity);
+                    TileColor = groundTiles.GetComponent<SpriteRenderer>();
+                    index3 = x + 1;
+                    index4 = x + 2;
+                    if (index3 <= row.Length && index4 <= row.Length)
+                    {
+                        switch (row[x + 1])
+                        {
+
+                            case 'g':
+                                if (row[x] + 2 == 'd')
+                                {
+
+                                }
+                                else
+                                {
+
+                                }
+                                break;
+                            case 'z':
+                                break;
+                            case 'y':
+                                if (row[x] + 2 == 'd')
+                                {
+
+                                }
+                                else
+                                {
+
+                                }
+                                break;
+                            case 'r':
+                                TileColor.color = new Color(255f, 0f, 0f, 255f);
+                                break;
+                        }
+                    }
+                    
+                }
             }
            
             gridx = 0;

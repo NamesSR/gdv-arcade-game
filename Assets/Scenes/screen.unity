@@ -472,6 +472,7 @@ MonoBehaviour:
   waypointPrefab: {fileID: 604512072058839106, guid: da47edbe4bf18e64cba1cf5e2bdedb35, type: 3}
   enemy2Prefab: {fileID: 108833225641186078, guid: 7491ce0823d488e4aa841c5408fd030e, type: 3}
   PowerOrbPrefab: {fileID: 2149494556136846080, guid: 7cb3f11c22f32c44f9f93ffece08bfb5, type: 3}
+  groundTilePrefab: {fileID: 5888367800521781257, guid: 83c67641e108f9a4b8403ecb44024773, type: 3}
   waypoints:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
