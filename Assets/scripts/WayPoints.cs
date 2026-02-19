@@ -19,6 +19,7 @@ public class WayPoints : MonoBehaviour
     Transform player;
     private RaycastHit2D _lastControllerColliderHit;
     private Vector3 velocity2;
+    public int enemyHp;
     private void Start()
     {
         levlg = GameObject.Find("LevelGenerator");
@@ -33,6 +34,7 @@ public class WayPoints : MonoBehaviour
         Controller2D2 = GetComponent<CharacterController2D>();
         Controller2D2.onControllerCollidedEvent += onControllerCollider2;
         Controller2D2.onTriggerEnterEvent += onTriggerEnterEvent2;
+        enemyHp = GameManager.Instance.enemyHealth();
     }
     void onControllerCollider2(RaycastHit2D hit)
     {
@@ -47,12 +49,14 @@ public class WayPoints : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            //if(vonerbilety == true{
-            // Ehp -= 1; or  Destroy(this.gameObject);;
-            // 
-            //
-            //
-            //             }
+          if(GameManager.Instance.vulnerable == true)
+            {
+                enemyHp = enemyHp - 1;
+                if(enemyHp < 1)
+                {
+                    Destroy(this.gameObject);
+                }
+            }
         }
 
     }

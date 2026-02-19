@@ -10,25 +10,19 @@ public class PlayerMovent : MonoBehaviour
     public float groundDamping = 20f;
     
 
-    //private Rigidbody2D rb;
+   
     private Vector3 velocity;
     private RaycastHit2D _lastControllerColliderHit;
     private CharacterController2D Controller2D;
-
-    void Start()
-    {
-        
-      //  rb = GetComponent<Rigidbody2D>();
-    }
 
     private void Awake()
     {
         Controller2D = GetComponent<CharacterController2D>();
         Controller2D.onControllerCollidedEvent += onControllerCollider;
-        
         Controller2D.onTriggerEnterEvent += onTriggerEnterEvent;
-        
     }
+        
+        
     void onControllerCollider(RaycastHit2D hit)
     {
         // bail out on plain old ground hits cause they arent very interesting
@@ -44,24 +38,27 @@ public class PlayerMovent : MonoBehaviour
         Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
         if(col.gameObject.tag == "Enemy")
         {
-            health.Instans.TakeDamage(1);
+            if(GameManager.Instance.vulnerable == false)
+            {
+            GameManager.Instance.TakeDamage(1);
+            
+            }
+                
         }
         Debug.Log("trigger");
         if (col.CompareTag("dot"))
         {
-
             Destroy(col.gameObject);
-            scoremanager.Instance.AddPoints(value);
-            // Debug.Log(scoremanager.Instance.score);
-
-
+            GameManager.Instance.AddPoints(value);
         }
+
         if (col.CompareTag("PowerOrb"))
         {
 
             Destroy(col.gameObject);
-            // - 1 PowerOrb Amount
+            GameManager.Instance.powerOrbCountAdd(-1);
             StartCoroutine(PowerOrbs());
+
 
 
 
@@ -102,8 +99,10 @@ public class PlayerMovent : MonoBehaviour
     
     IEnumerator PowerOrbs()
     {
-        // set Enemy Vonerabilety to True
+
+        GameManager.Instance.vulnerable = true;
         yield return new WaitForSeconds(5);
-        // set Enemy Vonerabilety to fales
+        GameManager.Instance.vulnerable = false;
+
     }
 }

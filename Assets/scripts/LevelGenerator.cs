@@ -105,9 +105,11 @@ public class LevelGenerator : MonoBehaviour
                         switch(esindex){
                             case 1:
                                 Instantiate(enemyPrefab, position, Quaternion.identity);
+                                GameManager.Instance.enemycountAdd(1);
                                 break;
                             case 2:
                                 Instantiate(enemy2Prefab, position, Quaternion.identity);
+                                GameManager.Instance.enemycountAdd(1);
                                 break;
                         }
                         
@@ -145,7 +147,7 @@ public class LevelGenerator : MonoBehaviour
                         break;
                     case 'B':
                         Instantiate(PowerOrbPrefab, position, Quaternion.identity);
-                        // + PowerOrb Amount
+                        GameManager.Instance.powerOrbCountAdd(1);
                         gridx++;
                         break;
 
