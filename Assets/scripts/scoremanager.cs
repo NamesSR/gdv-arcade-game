@@ -6,10 +6,7 @@ public class scoremanager : MonoBehaviour
     public int score = 0;
     public static scoremanager Instance;
 
-    void Start()
-    {
-        
-    }
+  
     private void Awake()
     {
         // controleren of er al een ScoreManager bestaat
@@ -31,6 +28,6 @@ public class scoremanager : MonoBehaviour
     public void AddPoints(int points)
     {
         score = score + points;
-        Debug.Log("Score: " + score);
+        //Debug.Log("Score: " + score);
     }
 }
