@@ -13,9 +13,9 @@ public class test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
-            scoremanager.Instance.AddPoints(10);
+            GameManager.Instance.AddPoints(10);
             Debug.Log("a");
-            health.Instans.TakeDamage(1);
+            GameManager.Instance.TakeDamage(1);
 
 
 
