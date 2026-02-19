@@ -1,4 +1,5 @@
 using Prime31;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -45,6 +46,26 @@ public class PlayerMovent : MonoBehaviour
         {
             health.Instans.TakeDamage(1);
         }
+        Debug.Log("trigger");
+        if (col.CompareTag("dot"))
+        {
+
+            Destroy(col.gameObject);
+            scoremanager.Instance.AddPoints(value);
+            // Debug.Log(scoremanager.Instance.score);
+
+
+        }
+        if (col.CompareTag("PowerOrb"))
+        {
+
+            Destroy(col.gameObject);
+            // - 1 PowerOrb Amount
+            StartCoroutine(PowerOrbs());
+
+
+
+        }
     }
 
 
@@ -77,21 +98,12 @@ public class PlayerMovent : MonoBehaviour
         Controller2D.move(velocity * Time.deltaTime);
         velocity = Controller2D.velocity;
     }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("trigger");
-        if (other.CompareTag("dot"))
-        {
-            
-            Destroy(other.gameObject);
-            scoremanager.Instance.AddPoints(value);
-           // Debug.Log(scoremanager.Instance.score);
-
-
-        }
-        
-
-    }
+   
     
-
+    IEnumerator PowerOrbs()
+    {
+        // set Enemy Vonerabilety to True
+        yield return new WaitForSeconds(5);
+        // set Enemy Vonerabilety to fales
+    }
 }

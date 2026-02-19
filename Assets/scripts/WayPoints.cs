@@ -32,6 +32,7 @@ public class WayPoints : MonoBehaviour
     {
         Controller2D2 = GetComponent<CharacterController2D>();
         Controller2D2.onControllerCollidedEvent += onControllerCollider2;
+        Controller2D2.onTriggerEnterEvent += onTriggerEnterEvent2;
     }
     void onControllerCollider2(RaycastHit2D hit)
     {
@@ -42,7 +43,19 @@ public class WayPoints : MonoBehaviour
         // logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
         // Debug.Log( "flags: " + Controller2D.collisionState + ", hit.normal: " + hit.normal );
     }
+    void onTriggerEnterEvent2(Collider2D col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            //if(vonerbilety == true{
+            // Ehp -= 1; or  Destroy(this.gameObject);;
+            // 
+            //
+            //
+            //             }
+        }
 
+    }
     void FixedUpdate()
     {
         if (isChasing == false)
@@ -100,5 +113,6 @@ public class WayPoints : MonoBehaviour
             }
        
     }
+   
    
 }

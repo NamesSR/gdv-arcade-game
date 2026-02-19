@@ -10,6 +10,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject enemyPrefab;
     public GameObject waypointPrefab;
     public GameObject enemy2Prefab;
+    public GameObject PowerOrbPrefab;
 
     public Vector3[] waypoints = new Vector3[12];
     
@@ -21,26 +22,26 @@ public class LevelGenerator : MonoBehaviour
 
     string[][] levelData = {new string[]{
         "###############",
-        "#.............#",
+        "#...B.........#",
         "#.##.##.W11..W12..#",
         "#.............#",
         "#..W15...E1W10.....#",
-        "#.............#",
+        "#....B........#",
         "#..W14.......W13..#",
         "#....P........#",
-        "#.............#",
+        "#...........B.#",
         "###############",
     },
       new string[]  {
         "###############",
         "#......W25...W24..#",
-        "#.##.##.......#",
+        "#.##.##..B....#",
         "#W14........W15...#",
         "#....P.....W23.W22#",
-        "#........E1W10.W11.#",
+        "#B.......E1W10.W11.#",
         "#.....E2W20.....W21#",
         "#.#########...#",
-        "#W13..........W12.#",
+        "#W13......B...W12.#",
         "###############",
 
 
@@ -48,14 +49,14 @@ public class LevelGenerator : MonoBehaviour
       new string[]
       {
         "###############",
-        "#W12.........W11..#",
+        "#W12...B.....W11..#",
         "#.##.##...E1W10W15.#",
         "#.............#",
-        "#...P....###..#",
+        "#B..P....###..#",
         "#..###........#",
         "#W13..........W14.#",
         "#.#########...#",
-        "#.............#",
+        "#....B........#",
         "###############"
       }
     };
@@ -71,7 +72,7 @@ public class LevelGenerator : MonoBehaviour
     void GenerateLevel()
     {
 
-        level = 1;//UnityEngine.Random.Range(0, levelData.Length);
+        level = UnityEngine.Random.Range(0, levelData.Length);
       
 
         for (int y = 0; y < levelData[level].Length; y++)
@@ -123,7 +124,8 @@ public class LevelGenerator : MonoBehaviour
                                 break;
 
                         }
-                        
+                    
+
                         int index = row[x + 2] - '0';
 
                         Vector3 Position = new Vector3(gridx, -y, 0);
@@ -141,10 +143,15 @@ public class LevelGenerator : MonoBehaviour
                         // Debug.Log("check 2: " + "index: " + index + position);
                         gridx++;
                         break;
-                    
+                    case 'B':
+                        Instantiate(PowerOrbPrefab, position, Quaternion.identity);
+                        // + PowerOrb Amount
+                        gridx++;
+                        break;
 
 
-                        
+
+
 
                 }
                 
