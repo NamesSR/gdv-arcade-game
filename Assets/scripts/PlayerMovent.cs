@@ -8,9 +8,10 @@ public class PlayerMovent : MonoBehaviour
     public float speed = 8f;
     public int value = 10;
     public float groundDamping = 20f;
-    
-
-   
+    public bool CanShoot = true;
+    public Vector3 dir;
+    public float angle;
+    public GameObject FireBallPrefab;
     private Vector3 velocity;
     private RaycastHit2D _lastControllerColliderHit;
     private CharacterController2D Controller2D;
@@ -74,7 +75,7 @@ public class PlayerMovent : MonoBehaviour
 
     void Update()
     {
-      
+        ShootFireBall();
     }
 
     private void FixedUpdate()
@@ -91,6 +92,17 @@ public class PlayerMovent : MonoBehaviour
 
 
         velocity.y = Mathf.Lerp(velocity.y, y * speed, Time.deltaTime * smoothedMovementFactor);
+        if (y != 0 || x != 0)
+        {
+           dir = new Vector3(x, y, 0);
+           angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+           float currentZ = (transform.eulerAngles = new Vector3(0,0,angle)).z;
+           float snappedZ = Mathf.Round(currentZ / 90.0f) * 90.0f;
+           transform.rotation = Quaternion.Euler(0, 0, snappedZ);
+           Debug.Log($"{currentZ}:{snappedZ}:{angle}");
+           
+        }
+        
         
         Controller2D.move(velocity * Time.deltaTime);
         velocity = Controller2D.velocity;//.normalized;
@@ -103,6 +115,26 @@ public class PlayerMovent : MonoBehaviour
         GameManager.Instance.vulnerable = true;
         yield return new WaitForSeconds(3);
         GameManager.Instance.vulnerable = false;
+
+    }
+    void ShootFireBall()
+    {
+        if (CanShoot == true)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                GameObject projectile = Instantiate(FireBallPrefab);
+                CanShoot = false;
+                StartCoroutine(AttackCoolDown());
+            }
+        }
+    }
+    IEnumerator AttackCoolDown()
+    {
+
+        
+        yield return new WaitForSeconds(1f);
+        CanShoot = true;
 
     }
 }

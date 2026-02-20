@@ -6,7 +6,7 @@ using static UnityEngine.Rendering.DebugUI;
 public class shoot : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    GoToPlayer g;
+    PlayerMovent g;
    public GameObject go;
     Vector3 dir2;
     CharacterController2D Controller2D3;
@@ -22,8 +22,8 @@ public class shoot : MonoBehaviour
     private void Awake()
     {
         Controller2D3 = GetComponent<CharacterController2D>();
-        go = GameObject.FindGameObjectWithTag("dir");
-        g = go.GetComponent<GoToPlayer>();
+        go = GameObject.FindGameObjectWithTag("Player");
+        g = go.GetComponent<PlayerMovent>();
        
         
 
@@ -35,23 +35,17 @@ public class shoot : MonoBehaviour
         if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Wall")
         {
             Destroy(this.gameObject);
-            g.CanShoot = true;
+           
         }
       
     }
 
 
-    // Update is called once per frame
+    
     private void FixedUpdate()
     {
         velosty = dir2 * speed;
         Controller2D3.move(velosty * Time.deltaTime);
     }
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Wall"))
-        {
-            
-        }
-    }
+    
 }

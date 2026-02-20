@@ -1,4 +1,5 @@
 using Prime31;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ public class WayPoints : MonoBehaviour
     public float chaseRange = 5f;
     LevelGenerator lg;
     private Vector3 dir;
+    public bool Iframs = false;
     private int currentWaypointIndex = 0;
     GameObject levlg;
     CharacterController2D Controller2D2;
@@ -47,22 +49,32 @@ public class WayPoints : MonoBehaviour
     }
     void onTriggerEnterEvent2(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Attack")
         {
           if(GameManager.Instance.vulnerable == true)
             {
-                enemyHp = enemyHp - 1;
-                if(enemyHp < 1)
+                if (Iframs == false)
+                {
+                    enemyHp -= 1;
+                    Iframs = true;
+                    StartCoroutine(IFramsV());
+                }
+                
+                
+                if (enemyHp <= 0)
                 {
                     Destroy(this.gameObject);
                 }
             }
         }
-        if (col.gameObject.tag == "Attack")
-        {
-            Debug.Log(col.gameObject);
-        }
+        
 
+    }
+    IEnumerator IFramsV()
+    {
+        
+        yield return new WaitForSeconds(0.1f);
+        Iframs = false;
     }
     void FixedUpdate()
     {
