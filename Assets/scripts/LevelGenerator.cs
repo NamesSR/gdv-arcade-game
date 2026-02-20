@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -36,16 +37,16 @@ public class LevelGenerator : MonoBehaviour
         "###############",
     },
       new string[]  {
-        "####r###########",
-        "#......Wr25...Wr24..#",
-        "#.##.##..Br....#",
-        "#Wr14........Wr15...#",
-        "#....Pr.....Wr23.Wr22#",
-        "#Br...r....Er1Wr10.Wr11.#",
-        "#.....Er2Wr20.....Wr21#",
-        "#.#########...#",
-        "#Wr13......Br...Wr12.#",
-        "###############",
+        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
+        "#b.g.g.g.g.g.gWg25.g.g.gWg24.g.g#b",
+        "#b.g#b#b.g#b#b.g.gBg.g.g.g.g#b",
+        "#bWg14.g.g.g.g.g.g.g.gWg15.g.g.g#b",
+        "#b.g.g.g.gPg.g.g.g.g.gWg23.gWg22#b",
+        "#bBg.g.g.g.g.g.g.gEg1Wg10.gWg11.g#b",
+        "#b.g.g.g.g.gEg2Wg20.g.g.g.g.gWg21#b",
+        "#b.g#b#b#b#b#b#b#b#b#b.g.g.g#b",
+        "#bWg13.g.g.g.g.g.gBg.g.g.gWg12.g#b",
+        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
 
 
     },
@@ -100,6 +101,7 @@ public class LevelGenerator : MonoBehaviour
                         {
                             switch (row[x + 1])
                             {
+
                                 case 'g':
                                     if (row[x] + 2 == 'd')
                                     {
@@ -107,10 +109,11 @@ public class LevelGenerator : MonoBehaviour
                                     }
                                     else
                                     {
-
+                                        TileColor.color = new Color(0f, 255f, 0f, 255f);
                                     }
                                     break;
-                                case 'z':
+                                case 'b':
+                                    TileColor.color = new Color(0f, 0f, 0f, 255f);
                                     break;
                                 case 'y':
                                     if (row[x] + 2 == 'd')
@@ -187,54 +190,52 @@ public class LevelGenerator : MonoBehaviour
                         GameManager.Instance.powerOrbCountAdd(1);
                         gridx++;
                         break;
-                        
-                       
-                        
-                        
-                        
-
-
-
+        
                 }
                 if (tile != '#')
                 {
-                    var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity);
-                    TileColor = groundTiles.GetComponent<SpriteRenderer>();
-                    index3 = x + 1;
-                    index4 = x + 2;
-                    if (index3 <= row.Length && index4 <= row.Length)
+                    if (!char.IsLower(tile) && !char.IsNumber(tile))
                     {
-                        switch (row[x + 1])
+                        var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity);
+                        TileColor = groundTiles.GetComponent<SpriteRenderer>();
+
+                        index3 = x + 1;
+                        index4 = x + 2;
+                        if (index3 <= row.Length && index4 <= row.Length)
                         {
+                            switch (row[x + 1])
+                            {
 
-                            case 'g':
-                                if (row[x] + 2 == 'd')
-                                {
+                                case 'g':
+                                    if (row[x] + 2 == 'd')
+                                    {
 
-                                }
-                                else
-                                {
+                                    }
+                                    else
+                                    {
+                                        TileColor.color = new Color(0f, 255f, 0f, 255f);
+                                    }
+                                    break;
+                                case 'b':
+                                    TileColor.color = new Color(0f, 0f, 0f, 0f);
+                                    break;
+                                case 'y':
+                                    if (row[x] + 2 == 'd')
+                                    {
 
-                                }
-                                break;
-                            case 'z':
-                                break;
-                            case 'y':
-                                if (row[x] + 2 == 'd')
-                                {
+                                    }
+                                    else
+                                    {
 
-                                }
-                                else
-                                {
+                                    }
+                                    break;
+                                case 'r':
+                                    TileColor.color = new Color(255f, 0f, 0f, 255f);
+                                    break;
 
-                                }
-                                break;
-                            case 'r':
-                                TileColor.color = new Color(255f, 0f, 0f, 255f);
-                                break;
+                            }
                         }
                     }
-                    
                 }
             }
            
