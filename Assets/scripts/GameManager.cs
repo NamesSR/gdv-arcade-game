@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
  public bool vulnerable = false;
  public int Ehp = 2;
  public int BossHp = 3;
+ public int FireBallDagame = 1;
 
     public static GameManager Instance;
 

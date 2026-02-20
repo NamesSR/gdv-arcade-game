@@ -15,6 +15,7 @@ public class PlayerMovent : MonoBehaviour
     private RaycastHit2D _lastControllerColliderHit;
     private CharacterController2D Controller2D;
 
+
     private void Awake()
     {
         Controller2D = GetComponent<CharacterController2D>();
@@ -84,16 +85,15 @@ public class PlayerMovent : MonoBehaviour
         
         float y = Input.GetAxisRaw("Vertical");
         var smoothedMovementFactor = groundDamping; // how fast do we change direction?
+         
 
         velocity.x = Mathf.Lerp(velocity.x, x * speed, Time.deltaTime * smoothedMovementFactor);
 
 
         velocity.y = Mathf.Lerp(velocity.y, y * speed, Time.deltaTime * smoothedMovementFactor);
-
-
-
+        
         Controller2D.move(velocity * Time.deltaTime);
-        velocity = Controller2D.velocity;
+        velocity = Controller2D.velocity;//.normalized;
     }
    
     
@@ -101,7 +101,7 @@ public class PlayerMovent : MonoBehaviour
     {
 
         GameManager.Instance.vulnerable = true;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         GameManager.Instance.vulnerable = false;
 
     }

@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Wall
   - PowerOrb
+  - Attack
+  - dir
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - PlayerColider
   - walls
   - dot
-  - 
+  - fireBall
   - 
   - 
   - ground0

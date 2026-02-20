@@ -58,6 +58,10 @@ public class WayPoints : MonoBehaviour
                 }
             }
         }
+        if (col.gameObject.tag == "Attack")
+        {
+            Debug.Log(col.gameObject);
+        }
 
     }
     void FixedUpdate()
