@@ -69,11 +69,11 @@ public class LevelGenerator : MonoBehaviour
     void Start()
     {
        
-        GenerateLevel(); 
+        //GenerateLevel(); 
     }
 
 
-    void GenerateLevel()
+    public void GenerateLevel()
     {
 
         level = 1;// UnityEngine.Random.Range(0, levelData.Length);

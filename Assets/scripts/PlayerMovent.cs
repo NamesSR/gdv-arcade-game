@@ -22,7 +22,7 @@ public class PlayerMovent : MonoBehaviour
     private RaycastHit2D _lastControllerColliderHit;
     private CharacterController2D Controller2D;
     float nextAttackTime = 0f;
-    public float AttackRate = 200000f;
+    public float AttackRate = 2f;
     
 
 
