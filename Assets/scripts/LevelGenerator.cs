@@ -93,7 +93,7 @@ public class LevelGenerator : MonoBehaviour
                 {
 
                     case '#':
-                       var wall = Instantiate(wallPrefab, position, Quaternion.identity);
+                       var wall = Instantiate(wallPrefab, position, Quaternion.identity, this.transform);
                         TileColor = wall.GetComponent<SpriteRenderer>();
                         index3 = x + 1;
                         index4 = x + 2;
@@ -133,23 +133,23 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         break;
                     case '.':
-                        Instantiate(dotPrefab, position, Quaternion.identity);
+                        Instantiate(dotPrefab, position, Quaternion.identity, this.transform);
                         
                         gridx++;
                         break;
                     case 'P':
-                        Instantiate(playerPrefab, position, Quaternion.identity);
+                        Instantiate(playerPrefab, position, Quaternion.identity, this.transform);
                         gridx++;
                         break;
                     case 'E':
                         int esindex = row[x + 2] - '0';
                         switch(esindex){
                             case 1:
-                                Instantiate(enemyPrefab, position, Quaternion.identity);
+                                Instantiate(enemyPrefab, position, Quaternion.identity, this.transform);
                                 GameManager.Instance.enemycountAdd(1);
                                 break;
                             case 2:
-                                Instantiate(enemy2Prefab, position, Quaternion.identity);
+                                Instantiate(enemy2Prefab, position, Quaternion.identity, this.transform);
                                 GameManager.Instance.enemycountAdd(1);
                                 break;
                         }
@@ -173,8 +173,8 @@ public class LevelGenerator : MonoBehaviour
 
                         Vector3 Position = new Vector3(gridx, -y, 0);
                         
-                        Instantiate(dotPrefab, position, Quaternion.identity);
-                        Instantiate(waypointPrefab, position, Quaternion.identity);
+                        Instantiate(dotPrefab, position, Quaternion.identity, this.transform);
+                        Instantiate(waypointPrefab, position, Quaternion.identity, this.transform);
 
                         Debug.Log("check 1: " + "index: " + (index + offsetwaypoint)  + position);
                         
@@ -186,7 +186,7 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         break;
                     case 'B':
-                        Instantiate(PowerOrbPrefab, position, Quaternion.identity);
+                        Instantiate(PowerOrbPrefab, position, Quaternion.identity, this.transform);
                         GameManager.Instance.powerOrbCountAdd(1);
                         gridx++;
                         break;
@@ -196,7 +196,7 @@ public class LevelGenerator : MonoBehaviour
                 {
                     if (!char.IsLower(tile) && !char.IsNumber(tile))
                     {
-                        var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity);
+                        var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity, this.transform);
                         TileColor = groundTiles.GetComponent<SpriteRenderer>();
 
                         index3 = x + 1;
@@ -242,5 +242,12 @@ public class LevelGenerator : MonoBehaviour
             gridx = 0;
         }
        
+    }
+    public void destroyLevel()
+    {
+        foreach (Transform t in this.transform)
+        {
+            Destroy(t.gameObject);
+        }
     }
 }
