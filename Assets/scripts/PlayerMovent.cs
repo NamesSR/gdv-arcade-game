@@ -8,13 +8,23 @@ public class PlayerMovent : MonoBehaviour
     public float speed = 8f;
     public int value = 10;
     public float groundDamping = 20f;
+    public float AttackRange = 0.5f;
     public bool CanShoot = true;
     public Vector3 dir;
     public float angle;
     public GameObject FireBallPrefab;
+    public LayerMask enemyLayers;
+    public Transform AttackPoint;
+    public Transform sword;
+    public int damage = 1;
+    public bool mele = true;
     private Vector3 velocity;
     private RaycastHit2D _lastControllerColliderHit;
     private CharacterController2D Controller2D;
+    float nextAttackTime = 0f;
+    public float AttackRate = 200000f;
+    
+
 
 
     private void Awake()
@@ -22,6 +32,7 @@ public class PlayerMovent : MonoBehaviour
         Controller2D = GetComponent<CharacterController2D>();
         Controller2D.onControllerCollidedEvent += onControllerCollider;
         Controller2D.onTriggerEnterEvent += onTriggerEnterEvent;
+        AttackPoint = GameObject.FindGameObjectWithTag("attackPoint").transform;
     }
         
         
@@ -75,7 +86,23 @@ public class PlayerMovent : MonoBehaviour
 
     void Update()
     {
-        ShootFireBall();
+        
+        if (mele == true)
+        {
+            if (Time.time >= nextAttackTime)
+            {
+                if (Input.GetMouseButton(0))
+                {
+
+                    Attack();
+                    nextAttackTime = Time.time + 1f / AttackRate;
+                }
+            }
+        }
+        else
+        {
+            ShootFireBall();
+        }
     }
 
     private void FixedUpdate()
@@ -136,5 +163,29 @@ public class PlayerMovent : MonoBehaviour
         yield return new WaitForSeconds(1f);
         CanShoot = true;
 
+    }
+    void Attack()
+    {
+        
+        
+        Collider2D[] HitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, enemyLayers);
+        sword.Rotate(0, 0, -90f);
+        foreach (Collider2D enemy in HitEnemies)
+        {
+            Debug.Log("invonerble");
+            if (GameManager.Instance.vulnerable == true)
+            {
+                Debug.Log("vunerable");
+                enemy.GetComponent<WayPoints>().takeDamage(damage);
+            }
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (AttackPoint == null)
+            return;
+            
+        
+        Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
 }

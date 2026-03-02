@@ -111,7 +111,9 @@ MonoBehaviour:
   isChasing: 0
   speed: 3
   chaseRange: 5
+  Iframs: 0
   enemyHp: 2
+  mainColer: {r: 1, g: 0, b: 0, a: 1}
 --- !u!61 &-4836527493643688531
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -19,9 +19,12 @@ public class WayPoints : MonoBehaviour
     GameObject levlg;
     CharacterController2D Controller2D2;
     Transform player;
+    
     private RaycastHit2D _lastControllerColliderHit;
     private Vector3 velocity2;
     public int enemyHp;
+    private SpriteRenderer enemyColler;
+    public Color mainColer;
     private void Start()
     {
         levlg = GameObject.Find("LevelGenerator");
@@ -37,6 +40,8 @@ public class WayPoints : MonoBehaviour
         Controller2D2.onControllerCollidedEvent += onControllerCollider2;
         Controller2D2.onTriggerEnterEvent += onTriggerEnterEvent2;
         enemyHp = GameManager.Instance.enemyHealth();
+        enemyColler = GetComponent<SpriteRenderer>();
+        
     }
     void onControllerCollider2(RaycastHit2D hit)
     {
@@ -49,32 +54,35 @@ public class WayPoints : MonoBehaviour
     }
     void onTriggerEnterEvent2(Collider2D col)
     {
+        Debug.Log("hit");
         if (col.gameObject.tag == "Attack")
         {
           if(GameManager.Instance.vulnerable == true)
-            {
-                if (Iframs == false)
-                {
-                    enemyHp -= 1;
-                    Iframs = true;
-                    StartCoroutine(IFramsV());
-                }
-                
-                
-                if (enemyHp <= 0)
-                {
-                    Destroy(this.gameObject);
-                }
-            }
+          {
+                takeDamage(1);
+          }
         }
         
 
     }
+
     IEnumerator IFramsV()
     {
         
         yield return new WaitForSeconds(0.1f);
         Iframs = false;
+    }
+    private void Update()
+    {
+        if(GameManager.Instance.vulnerable == true)
+        {
+            enemyColler.color = Color.blue;
+
+        }
+        else
+        {
+            enemyColler.color = mainColer;
+        }
     }
     void FixedUpdate()
     {
@@ -134,5 +142,19 @@ public class WayPoints : MonoBehaviour
        
     }
    
-   
+   public void takeDamage(int Damage)
+    {
+        if (Iframs == false)
+        {
+            enemyHp -= Damage;
+            Iframs = true;
+            StartCoroutine(IFramsV());
+        }
+
+
+        if (enemyHp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

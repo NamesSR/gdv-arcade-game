@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public void AddPoints(int points)
     {
         score = score + points;
-        Debug.Log("Score: " + score);
+      //  Debug.Log("Score: " + score);
     }
     public void TakeDamage(int damage)
     {

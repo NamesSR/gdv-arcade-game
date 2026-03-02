@@ -10,6 +10,7 @@ TagManager:
   - PowerOrb
   - Attack
   - dir
+  - attackPoint
   layers:
   - Default
   - TransparentFX
