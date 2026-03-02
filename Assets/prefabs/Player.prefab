@@ -122,7 +122,7 @@ MonoBehaviour:
   AttackPoint: {fileID: 4836111770518251302}
   sword: {fileID: 8911927683241424134}
   damage: 1
-  mele: 1
+  mele: 0
   AttackRate: 3
 --- !u!61 &1488163860176197407
 BoxCollider2D:
