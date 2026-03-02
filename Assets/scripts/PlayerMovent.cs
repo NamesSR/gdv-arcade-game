@@ -124,9 +124,9 @@ public class PlayerMovent : MonoBehaviour
            dir = new Vector3(x, y, 0);
            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
            float currentZ = (transform.eulerAngles = new Vector3(0,0,angle)).z;
-           float snappedZ = Mathf.Round(currentZ / 90.0f) * 90.0f;
+           float snappedZ = Mathf.Round(currentZ / 90f) * 90f;
            transform.rotation = Quaternion.Euler(0, 0, snappedZ);
-           Debug.Log($"{currentZ}:{snappedZ}:{angle}");
+          // Debug.Log($"{currentZ}:{snappedZ}:{angle}");
            
         }
         
