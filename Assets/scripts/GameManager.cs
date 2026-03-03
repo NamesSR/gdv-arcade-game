@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 public enum GameState
@@ -16,10 +17,13 @@ public class GameManager : MonoBehaviour
  public int enemyCount;
  public int powerOrbCount;
  public int level = 0;
+ bool dieded = false;
  public bool vulnerable = false;
- public int Ehp = 2;
+ //public int Ehp = 2;
  public int BossHp = 3;
  public int FireBallDagame = 1;
+ public int highScore = 0;
+ bool switsing = false;
  public GameObject menuPanel;
  public GameObject pausePanel;
  public GameObject gameOverPanel;
@@ -35,11 +39,13 @@ public class GameManager : MonoBehaviour
     if (Instance == null)
     {
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+       DontDestroyOnLoad(gameObject);
+        LoadHighScore();
+        
     }
     else
     {
-        Destroy(gameObject);
+       Destroy(gameObject);
     }
 }
 
@@ -73,6 +79,7 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 Time.timeScale = 0;
                 // Toon game over scherm
+                LevelGen.destroyLevel();
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(true);
@@ -99,53 +106,92 @@ public class GameManager : MonoBehaviour
             if (currentState == GameState.Menu)
             {
                 SetState(GameState.Playing);
-                LevelGen.GenerateLevel();
+                LoadGameData();
+                LevelGen.GenerateLevel(0);
             }
             if (currentState == GameState.GameOver)
             {
-                SetState(GameState.Playing);
+                
+                SetState(GameState.Menu);
             }
         }
-        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false)
+        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && dieded)
         {
             SetState(GameState.GameOver);
+            dieded = true;
         }
-        if (hp <= 0)
+        if(enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
         {
-            SetState(GameState.GameOver);
-        }
+            StartCoroutine(nextLevel());
+        } 
+        
     }
     
     public void AddPoints(int points)
     {
         score = score + points;
-      //  Debug.Log("Score: " + score);
+        if (score > highScore)
+        {
+            highScore = score;
+            SaveHighScore();
+        }
+        //  Debug.Log("Score: " + score);
     }
     public void TakeDamage(int damage)
     {
         if (hp > 0)
         {
-            hp = hp - damage;
+            hp -= damage;
         }
         
-        if(hp < 1)
+        if(hp <= 0)
         {
             Debug.Log("game over");
+            SetState(GameState.GameOver);
         }
     }
     public void enemycountAdd(int count)
     {
-        enemyCount = enemyCount + count;
+        enemyCount += count;
     }
     public void powerOrbCountAdd(int count)
     {
-        powerOrbCount = powerOrbCount + count;
-    }
-    public int enemyHealth()
-    {
-        return Ehp;
+        powerOrbCount += count;
     }
     public void StartGame() => SetState(GameState.Playing);
     public void PauseGame() => SetState(GameState.Paused);
     public void GameOver() => SetState(GameState.GameOver);
+    void LoadGameData()
+    {
+     score = 0;
+     hp = 3;
+     level = 0;
+     vulnerable = false;
+     //Ehp = 2;
+     BossHp = 3;
+     FireBallDagame = 1;
+     enemyCount = 0;
+     powerOrbCount = 0;
+     dieded = false;
+     switsing = false;
+    }
+    void SaveHighScore()
+    {
+        PlayerPrefs.SetInt("HighScore", highScore);
+    }
+
+    void LoadHighScore()
+    {
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+    }
+    IEnumerator nextLevel()
+    {
+        switsing = true;
+        
+        LevelGen.destroyLevel();
+        vulnerable = false;
+        yield return new WaitForSeconds(0.1f);
+        LevelGen.GenerateLevel(1);
+        switsing = false;
+    }
 }

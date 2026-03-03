@@ -24,7 +24,7 @@ public class shoot : MonoBehaviour
         Controller2D3 = GetComponent<CharacterController2D>();
         go = GameObject.FindGameObjectWithTag("Player");
         g = go.GetComponent<PlayerMovent>();
-       
+
         
 
     }

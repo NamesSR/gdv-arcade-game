@@ -25,16 +25,16 @@ public class LevelGenerator : MonoBehaviour
     int index4;
 
     string[][] levelData = {new string[]{
-        "###############",
-        "#...B.........#",
-        "#.##.##.W11..W12..#",
-        "#.............#",
-        "#..W15...E1W10.....#",
-        "#....B........#",
-        "#..W14.......W13..#",
-        "#....P........#",
-        "#...........B.#",
-        "###############",
+        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
+        "#b...Bg.........#b",
+        "#b.#b#b.#b#b.Wg11..Wg12..#b",
+        "#b.............#b",
+        "#b..Wg15...Eg1Wg10.....#b",
+        "#b....Bg........#b",
+        "#b..Wg14.......Wg13..#b",
+        "#b....Pg........#b",
+        "#b...........Bg.#b",
+        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
     },
       new string[]  {
         "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
@@ -52,16 +52,16 @@ public class LevelGenerator : MonoBehaviour
     },
       new string[]
       {
-        "###############",
-        "#W12...B.....W11..#",
-        "#.##.##...E1W10W15.#",
-        "#.............#",
-        "#B..P....###..#",
-        "#..###........#",
-        "#W13..........W14.#",
-        "#.#########...#",
-        "#....B........#",
-        "###############"
+        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
+        "#bWg12...Bg.....Wg11..#b",
+        "#b.#b#b.#b#b...Eg1Wg10Wg15.#b",
+        "#b.............#b",
+        "#bBg..Pg....#b#b#b..#b",
+        "#b..#b#b#b........#b",
+        "#bWg13..........Wg14.#b",
+        "#b.#b#b#b#b#b#b#b#b#b...#b",
+        "#b....Bg........#b",
+        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b"
       }
     };
 
@@ -73,11 +73,18 @@ public class LevelGenerator : MonoBehaviour
     }
 
 
-    public void GenerateLevel()
+    public void GenerateLevel(int l)
     {
-
-        level = 1;// UnityEngine.Random.Range(0, levelData.Length);
-      
+        GameManager.Instance.level++;
+        gridx = 0;
+        if (l == 0) 
+        { 
+            level = 1;// UnityEngine.Random.Range(0, levelData.Length);
+        }
+        else
+        {
+            level = UnityEngine.Random.Range(0, levelData.Length);
+        }
 
         for (int y = 0; y < levelData[level].Length; y++)
         {
@@ -245,9 +252,14 @@ public class LevelGenerator : MonoBehaviour
     }
     public void destroyLevel()
     {
+        
         foreach (Transform t in this.transform)
         {
-            Destroy(t.gameObject);
+            if(t != null)
+            {
+             Destroy(t.gameObject);
+
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ public class WayPoints : MonoBehaviour
     
     private RaycastHit2D _lastControllerColliderHit;
     private Vector3 velocity2;
-    public int enemyHp;
+    public int enemyHp = 2;
     private SpriteRenderer enemyColler;
     public Color mainColer;
     private void Start()
@@ -39,7 +39,7 @@ public class WayPoints : MonoBehaviour
         Controller2D2 = GetComponent<CharacterController2D>();
         Controller2D2.onControllerCollidedEvent += onControllerCollider2;
         Controller2D2.onTriggerEnterEvent += onTriggerEnterEvent2;
-        enemyHp = GameManager.Instance.enemyHealth();
+        //enemyHp //.= GameManager.Instance.enemyHealth();
         enemyColler = GetComponent<SpriteRenderer>();
         
     }
@@ -59,7 +59,7 @@ public class WayPoints : MonoBehaviour
         {
           if(GameManager.Instance.vulnerable == true)
           {
-                takeDamage(1);
+                takeDamage(GameManager.Instance.FireBallDagame);
           }
         }
         
@@ -155,6 +155,7 @@ public class WayPoints : MonoBehaviour
         if (enemyHp <= 0)
         {
             Destroy(this.gameObject);
+            GameManager.Instance.enemyCount--;
         }
     }
 }

@@ -154,9 +154,9 @@ MonoBehaviour:
   powerOrbCount: 0
   level: 0
   vulnerable: 0
-  Ehp: 2
   BossHp: 3
   FireBallDagame: 1
+  highScore: 0
   menuPanel: {fileID: 1804241757}
   pausePanel: {fileID: 479021681}
   gameOverPanel: {fileID: 1459546070}
@@ -309,8 +309,8 @@ Transform:
   m_GameObject: {fileID: 479021681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.0946, y: -4.47, z: 0}
-  m_LocalScale: {x: 1.7519099, y: 1, z: 1}
+  m_LocalPosition: {x: 7.0946, y: -4.3644, z: 0}
+  m_LocalScale: {x: 1.7519099, y: 1.0211, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -730,8 +730,8 @@ Transform:
   m_GameObject: {fileID: 1459546070}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.9279, y: -4.5, z: 0}
-  m_LocalScale: {x: 1.7546121, y: 1, z: 1}
+  m_LocalPosition: {x: 6.9279, y: -4.3098, z: 0}
+  m_LocalScale: {x: 1.7546121, y: 1.038, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -820,8 +820,8 @@ Transform:
   m_GameObject: {fileID: 1804241757}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.9976, y: -4.61, z: 0}
-  m_LocalScale: {x: 1.7346689, y: 1.0091124, z: 1}
+  m_LocalPosition: {x: 6.9976, y: -4.441, z: 0}
+  m_LocalScale: {x: 1.7346689, y: 1.0429176, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

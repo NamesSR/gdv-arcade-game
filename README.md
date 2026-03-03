@@ -75,6 +75,10 @@ Als een screen gehaalt is dan kan je kiezen tussen 2 screens die random zijn en 
 # grid
 ## ![](image/grid.gif)
 ### [grid code](Assets/scripts/LevelGenerator.cs)
+# this are debug keys
+## press 1 to delete level
+## press 2 to swap levels
+## press 3 to swap bewtine mele and range attack 
 
 
 

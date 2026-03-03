@@ -53,7 +53,7 @@ public class PlayerMovent : MonoBehaviour
         {
             if(GameManager.Instance.vulnerable == false)
             {
-            GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(1);
             
             }
                 
@@ -69,8 +69,9 @@ public class PlayerMovent : MonoBehaviour
         {
 
             Destroy(col.gameObject);
-            GameManager.Instance.powerOrbCountAdd(-1);
             StartCoroutine(PowerOrbs());
+            GameManager.Instance.powerOrbCountAdd(-1);
+            
 
 
 
@@ -102,6 +103,19 @@ public class PlayerMovent : MonoBehaviour
         else
         {
             ShootFireBall();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (mele == true)
+            {
+                mele = false;
+
+            }
+            else
+            {
+                mele = true;
+            }
+
         }
     }
 
