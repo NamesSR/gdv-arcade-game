@@ -9,6 +9,14 @@ Om enemy vulnerable te maken collect je special orbs rond de map of je gebruikt 
 De levels/sceens zijn infinite. Je kan door gaan tot dat je dood gaat of wanneer je alle special orbs hebt verzameld, of als er zijn nog enemies die niet meer dood kunnen.
 Different classes zoals: knight, assasian, monk en wizard.
 Als een screen gehaalt is dan kan je kiezen tussen 2 screens die random zijn en soms ook 1 die moelijker is maar je krijgt daar meer rewards van.
+Er zijn verschillende enemy types zoals:
+Fallen Guards: lopen rond in een vaste volgorde en volgen een vaste route.
+Undead Hunter: Gaat achter je aan zodra je binnen een bepaalde radius bent.
+Black Shadow wizard: Loopt langzamer dan de normale enemies, maar schiet vuurballen zodra je binnen de radius komt, Staat soms op vaste positie en loopt soms rond.
+Undead hunting dogs: Loopt vaak samen met de undead hunter, loopt sneller dan normale enemies, maar heeft ook minder hp.
+Fallen archer: Loopt niet rond, maar werkt ongeveer zoals een turret met een bepaalde radius.
+Black shadow assasin: Loopt snel maar heeft iets minder hp dan een normale enemy, en doet iets minder dan gemiddelde dmg. Na een attack gaat hij weg en komt na 5-10 seconden weer terug uit de schaduwen
+Fallen Shadow Assasin: sterkere versie van de black shadow assasin. Heeft even veel hp maar doet veel dmg. Na 1 attack verdwijnt hij en komt niet meer terug in dat level.
 
 | Als speler wil ik...                                  | Zodat...                              |
 | ----------------------------------------------------- | ------------------------------------- |
