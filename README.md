@@ -10,8 +10,8 @@ De levels/sceens zijn infinite. Je kan door gaan tot dat je dood gaat of wanneer
 Different classes zoals: knight, assasian, monk en wizard.
 Als een screen gehaalt is dan kan je kiezen tussen 2 screens die random zijn en soms ook 1 die moelijker is maar je krijgt daar meer rewards van.
 Er zijn verschillende enemy types zoals:
-Fallen Guards: lopen rond in een vaste volgorde en volgen een vaste route.
-Undead Hunter: Gaat achter je aan zodra je binnen een bepaalde radius bent.
+Fallen Guards: lopen rond in een vaste volgorde en volgen een vaste route. Gegint met lopen zodra het level start. Dit gedrag verandert niet tenzij de speler een guard aanvalt, want dan gaat de guard achter de speler aan tot de speler of de guard dood is.
+Undead Hunter: Loop rond in bepaalde area's van de map, en gaat achter je aan zodra je binnen een bepaalde radius rond om de hunter bent. Hij stopt met jagen zodra je buiten de radius gaat en gaat dan weer terug naar zijn originele route.
 Black Shadow wizard: Loopt langzamer dan de normale enemies, maar schiet vuurballen zodra je binnen de radius komt, Staat soms op vaste positie en loopt soms rond.
 Undead hunting dogs: Loopt vaak samen met de undead hunter, loopt sneller dan normale enemies, maar heeft ook minder hp.
 Fallen archer: Loopt niet rond, maar werkt ongeveer zoals een turret met een bepaalde radius.
