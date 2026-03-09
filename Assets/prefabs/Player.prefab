@@ -124,6 +124,7 @@ MonoBehaviour:
   damage: 1
   mele: 0
   AttackRate: 3
+  mainColer: {r: 0, g: 0.18431373, b: 1, a: 1}
 --- !u!61 &1488163860176197407
 BoxCollider2D:
   m_ObjectHideFlags: 0

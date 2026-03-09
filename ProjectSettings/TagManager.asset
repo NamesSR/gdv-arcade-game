@@ -11,6 +11,8 @@ TagManager:
   - Attack
   - dir
   - attackPoint
+  - menu
+  - GameOver
   layers:
   - Default
   - TransparentFX

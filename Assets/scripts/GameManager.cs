@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
  public int enemyCount;
  public int powerOrbCount;
  public int level = 0;
- bool dieded = false;
+
  public bool vulnerable = false;
  //public int Ehp = 2;
  public int BossHp = 3;
@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
  public GameObject pausePanel;
  public GameObject gameOverPanel;
  public LevelGenerator LevelGen;
+ public ScoreUI scoreUI;
+ public buttonUI GameOverbuttonUI;
+ public buttonUI StartGameButtonUI;
 
 
     public static GameManager Instance;
@@ -57,6 +60,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Menu:
                 Time.timeScale = 1;
+                StartGameButtonUI.StartGameButton();
                 menuPanel.SetActive(true);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(false);
@@ -79,6 +83,7 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 Time.timeScale = 0;
                 // Toon game over scherm
+                GameOverbuttonUI.GameOverButton();
                 LevelGen.destroyLevel();
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(false);
@@ -101,7 +106,7 @@ public class GameManager : MonoBehaviour
             else if (currentState == GameState.Paused)
                 SetState(GameState.Playing);
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+      /*  if (Input.GetKeyDown(KeyCode.Space))
         {
             if (currentState == GameState.Menu)
             {
@@ -114,11 +119,11 @@ public class GameManager : MonoBehaviour
                 
                 SetState(GameState.Menu);
             }
-        }
-        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && dieded)
+        }*/
+        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing)
         {
             SetState(GameState.GameOver);
-            dieded = true;
+           
         }
         if(enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
         {
@@ -129,7 +134,8 @@ public class GameManager : MonoBehaviour
     
     public void AddPoints(int points)
     {
-        score = score + points;
+        score += points;
+        scoreUI.ScoreUpdate(score);
         if (score > highScore)
         {
             highScore = score;
@@ -158,9 +164,16 @@ public class GameManager : MonoBehaviour
     {
         powerOrbCount += count;
     }
-    public void StartGame() => SetState(GameState.Playing);
+    public void StartGame()
+    {
+        SetState(GameState.Playing);
+        
+        LoadGameData();
+        LevelGen.GenerateLevel(0);
+    }
     public void PauseGame() => SetState(GameState.Paused);
     public void GameOver() => SetState(GameState.GameOver);
+    public void Menu() => SetState(GameState.Menu);
     void LoadGameData()
     {
      score = 0;
@@ -172,8 +185,9 @@ public class GameManager : MonoBehaviour
      FireBallDagame = 1;
      enemyCount = 0;
      powerOrbCount = 0;
-     dieded = false;
+    
      switsing = false;
+     scoreUI.Resetscore();
     }
     void SaveHighScore()
     {

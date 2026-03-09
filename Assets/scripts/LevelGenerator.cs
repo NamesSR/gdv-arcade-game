@@ -86,6 +86,7 @@ public class LevelGenerator : MonoBehaviour
             level = UnityEngine.Random.Range(0, levelData.Length);
         }
 
+
         for (int y = 0; y < levelData[level].Length; y++)
         {
             string line = levelData[level][y];
