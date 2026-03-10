@@ -10,6 +10,9 @@ De levels/sceens zijn infinite. Je kan door gaan tot dat je dood gaat of wanneer
 Different classes zoals: knight, assasian, monk en wizard.
 Als een screen gehaalt is dan kan je kiezen tussen 2 screens die random zijn en soms ook 1 die moelijker is maar je krijgt daar meer rewards van.
 
+# semiAutomaticGridMapLoader 
+[link to repo](https://github.com/NamesSR/semiAutoMaticGridMapLoader)
+
 | Als speler wil ik...                                  | Zodat...                              |
 | ----------------------------------------------------- | ------------------------------------- |
 | Het character in vaste richtingen kunnen besturen      | Ik door een speelruimte kan navigeren |

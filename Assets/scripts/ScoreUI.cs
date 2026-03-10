@@ -5,6 +5,8 @@ using UnityEngine.SocialPlatforms.Impl;
 public class ScoreUI : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI ClasUI;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +26,18 @@ public class ScoreUI : MonoBehaviour
     }
    public void Resetscore()
     {
-        scoreText.text = "0";
+        scoreText.text = "SCORE: 0";
+    }
+    public void HpUpdate(int hp)
+    {
+        hpText.text = $"Hp: {hp}";
+    }
+    public void ResetHp(int hp)
+    {
+        hpText.text = $"Hp: {hp}";
+    }
+    public void ClasUpdate(string Clas)
+    {
+        ClasUI.text = Clas;
     }
 }

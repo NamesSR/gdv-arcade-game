@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
  public int BossHp = 3;
  public int FireBallDagame = 1;
  public int highScore = 0;
- bool switsing = false;
+ public bool Mele = false;
+ private string Clas = "Mage";
+ public bool switsing = false;
  public GameObject menuPanel;
  public GameObject pausePanel;
  public GameObject gameOverPanel;
@@ -120,16 +122,28 @@ public class GameManager : MonoBehaviour
                 SetState(GameState.Menu);
             }
         }*/
-        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing)
+        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1)
         {
             SetState(GameState.GameOver);
            
         }
-        if(enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
-        {
-            StartCoroutine(nextLevel());
-        } 
         
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            if (Mele == true)
+            {
+                Mele = false;
+                Clas = "Mage";
+                scoreUI.ClasUpdate(Clas);
+            }
+            else
+            {
+                Mele = true;
+                Clas = "Knight";
+                scoreUI.ClasUpdate(Clas);
+            }
+
+        }
     }
     
     public void AddPoints(int points)
@@ -148,6 +162,7 @@ public class GameManager : MonoBehaviour
         if (hp > 0)
         {
             hp -= damage;
+            scoreUI.HpUpdate(hp);
         }
         
         if(hp <= 0)
@@ -187,7 +202,10 @@ public class GameManager : MonoBehaviour
      powerOrbCount = 0;
     
      switsing = false;
+     
+     scoreUI.ClasUpdate(Clas);
      scoreUI.Resetscore();
+     scoreUI.ResetHp(hp);
     }
     void SaveHighScore()
     {
@@ -198,8 +216,9 @@ public class GameManager : MonoBehaviour
     {
         highScore = PlayerPrefs.GetInt("HighScore", 0);
     }
-    IEnumerator nextLevel()
+    public IEnumerator nextLevel()
     {
+       
         switsing = true;
         
         LevelGen.destroyLevel();
@@ -207,5 +226,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         LevelGen.GenerateLevel(1);
         switsing = false;
+    }
+    public void nextlevelfin()
+    {
+        if (enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
+        {
+            StartCoroutine(nextLevel());
+        }
     }
 }

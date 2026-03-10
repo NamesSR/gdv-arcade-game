@@ -86,16 +86,17 @@ public class PlayerMovent : MonoBehaviour
             }
                 
         }
-       
-        
+
+        if (col.CompareTag("nextlevel")) 
+        {
+            GameManager.Instance.nextlevelfin();
+
+
+        }
        
 
         Debug.Log("trigger");
-        if (col.CompareTag("dot"))
-        {
-            Destroy(col.gameObject);
-            GameManager.Instance.AddPoints(value);
-        }
+        
 
         if (col.CompareTag("PowerOrb"))
         {
@@ -118,7 +119,7 @@ public class PlayerMovent : MonoBehaviour
     void Update()
     {
         
-        if (mele == true)
+        if (GameManager.Instance.Mele == true)
         {
             if (Time.time >= nextAttackTime)
             {
@@ -134,19 +135,7 @@ public class PlayerMovent : MonoBehaviour
         {
             ShootFireBall();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (mele == true)
-            {
-                mele = false;
-
-            }
-            else
-            {
-                mele = true;
-            }
-
-        }
+        
     }
 
     private void FixedUpdate()
@@ -212,7 +201,7 @@ public class PlayerMovent : MonoBehaviour
     {
         Iframs = true;
         Coller.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         Iframs = false;
         Coller.color = mainColer;
     }
