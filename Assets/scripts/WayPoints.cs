@@ -155,6 +155,7 @@ public class WayPoints : MonoBehaviour
         if (enemyHp <= 0)
         {
             Destroy(this.gameObject);
+            GameManager.Instance.AddPoints(50);
             GameManager.Instance.enemyCount--;
         }
     }

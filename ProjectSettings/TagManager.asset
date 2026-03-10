@@ -11,6 +11,9 @@ TagManager:
   - Attack
   - dir
   - attackPoint
+  - menu
+  - GameOver
+  - nextlevel
   layers:
   - Default
   - TransparentFX
@@ -27,7 +30,7 @@ TagManager:
   - 
   - 
   - ground0
-  - 
+  - nextLevel
   - 
   - 
   - 

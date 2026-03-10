@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using Prime31;
 using System.Collections;
 using UnityEngine;
@@ -23,7 +24,9 @@ public class PlayerMovent : MonoBehaviour
     private CharacterController2D Controller2D;
     float nextAttackTime = 0f;
     public float AttackRate = 2f;
-    
+    private SpriteRenderer Coller;
+    public Color mainColer;
+    bool Iframs = false;
 
 
 
@@ -32,10 +35,30 @@ public class PlayerMovent : MonoBehaviour
         Controller2D = GetComponent<CharacterController2D>();
         Controller2D.onControllerCollidedEvent += onControllerCollider;
         Controller2D.onTriggerEnterEvent += onTriggerEnterEvent;
+        Controller2D.onTriggerStayEvent += onTriggerStayEvent;
+
+
         AttackPoint = GameObject.FindGameObjectWithTag("attackPoint").transform;
+        Coller = GetComponent<SpriteRenderer>();
+        Coller.color = mainColer;
     }
-        
-        
+
+    void onTriggerStayEvent(Collider2D col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
+            if (GameManager.Instance.vulnerable == false)
+            {
+                if (Iframs == false)
+                {
+                    GameManager.Instance.TakeDamage(1);
+                    StartCoroutine(Iframsv2());
+
+                }
+            }
+
+        }
+    }
     void onControllerCollider(RaycastHit2D hit)
     {
         // bail out on plain old ground hits cause they arent very interesting
@@ -45,6 +68,7 @@ public class PlayerMovent : MonoBehaviour
         // logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
        // Debug.Log( "flags: " + Controller2D.collisionState + ", hit.normal: " + hit.normal );
     }
+   
 
     void onTriggerEnterEvent(Collider2D col)
     {
@@ -53,29 +77,36 @@ public class PlayerMovent : MonoBehaviour
         {
             if(GameManager.Instance.vulnerable == false)
             {
-                GameManager.Instance.TakeDamage(1);
-            
+                if (Iframs == false)
+                {
+                    GameManager.Instance.TakeDamage(1);
+                    StartCoroutine(Iframsv2());
+                    
+                }
             }
                 
         }
-        Debug.Log("trigger");
-        if (col.CompareTag("dot"))
+
+        if (col.CompareTag("nextlevel")) 
         {
-            Destroy(col.gameObject);
-            GameManager.Instance.AddPoints(value);
+            GameManager.Instance.nextlevelfin();
+
+
         }
+       
+
+        Debug.Log("trigger");
+        
 
         if (col.CompareTag("PowerOrb"))
         {
+            if (GameManager.Instance.vulnerable == false)
+            {
+                Destroy(col.gameObject);
+                StartCoroutine(PowerOrbs());
+                GameManager.Instance.powerOrbCountAdd(-1);
 
-            Destroy(col.gameObject);
-            StartCoroutine(PowerOrbs());
-            GameManager.Instance.powerOrbCountAdd(-1);
-            
-
-
-
-
+            }
         }
     }
 
@@ -88,7 +119,7 @@ public class PlayerMovent : MonoBehaviour
     void Update()
     {
         
-        if (mele == true)
+        if (GameManager.Instance.Mele == true)
         {
             if (Time.time >= nextAttackTime)
             {
@@ -104,19 +135,7 @@ public class PlayerMovent : MonoBehaviour
         {
             ShootFireBall();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (mele == true)
-            {
-                mele = false;
-
-            }
-            else
-            {
-                mele = true;
-            }
-
-        }
+        
     }
 
     private void FixedUpdate()
@@ -177,6 +196,14 @@ public class PlayerMovent : MonoBehaviour
         yield return new WaitForSeconds(1f);
         CanShoot = true;
 
+    }
+    IEnumerator Iframsv2()
+    {
+        Iframs = true;
+        Coller.color = Color.red;
+        yield return new WaitForSeconds(1f);
+        Iframs = false;
+        Coller.color = mainColer;
     }
     void Attack()
     {
