@@ -7,7 +7,8 @@ public class LevelGenerator : MonoBehaviour
 {
     
     public GameObject wallPrefab;
-   // public GameObject dotPrefab;
+    // public GameObject dotPrefab;
+    WayPoints way;
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
     public GameObject waypointPrefab;
@@ -16,7 +17,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject groundTilePrefab;
     public GameObject NextlevelTilePrefab;
     private SpriteRenderer TileColor;
-    public Vector3[] waypoints = new Vector3[12];
+    public Vector3[] waypoints = new Vector3[24];
     int a = 0;
     private Transform t;
     int Genlevel;
@@ -24,9 +25,10 @@ public class LevelGenerator : MonoBehaviour
     int gridx = 0;
     int index3;
     int index4;
+    int waypointoffseter;
 
     string[][] levelData = {new string[]{
-        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
+        "6#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
         "#b...Bg.........#b",
         "#b.#b#b.#b#b.Wg11..Wg12..#b",
         "#b.............#b",
@@ -38,7 +40,7 @@ public class LevelGenerator : MonoBehaviour
         "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
     },
       new string[]  {
-        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
+        "6#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
         "#b.g.g.g.g.g.gWg25.g.g.gWg24.g.g#b",
         "#b.g#b#b.g#b#b.g.gBg.g.g.g.g#b",
         "#bWg14.g.g.g.g.g.g.g.gWg15.g.g.g#b",
@@ -53,7 +55,7 @@ public class LevelGenerator : MonoBehaviour
     },
       new string[]
       {
-        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
+        "6#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
         "#bWg12...Bg.....Wg11..#b",
         "#b.#b#b.#b#b...Eg1Wg10Wg15.#b",
         "#b.............#b",
@@ -66,7 +68,7 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[] 
       {
-       "#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
+       "0#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
 "#gTgTgTg#gdTgTgTg#gdTgTgTgTg#gdTgTg#gdTgTgTgTg#gdTgTgTg#gdTgTgTgTg#gd",
 "#gTgTg#gd#gd#gdTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTgTgTgTgTgTg#gdTgTgTg#g",
 "#g#gdTgTg#gdTgTgTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTy#y",
@@ -86,7 +88,7 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       {
-          "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+          "6#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#bTyTyTyTyyTyTyTyyTyTyByTyTyTyyWy13TyTyTyTyWy12TyTyTyTyTyTyTyTy#b#d",
 "#d#bTyTyTyyTy#bTyTyTyTyyTy#bTyTyTyTyTyy#bTyTyyTyTyTy#bTyyTyTyTy#b#d",
 "#d#bTyyTyTy#b#b#bTyTyTy#b#b#bTyTyyTy#b#b#bTyTyTy#b#b#bTyTyyTy#b#d",
@@ -107,7 +109,7 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       {
-          "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d,",
+          "6#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d,",
 "#d#bTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyTyTyyTy#b#d,",
 "#d#bTyyTrTrTrTrTrTrTrTrTrTyTyy#b#b#bTyTyTrWr21TrTrTrTrTrTrWr22Ty#b#d,",
 "#d#bTyWr13TrTrWr14TrTrWr15Er1TrTyyTy#b#b#bTyTyyTrTrTrTrBrTrTrTrTrTy#b#d,",
@@ -138,6 +140,7 @@ public class LevelGenerator : MonoBehaviour
 
     public void GenerateLevel(int l)
     {
+        Debug.Log(2 + GameManager.Instance.level);
         GameManager.Instance.level++;
         gridx = 0;
         if (l == 0)
@@ -146,7 +149,7 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            if(2 + GameManager.Instance.level < 5)
+            if(GameManager.Instance.level < 4)
             {
             Genlevel = 2 + GameManager.Instance.level; // UnityEngine.Random.Range(0, levelData.Length - 1);
 
@@ -164,6 +167,12 @@ public class LevelGenerator : MonoBehaviour
             string row = line;
             for (int x = 0; x < row.Length; x++)
             {
+                if(x == 0 && y == 0)
+                {
+                     waypointoffseter = row[0] - '0';
+                    Debug.Log(waypointoffseter);
+                    x++;
+                }
                 char tile = row[x];
                 Vector3 position = new Vector3(gridx, -y, 0);
 
@@ -175,7 +184,7 @@ public class LevelGenerator : MonoBehaviour
                         TileColor = wall.GetComponent<SpriteRenderer>();
                         index3 = x + 1;
                         index4 = x + 2;
-                        Debug.Log($"index 1: {index3}|| index 2: {index4} || row.Leagth: {row.Length} ");
+                       // Debug.Log($"index 1: {index3}|| index 2: {index4} || row.Leagth: {row.Length} ");
                         if (index3 <= row.Length && index4 <= row.Length)
                             if (index4 == row.Length)
                             {
@@ -222,7 +231,7 @@ public class LevelGenerator : MonoBehaviour
                         a = 0;
                         break;
                     case '.':
-                       // Instantiate(dotPrefab, position, Quaternion.identity, this.transform);
+                       
 
                         gridx++;
                         break;
@@ -235,11 +244,31 @@ public class LevelGenerator : MonoBehaviour
                         switch (esindex)
                         {
                             case 1:
-                                Instantiate(enemyPrefab, position, Quaternion.identity, this.transform);
+                                var E1 = Instantiate(enemyPrefab, position, Quaternion.identity, this.transform);
+                                way = E1.GetComponent<WayPoints>();
+                                 way.offset = 0;
+                                way.MaxOffset = waypointoffseter;
                                 GameManager.Instance.enemycountAdd(1);
                                 break;
                             case 2:
-                                Instantiate(enemy2Prefab, position, Quaternion.identity, this.transform);
+                                var E2 = Instantiate(enemy2Prefab, position, Quaternion.identity, this.transform);
+                                way = E2.GetComponent<WayPoints>();
+                                way.offset = waypointoffseter;
+                                way.MaxOffset = waypointoffseter;
+                                GameManager.Instance.enemycountAdd(1);
+                                break;
+                            case 3:
+                                var E3 = Instantiate(enemyPrefab, position, Quaternion.identity, this.transform);
+                                way = E3.GetComponent<WayPoints>();
+                                way.offset = waypointoffseter * 2;
+                                way.MaxOffset = waypointoffseter;
+                                GameManager.Instance.enemycountAdd(1);
+                                break;
+                            case 4:
+                                var E4 = Instantiate(enemy2Prefab, position, Quaternion.identity, this.transform);
+                                way = E4.GetComponent<WayPoints>();
+                                way.offset = waypointoffseter * 3;
+                                way.MaxOffset = waypointoffseter;
                                 GameManager.Instance.enemycountAdd(1);
                                 break;
                         }
@@ -254,7 +283,13 @@ public class LevelGenerator : MonoBehaviour
                                 offsetwaypoint = 0;
                                 break;
                             case 2:
-                                offsetwaypoint = 6;
+                                offsetwaypoint = waypointoffseter;
+                                break;
+                            case 3:
+                                offsetwaypoint = waypointoffseter * 2;
+                                break;
+                            case 4:
+                                offsetwaypoint = waypointoffseter * 3;
                                 break;
 
                         }
@@ -267,7 +302,7 @@ public class LevelGenerator : MonoBehaviour
                         //Instantiate(dotPrefab, position, Quaternion.identity, this.transform);
                         Instantiate(waypointPrefab, position, Quaternion.identity, this.transform);
 
-                        Debug.Log("check 1: " + "index: " + (index + offsetwaypoint) + position);
+                       // Debug.Log("check 1: " + "index: " + (index + offsetwaypoint) + position);
 
                         waypoints[index + offsetwaypoint] = position; // it works finaly
 
@@ -365,8 +400,5 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
-    public void nextlevelFin()
-    {
-
-    }
+    
 }

@@ -108,10 +108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78925dcd83121649a718d5082956f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovent
-  speed: 5
+  speed: 6
   value: 10
   groundDamping: 20
-  AttackRange: 0.4
+  AttackRange: 0.5
   CanShoot: 1
   dir: {x: 1, y: 0, z: 0}
   angle: 0
@@ -159,7 +159,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0072749853, y: 0.0072751045}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -169,7 +169,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 2.4581506, y: 2.429051}
   m_EdgeRadius: 0
 --- !u!50 &9024656055701515918
 Rigidbody2D:
