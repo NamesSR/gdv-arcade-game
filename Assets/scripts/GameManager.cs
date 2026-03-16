@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
                 SetState(GameState.Menu);
             }
         }*/
-        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1)
+        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1 && switsing == false)
         {
             SetState(GameState.GameOver);
            
@@ -220,7 +220,8 @@ public class GameManager : MonoBehaviour
     {
        
         switsing = true;
-        
+        enemyCount = 0;
+        powerOrbCount = 0;
         LevelGen.destroyLevel();
         vulnerable = false;
         yield return new WaitForSeconds(0.1f);
