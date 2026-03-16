@@ -6,8 +6,9 @@ using UnityEngine;
 public class WayPoints : MonoBehaviour
 {
 
-   // public Rigidbody2D rigidBod;
+   
     public int offset = 0;
+    public int MaxOffset = 6;
     public bool chase = false;
     public bool isChasing = false;
     public float speed = 3f;
@@ -134,7 +135,7 @@ public class WayPoints : MonoBehaviour
                 currentWaypointIndex++;
 
                 // Loop terug naar begin
-                if (currentWaypointIndex >= offset + 6)
+                if (currentWaypointIndex >= offset + MaxOffset)
                 {
                     currentWaypointIndex = offset;
                 }

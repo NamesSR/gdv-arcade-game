@@ -1446,7 +1446,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelGenerator
   wallPrefab: {fileID: 8115656243935340989, guid: 353c092f7a40ff248b9982a71374d973, type: 3}
-  dotPrefab: {fileID: 8674322160071636693, guid: a56948fa695e85449b84b6ae57e9f02e, type: 3}
   playerPrefab: {fileID: 5669208134996970680, guid: 45c3cbb9a93efdb47bf5ee0db1838d8b, type: 3}
   enemyPrefab: {fileID: 3830393671419105786, guid: f7a27890873c3814e9966860e377b476, type: 3}
   waypointPrefab: {fileID: 604512072058839106, guid: da47edbe4bf18e64cba1cf5e2bdedb35, type: 3}
@@ -1455,6 +1454,18 @@ MonoBehaviour:
   groundTilePrefab: {fileID: 5888367800521781257, guid: 83c67641e108f9a4b8403ecb44024773, type: 3}
   NextlevelTilePrefab: {fileID: 7524922517238911674, guid: bd6995a0028fb1e438db688425622483, type: 3}
   waypoints:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
