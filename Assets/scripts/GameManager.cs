@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
  public ScoreUI scoreUI;
  public buttonUI GameOverbuttonUI;
  public buttonUI StartGameButtonUI;
+ 
 
 
     public static GameManager Instance;

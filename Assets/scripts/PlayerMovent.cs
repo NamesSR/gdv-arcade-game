@@ -3,6 +3,7 @@ using Prime31;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class PlayerMovent : MonoBehaviour
 {
@@ -45,18 +46,18 @@ public class PlayerMovent : MonoBehaviour
 
     void onTriggerStayEvent(Collider2D col)
     {
-        if (col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "hunter")
         {
-            if (GameManager.Instance.vulnerable == false)
-            {
+            
+            
                 if (Iframs == false)
                 {
                     GameManager.Instance.TakeDamage(1);
                     StartCoroutine(Iframsv2());
 
                 }
-            }
-
+            
+                
         }
     }
     void onControllerCollider(RaycastHit2D hit)
@@ -73,17 +74,17 @@ public class PlayerMovent : MonoBehaviour
     void onTriggerEnterEvent(Collider2D col)
     {
         Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
-        if(col.gameObject.tag == "Enemy")
+        if(col.gameObject.tag == "Enemy" || col.gameObject.tag == "hunter")
         {
-            if(GameManager.Instance.vulnerable == false)
-            {
+            
+            
                 if (Iframs == false)
                 {
                     GameManager.Instance.TakeDamage(1);
                     StartCoroutine(Iframsv2());
                     
                 }
-            }
+            
                 
         }
 

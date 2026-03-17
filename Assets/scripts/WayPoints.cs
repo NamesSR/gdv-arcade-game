@@ -13,6 +13,10 @@ public class WayPoints : MonoBehaviour
     public bool isChasing = false;
     public float speed = 3f;
     public float chaseRange = 5f;
+    public int whichEnemy;
+    public bool chaseDog = false;
+    Transform HunterTransform;
+    WayPoints HunterWaypoints;
     LevelGenerator lg;
     private Vector3 dir;
     public bool Iframs = false;
@@ -20,29 +24,33 @@ public class WayPoints : MonoBehaviour
     GameObject levlg;
     CharacterController2D Controller2D2;
     Transform player;
-    
+    public bool dogischasing = false;
     private RaycastHit2D _lastControllerColliderHit;
     private Vector3 velocity2;
     public int enemyHp = 2;
     private SpriteRenderer enemyColler;
     public Color mainColer;
+
     private void Start()
     {
-        levlg = GameObject.Find("LevelGenerator");
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        lg = levlg.GetComponent<LevelGenerator>();
         
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        
+       
 
         currentWaypointIndex = offset;
     }
     private void Awake()
     {
+        lg = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
         Controller2D2 = GetComponent<CharacterController2D>();
         Controller2D2.onControllerCollidedEvent += onControllerCollider2;
         Controller2D2.onTriggerEnterEvent += onTriggerEnterEvent2;
         //enemyHp //.= GameManager.Instance.enemyHealth();
         enemyColler = GetComponent<SpriteRenderer>();
-        
+        LevelGenerator.startgame += loaddateforenemy; 
+
+
     }
     void onControllerCollider2(RaycastHit2D hit)
     {
@@ -52,6 +60,20 @@ public class WayPoints : MonoBehaviour
 
         // logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
         // Debug.Log( "flags: " + Controller2D.collisionState + ", hit.normal: " + hit.normal );
+    }
+    void loaddateforenemy()
+    {
+        if (whichEnemy == 3)
+        {
+            if (chaseDog == true)
+            {
+                if (HunterTransform == null)
+                {
+                    HunterTransform = GameObject.FindGameObjectWithTag("hunter").transform;
+                    HunterWaypoints = GameObject.FindGameObjectWithTag("hunter").GetComponent<WayPoints>();
+                }
+            }
+        }
     }
     void onTriggerEnterEvent2(Collider2D col)
     {
@@ -75,7 +97,7 @@ public class WayPoints : MonoBehaviour
     }
     private void Update()
     {
-        if(GameManager.Instance.vulnerable == true)
+        if (GameManager.Instance.vulnerable == true)
         {
             enemyColler.color = Color.blue;
 
@@ -84,32 +106,26 @@ public class WayPoints : MonoBehaviour
         {
             enemyColler.color = mainColer;
         }
+       
     }
     void FixedUpdate()
     {
-        if (isChasing == false)
+        if (whichEnemy == 1)
         {
             moveToWaypoint();
         }
-        if (chase == true)
+        if (whichEnemy == 2)
         {
-            float distance = Vector3.Distance(transform.position, player.position);
-           // Debug.Log(distance);
-           // Debug.Log(player.position);
-
-            if (distance < chaseRange)
+            chasing();
+        }
+        if (whichEnemy == 3)
+        {
+            if(chaseDog == true)
             {
-                isChasing = true;
-                dir = (player.position - transform.position).normalized;
-                velocity2 = dir * speed;
-                Controller2D2.move(velocity2 * Time.deltaTime);
-                
-            }
-            else if (isChasing == true)
-            {
-                isChasing = false;
-            }
+               
+                chasingdog();
 
+            }
         }
 
     }   
@@ -160,4 +176,69 @@ public class WayPoints : MonoBehaviour
             GameManager.Instance.enemyCount--;
         }
     }
+    void chasing()
+    {
+        if (isChasing == false)
+        {
+            moveToWaypoint();
+        }
+        if (chase == true)
+        {
+            float distance = Vector3.Distance(transform.position, player.position);
+            // Debug.Log(distance);
+            // Debug.Log(player.position);
+
+            if (distance < chaseRange)
+            {
+                isChasing = true;
+                dir = (player.position - transform.position).normalized;
+                velocity2 = dir * speed;
+                Controller2D2.move(velocity2 * Time.deltaTime);
+
+            }
+            else if (isChasing == true)
+            {
+                isChasing = false;
+            }
+
+        }
+    }
+    void chasingdog()
+    {
+        if (HunterWaypoints.isChasing == false && dogischasing == false)
+        {
+            float distance = Vector3.Distance(transform.position, HunterTransform.position);
+            if (distance > 2f)
+            {
+                dir = (HunterTransform.position - transform.position).normalized;
+                velocity2 = dir * speed;
+                Controller2D2.move(velocity2 * Time.deltaTime);
+            }
+        }
+        else if (HunterWaypoints.isChasing == true && dogischasing == false)
+        { 
+          
+            float distance = Vector3.Distance(transform.position, player.position);
+            
+                
+                dir = (player.position - transform.position).normalized;
+                velocity2 = dir * speed;
+                Controller2D2.move(velocity2 * Time.deltaTime);
+
+            
+        }
+
+        if(HunterWaypoints.enemyHp <= 0)
+        {
+            dogischasing = true;
+            float distance = Vector3.Distance(transform.position, player.position);
+
+
+            dir = (player.position - transform.position).normalized;
+            velocity2 = dir * speed;
+            Controller2D2.move(velocity2 * Time.deltaTime);
+
+        }
+    }
+    
 }

@@ -32,7 +32,7 @@ public class shoot : MonoBehaviour
     void onTriggerEnterEvent3(Collider2D col)
     {
         Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
-        if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Wall")
+        if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Wall" || col.gameObject.tag == "hunter")
         {
             Destroy(this.gameObject);
            
