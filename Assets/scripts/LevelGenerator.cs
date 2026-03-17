@@ -2,6 +2,9 @@ using System;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEngine.EventSystems.EventTrigger;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -18,6 +21,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject NextlevelTilePrefab;
     private SpriteRenderer TileColor;
     public Vector3[] waypoints = new Vector3[24];
+
     int a = 0;
     private Transform t;
     int Genlevel;
@@ -182,57 +186,11 @@ public class LevelGenerator : MonoBehaviour
                     case '#':
                         var wall = Instantiate(wallPrefab, position, Quaternion.identity, this.transform);
                         TileColor = wall.GetComponent<SpriteRenderer>();
-                        index3 = x + 1;
-                        index4 = x + 2;
-                       // Debug.Log($"index 1: {index3}|| index 2: {index4} || row.Leagth: {row.Length} ");
-                        if (index3 <= row.Length && index4 <= row.Length)
-                            if (index4 == row.Length)
-                            {
-                                a = -1; 
-                            }
-                        {
-                            switch (row[x + 1])
-                            {
-
-                                case 'g':
-                                    if (row[x + 2 + a] == 'd')
-                                    {
-                                        TileColor.color = new Color32(39, 102, 50, 255);
-                                    }
-                                    else
-                                    {
-                                        TileColor.color = new Color32(74, 155, 86, 255);
-                                    }
-                                    break;
-                                case 'b':
-                                    TileColor.color = new Color32(47, 47, 47, 255);
-                                    break;
-                                case 'y':
-                                    if (row[x + 2 + a] == 'd')
-                                    {
-                                        TileColor.color = new Color32(68, 68, 68, 255);
-                                    }
-                                    else if (row[x + 2 + a]  == 'y')
-                                    {
-                                        TileColor.color = new Color32(102, 102, 102, 255);
-                                    }
-
-                                    else
-                                    {
-                                        TileColor.color = new Color32(136, 136, 136, 255);
-                                    }
-                                    break;
-                                case 'r':
-                                    TileColor.color = new Color32(173, 56, 54, 255);
-                                    break;
-                            }
-                        }
+                        mapCollerSet(row, x);
                         gridx++;
                         a = 0;
                         break;
                     case '.':
-                       
-
                         gridx++;
                         break;
                     case 'P':
@@ -244,32 +202,16 @@ public class LevelGenerator : MonoBehaviour
                         switch (esindex)
                         {
                             case 1:
-                                var E1 = Instantiate(enemyPrefab, position, Quaternion.identity, this.transform);
-                                way = E1.GetComponent<WayPoints>();
-                                 way.offset = 0;
-                                way.MaxOffset = waypointoffseter;
-                                GameManager.Instance.enemycountAdd(1);
+                                enemyOffsetSet(position, 0, waypointoffseter, enemyPrefab);
                                 break;
                             case 2:
-                                var E2 = Instantiate(enemy2Prefab, position, Quaternion.identity, this.transform);
-                                way = E2.GetComponent<WayPoints>();
-                                way.offset = waypointoffseter;
-                                way.MaxOffset = waypointoffseter;
-                                GameManager.Instance.enemycountAdd(1);
+                                enemyOffsetSet(position, waypointoffseter, waypointoffseter, enemy2Prefab);
                                 break;
                             case 3:
-                                var E3 = Instantiate(enemyPrefab, position, Quaternion.identity, this.transform);
-                                way = E3.GetComponent<WayPoints>();
-                                way.offset = waypointoffseter * 2;
-                                way.MaxOffset = waypointoffseter;
-                                GameManager.Instance.enemycountAdd(1);
+                                enemyOffsetSet(position, waypointoffseter * 2, waypointoffseter, enemyPrefab);
                                 break;
                             case 4:
-                                var E4 = Instantiate(enemy2Prefab, position, Quaternion.identity, this.transform);
-                                way = E4.GetComponent<WayPoints>();
-                                way.offset = waypointoffseter * 3;
-                                way.MaxOffset = waypointoffseter;
-                                GameManager.Instance.enemycountAdd(1);
+                                enemyOffsetSet(position, waypointoffseter * 3, waypointoffseter, enemyPrefab);                                
                                 break;
                         }
 
@@ -332,53 +274,10 @@ public class LevelGenerator : MonoBehaviour
                     {
                         var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity, this.transform);
                         TileColor = groundTiles.GetComponent<SpriteRenderer>();
+                        mapCollerSet(row, x);
 
-                        index3 = x + 1;
-                        index4 = x + 2;
-                        if (index3 < row.Length && index4 < row.Length)
-                        {
-                            if (index4 == row.Length)
-                            {
-                                a = -1;
-                            }
-                            switch (row[x + 1])
-                            {
 
-                                case 'g':
-                                    if (row[x + 2 + a]  == 'd')
-                                    {
-                                        TileColor.color = new Color32(39, 102, 50, 255);
-                                    }
-                                    else
-                                    {
-                                        TileColor.color = new Color32(74, 155, 86, 255);
-                                    }
-                                    break;
-                                case 'b':
-                                    TileColor.color = new Color32(47, 47, 47, 255);
-                                    break;
-                                case 'y':
-                                    if (row[x + 2 + a]  == 'd')
-                                    {
-                                        TileColor.color = new Color32(68, 68, 68, 255);
-                                    }
-                                    else if (row[x + 2 + a] == 'y')
-                                    {
-                                        TileColor.color = new Color32(102, 102, 102, 255);
-                                    }
 
-                                    else
-                                    {
-                                        TileColor.color = new Color32(136, 136, 136, 255);
-                                    }
-                                    break;
-                                case 'r':
-                                    TileColor.color = new Color32(173, 56, 54, 255);
-                                    break;
-
-                            }
-                            
-                        }
                         a = 0;
                     }
                 }
@@ -400,5 +299,64 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
-    
+    void mapCollerSet(string row, int x)
+    {
+        index3 = x + 1;
+        index4 = x + 2;
+        // Debug.Log($"index 1: {index3}|| index 2: {index4} || row.Leagth: {row.Length} ");
+        if (index3 < row.Length && index4 <= row.Length)
+        {
+            if (index4 == row.Length)
+            {
+                a = -1;
+            }
+            switch (row[x + 1])
+            {
+
+                case 'g':
+                    if (row[x + 2 + a] == 'd')
+                    {
+                        TileColor.color = new Color32(39, 102, 50, 255);
+                    }
+                    else
+                    {
+                        TileColor.color = new Color32(74, 155, 86, 255);
+                    }
+                    break;
+                case 'b':
+                    TileColor.color = new Color32(47, 47, 47, 255);
+                    break;
+                case 'y':
+                    if (row[x + 2 + a] == 'd')
+                    {
+                        TileColor.color = new Color32(68, 68, 68, 255);
+                    }
+                    else if (row[x + 2 + a] == 'y')
+                    {
+                        TileColor.color = new Color32(102, 102, 102, 255);
+                    }
+
+                    else
+                    {
+                        TileColor.color = new Color32(136, 136, 136, 255);
+                    }
+                    break;
+                case 'r':
+                    TileColor.color = new Color32(173, 56, 54, 255);
+                    break;
+
+            }
+
+
+        }
+        a = 0;
+    }
+    void enemyOffsetSet(Vector3 position, int wayOffset, int wayMaxOffset, GameObject enemy)
+    {
+        var E = Instantiate(enemy, position, Quaternion.identity, this.transform);
+        way = E.GetComponent<WayPoints>();
+        way.offset = wayOffset;
+        way.MaxOffset = wayMaxOffset;
+        GameManager.Instance.enemycountAdd(1);
+    }
 }
