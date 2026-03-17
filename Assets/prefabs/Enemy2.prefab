@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 371643789594484817}
   m_Layer: 6
   m_Name: Enemy2
-  m_TagString: Enemy
+  m_TagString: hunter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,10 +107,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WayPoints
   offset: 6
+  MaxOffset: 6
   chase: 1
   isChasing: 0
   speed: 3
   chaseRange: 4
+  whichEnemy: 0
+  chaseDog: 0
   Iframs: 0
   enemyHp: 2
   mainColer: {r: 1, g: 0.019607844, b: 0.41960785, a: 1}

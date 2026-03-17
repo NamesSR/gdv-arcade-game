@@ -21,6 +21,8 @@ public class LevelGenerator : MonoBehaviour
     public GameObject NextlevelTilePrefab;
     private SpriteRenderer TileColor;
     public Vector3[] waypoints = new Vector3[24];
+    public static event Action startgame;
+    
 
     int a = 0;
     private Transform t;
@@ -31,46 +33,7 @@ public class LevelGenerator : MonoBehaviour
     int index4;
     int waypointoffseter;
 
-    string[][] levelData = {new string[]{
-        "6#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
-        "#b...Bg.........#b",
-        "#b.#b#b.#b#b.Wg11..Wg12..#b",
-        "#b.............#b",
-        "#b..Wg15...Eg1Wg10.....#b",
-        "#b....Bg........#b",
-        "#b..Wg14.......Wg13..#b",
-        "#b....Pg........#b",
-        "#b...........Bg.#b",
-        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
-    },
-      new string[]  {
-        "6#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
-        "#b.g.g.g.g.g.gWg25.g.g.gWg24.g.g#b",
-        "#b.g#b#b.g#b#b.g.gBg.g.g.g.g#b",
-        "#bWg14.g.g.g.g.g.g.g.gWg15.g.g.g#b",
-        "#b.g.g.g.gPg.g.g.g.g.gWg23.gWg22#b",
-        "#bBg.g.g.g.g.g.g.gEg1Wg10.gWg11.g#b",
-        "#b.g.g.g.g.gEg2Wg20.g.g.g.g.gWg21#b",
-        "#b.g#b#b#b#b#b#b#b#b#b.g.g.g#b",
-        "#bWg13.g.g.g.g.g.gBg.g.g.gWg12.g#b",
-        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
-
-
-    },
-      new string[]
-      {
-        "6#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b",
-        "#bWg12...Bg.....Wg11..#b",
-        "#b.#b#b.#b#b...Eg1Wg10Wg15.#b",
-        "#b.............#b",
-        "#bBg..Pg....#b#b#b..#b",
-        "#b..#b#b#b........#b",
-        "#bWg13..........Wg14.#b",
-        "#b.#b#b#b#b#b#b#b#b#b...#b",
-        "#b....Bg........#b",
-        "#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b"
-      },
-      new string[] 
+    string[][] levelData = {new string[]
       {
        "0#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
 "#gTgTgTg#gdTgTgTg#gdTgTgTgTg#gdTgTg#gdTgTgTgTg#gdTgTgTg#gdTgTgTgTg#gd",
@@ -116,7 +79,7 @@ public class LevelGenerator : MonoBehaviour
           "6#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d,",
 "#d#bTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyTyTyyTy#b#d,",
 "#d#bTyyTrTrTrTrTrTrTrTrTrTyTyy#b#b#bTyTyTrWr21TrTrTrTrTrTrWr22Ty#b#d,",
-"#d#bTyWr13TrTrWr14TrTrWr15Er1TrTyyTy#b#b#bTyTyyTrTrTrTrBrTrTrTrTrTy#b#d,",
+"#d#bTyWr13TrTrWr14TrTrWr15Er3TrTyyTy#b#b#bTyTyyTrTrTrTrBrTrTrTrTrTy#b#d,",
 "#d#bTyTrTrTyyTyTyTyTyWr10TrTyTy#b#b#bTyTyTrTrTyTyTyTyTyTrTrTy#b#d,",
 "#b#bTyTrTrTy#b#bTyTyyTrTrTyTyyTyTyTyTyTyTrTrTyyTy#b#bTyyTrTrTy#b#b,",
 "#yTyTyyTrTrTy#b#bTyTyTrTrTyTyTyTyTyyTyTyTrTrTyTy#b#bTyTrTrTyTyFyd,",
@@ -131,31 +94,36 @@ public class LevelGenerator : MonoBehaviour
 "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d,",
 "#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d,"
       }
-     
+
     };
 
-    
+
+
+
+
     void Start()
     {
        
         //GenerateLevel(); 
     }
+    
 
 
     public void GenerateLevel(int l)
     {
-        Debug.Log(2 + GameManager.Instance.level);
+        
         GameManager.Instance.level++;
+        Debug.Log(GameManager.Instance.level);
         gridx = 0;
         if (l == 0)
         {
-            Genlevel = 3;// UnityEngine.Random.Range(0, levelData.Length);
+            Genlevel = 2;// UnityEngine.Random.Range(0, levelData.Length);
         }
         else
         {
             if(GameManager.Instance.level < 4)
             {
-            Genlevel = 2 + GameManager.Instance.level; // UnityEngine.Random.Range(0, levelData.Length - 1);
+            Genlevel = GameManager.Instance.level - 1; // UnityEngine.Random.Range(0, levelData.Length - 1);
 
             }
             else
@@ -202,16 +170,16 @@ public class LevelGenerator : MonoBehaviour
                         switch (esindex)
                         {
                             case 1:
-                                enemyOffsetSet(position, 0, waypointoffseter, enemyPrefab);
+                                enemyOffsetSet(position, 0, waypointoffseter, enemyPrefab, 1, false);
                                 break;
                             case 2:
-                                enemyOffsetSet(position, waypointoffseter, waypointoffseter, enemy2Prefab);
+                                enemyOffsetSet(position, waypointoffseter, waypointoffseter, enemy2Prefab, 2, true);
                                 break;
                             case 3:
-                                enemyOffsetSet(position, waypointoffseter * 2, waypointoffseter, enemyPrefab);
+                                enemyOffsetSet(position, waypointoffseter * 2, waypointoffseter, enemyPrefab, 3, true);
                                 break;
                             case 4:
-                                enemyOffsetSet(position, waypointoffseter * 3, waypointoffseter, enemyPrefab);                                
+                                enemyOffsetSet(position, waypointoffseter * 3, waypointoffseter, enemyPrefab, 4, false);                                
                                 break;
                         }
 
@@ -285,7 +253,7 @@ public class LevelGenerator : MonoBehaviour
 
             gridx = 0;
         }
-
+        startgame.Invoke();
     }
     public void destroyLevel()
     {
@@ -351,12 +319,38 @@ public class LevelGenerator : MonoBehaviour
         }
         a = 0;
     }
-    void enemyOffsetSet(Vector3 position, int wayOffset, int wayMaxOffset, GameObject enemy)
+    void enemyOffsetSet(Vector3 position, int wayOffset, int wayMaxOffset, GameObject enemy, int whichEnemy, bool chashing)
     {
-        var E = Instantiate(enemy, position, Quaternion.identity, this.transform);
-        way = E.GetComponent<WayPoints>();
-        way.offset = wayOffset;
-        way.MaxOffset = wayMaxOffset;
-        GameManager.Instance.enemycountAdd(1);
+        if (chashing == false)
+        {
+            var E = Instantiate(enemy, position, Quaternion.identity, this.transform);
+            way = E.GetComponent<WayPoints>();
+            way.offset = wayOffset;
+            way.MaxOffset = wayMaxOffset;
+            way.whichEnemy = whichEnemy;
+            way.chase = false;
+            GameManager.Instance.enemycountAdd(1);
+        }
+        else
+        {
+            if(whichEnemy == 2) 
+            {
+                var chasingE = Instantiate(enemy, position, Quaternion.identity, this.transform);
+                way = chasingE.GetComponent<WayPoints>();
+                way.chase = true;
+            }
+            if(whichEnemy == 3)
+            {
+                var chasdogE = Instantiate(enemy, position, Quaternion.identity, this.transform);
+                way = chasdogE.GetComponent<WayPoints>();
+                way.chaseDog = true;
+
+            }
+            
+                way.offset = wayOffset;
+                way.MaxOffset = wayMaxOffset;
+                way.whichEnemy = whichEnemy;
+                GameManager.Instance.enemycountAdd(1);
+        }
     }
 }

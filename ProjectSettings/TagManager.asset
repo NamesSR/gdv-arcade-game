@@ -15,6 +15,7 @@ TagManager:
   - GameOver
   - nextlevel
   - boss
+  - hunter
   layers:
   - Default
   - TransparentFX
