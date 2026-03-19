@@ -114,6 +114,7 @@ MonoBehaviour:
   AttackRange: 0.5
   CanShoot: 1
   dir: {x: 1, y: 0, z: 0}
+  dir2: {x: 0, y: 0, z: 0}
   angle: 0
   FireBallPrefab: {fileID: 1419254304389681315, guid: f7f13990b17287e4898ee4e89c2d5882, type: 3}
   enemyLayers:
@@ -124,6 +125,8 @@ MonoBehaviour:
   damage: 1
   mele: 0
   AttackRate: 3
+  hunter: {fileID: 8089858873837670657, guid: 7491ce0823d488e4aa841c5408fd030e, type: 3}
+  enemy1: {fileID: 4605030662261421260, guid: f7a27890873c3814e9966860e377b476, type: 3}
   mainColer: {r: 0, g: 0.18431373, b: 1, a: 1}
 --- !u!61 &1488163860176197407
 BoxCollider2D:
@@ -257,7 +260,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   totalHorizontalRays: 8
-  totalVerticalRays: 4
+  totalVerticalRays: 8
 --- !u!1 &7006697594529841737
 GameObject:
   m_ObjectHideFlags: 0

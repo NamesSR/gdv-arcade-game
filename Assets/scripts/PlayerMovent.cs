@@ -13,6 +13,7 @@ public class PlayerMovent : MonoBehaviour
     public float AttackRange = 0.5f;
     public bool CanShoot = true;
     public Vector3 dir;
+    public Vector3 dir2;
     public float angle;
     public GameObject FireBallPrefab;
     public LayerMask enemyLayers;
@@ -21,11 +22,15 @@ public class PlayerMovent : MonoBehaviour
     public int damage = 1;
     public bool mele = true;
     private Vector3 velocity;
+    private Vector3 velocity2;
+    
     private RaycastHit2D _lastControllerColliderHit;
     private CharacterController2D Controller2D;
     float nextAttackTime = 0f;
     public float AttackRate = 2f;
     private SpriteRenderer Coller;
+    public  WayPoints hunter;
+    public WayPoints enemy1;
     public Color mainColer;
     bool Iframs = false;
 
@@ -37,27 +42,49 @@ public class PlayerMovent : MonoBehaviour
         Controller2D.onControllerCollidedEvent += onControllerCollider;
         Controller2D.onTriggerEnterEvent += onTriggerEnterEvent;
         Controller2D.onTriggerStayEvent += onTriggerStayEvent;
-
+        LevelGenerator.startgame += loaddateforenemy;
 
         AttackPoint = GameObject.FindGameObjectWithTag("attackPoint").transform;
         Coller = GetComponent<SpriteRenderer>();
         Coller.color = mainColer;
     }
-
+    void loaddateforenemy()
+    {
+        if (GameManager.Instance.enemyCount > 0)
+        {
+            enemy1 = GameObject.FindGameObjectWithTag("Enemy").GetComponent<WayPoints>();
+        }
+        if (GameManager.Instance.enemyCount > 1){
+            hunter = GameObject.FindGameObjectWithTag("hunter").GetComponent<WayPoints>();
+        }
+    }
     void onTriggerStayEvent(Collider2D col)
     {
-        if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "hunter")
+        if (col.gameObject.tag == "Enemy")
         {
             
             
                 if (Iframs == false)
                 {
+                 
+
                     GameManager.Instance.TakeDamage(1);
-                    StartCoroutine(Iframsv2());
+                nockback();
+                StartCoroutine(Iframsv2());
 
                 }
             
                 
+        }
+        else if (col.gameObject.tag == "hunter")
+        {
+            if (Iframs == false)
+            {
+                GameManager.Instance.TakeDamage(1);
+                nockback();
+                StartCoroutine(Iframsv2());
+
+            }
         }
     }
     void onControllerCollider(RaycastHit2D hit)
@@ -74,18 +101,29 @@ public class PlayerMovent : MonoBehaviour
     void onTriggerEnterEvent(Collider2D col)
     {
         Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
-        if(col.gameObject.tag == "Enemy" || col.gameObject.tag == "hunter")
+        if (col.gameObject.tag == "Enemy")
         {
-            
-            
-                if (Iframs == false)
-                {
-                    GameManager.Instance.TakeDamage(1);
-                    StartCoroutine(Iframsv2());
-                    
-                }
-            
-                
+
+
+            if (Iframs == false)
+            {
+                GameManager.Instance.TakeDamage(1);
+                nockback();
+                StartCoroutine(Iframsv2());
+
+            }
+
+
+        }
+        else if (col.gameObject.tag == "hunter")
+        {
+            if (Iframs == false)
+            {
+                GameManager.Instance.TakeDamage(1);
+                nockback();
+                StartCoroutine(Iframsv2());
+
+            }
         }
 
         if (col.CompareTag("nextlevel")) 
@@ -126,6 +164,7 @@ public class PlayerMovent : MonoBehaviour
             {
                 if (Input.GetMouseButton(0))
                 {
+                    
 
                     Attack();
                     nextAttackTime = Time.time + 1f / AttackRate;
@@ -184,6 +223,7 @@ public class PlayerMovent : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
+                dir2 = dir;
                 GameObject projectile = Instantiate(FireBallPrefab);
                 CanShoot = false;
                 StartCoroutine(AttackCoolDown());
@@ -218,7 +258,7 @@ public class PlayerMovent : MonoBehaviour
             if (GameManager.Instance.vulnerable == true)
             {
                 Debug.Log("vunerable");
-                enemy.GetComponent<WayPoints>().takeDamage(damage);
+                enemy.GetComponent<WayPoints>().takeDamage(damage, 20f);
             }
         }
     }
@@ -229,5 +269,17 @@ public class PlayerMovent : MonoBehaviour
             
         
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
+    }
+    void nockback()
+    {
+        
+            velocity2.x = Mathf.Lerp(velocity2.x, enemy1.dir.x * 20f, Time.deltaTime * 20f);
+            velocity2.y = Mathf.Lerp(velocity2.y, enemy1.dir.y * 20f, Time.deltaTime * 20f);
+
+
+            Controller2D.move(velocity2 * Time.deltaTime);
+            velocity = Controller2D.velocity;
+        
+       
     }
 }

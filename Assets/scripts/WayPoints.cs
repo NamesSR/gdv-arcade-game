@@ -17,8 +17,13 @@ public class WayPoints : MonoBehaviour
     public bool chaseDog = false;
     Transform HunterTransform;
     WayPoints HunterWaypoints;
+    PlayerMovent playerMovent;
     LevelGenerator lg;
-    private Vector3 dir;
+   
+  //  public GameObject sho;
+    public Vector3 dir;
+    
+    Vector3 velocity3;
     public bool Iframs = false;
     private int currentWaypointIndex = 0;
     GameObject levlg;
@@ -43,6 +48,7 @@ public class WayPoints : MonoBehaviour
     private void Awake()
     {
         lg = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
+       // s = sho.GetComponent<shoot>();
         Controller2D2 = GetComponent<CharacterController2D>();
         Controller2D2.onControllerCollidedEvent += onControllerCollider2;
         Controller2D2.onTriggerEnterEvent += onTriggerEnterEvent2;
@@ -63,6 +69,7 @@ public class WayPoints : MonoBehaviour
     }
     void loaddateforenemy()
     {
+        playerMovent = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovent>();
         if (whichEnemy == 3)
         {
             if (chaseDog == true)
@@ -80,9 +87,14 @@ public class WayPoints : MonoBehaviour
         Debug.Log("hit");
         if (col.gameObject.tag == "Attack")
         {
+           
           if(GameManager.Instance.vulnerable == true)
           {
-                takeDamage(GameManager.Instance.FireBallDagame);
+
+                Debug.Log($"check 1: s.dir2: {playerMovent.dir2} dir: {dir}");
+                //dir = playerMovent.dir2;
+                Debug.Log($"check 2: s.dir2: {playerMovent.dir2} dir: {dir}");
+                takeDamage(GameManager.Instance.FireBallDagame, 30f);
           }
         }
         
@@ -110,15 +122,15 @@ public class WayPoints : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (whichEnemy == 1)
+        if (whichEnemy == 1 && Iframs == false)
         {
             moveToWaypoint();
         }
-        if (whichEnemy == 2)
+        if (whichEnemy == 2 && Iframs == false)
         {
             chasing();
         }
-        if (whichEnemy == 3)
+        if (whichEnemy == 3 && Iframs == false)
         {
             if(chaseDog == true)
             {
@@ -126,6 +138,10 @@ public class WayPoints : MonoBehaviour
                 chasingdog();
 
             }
+        }
+        if (whichEnemy == 4 && Iframs == false)
+        {
+            moveToWaypoint();
         }
 
     }   
@@ -159,15 +175,27 @@ public class WayPoints : MonoBehaviour
        
     }
    
-   public void takeDamage(int Damage)
+   public void takeDamage(int Damage, float knockback)
     {
         if (Iframs == false)
         {
             enemyHp -= Damage;
+            Debug.Log($"check 1: s.dir2: {playerMovent.dir2} dir: {dir}");
+            
+            Debug.Log($"check 2: s.dir2: {playerMovent.dir2} dir: {dir}");
+            velocity2.x = Mathf.Lerp(velocity2.x, playerMovent.dir2.x * knockback, Time.deltaTime * 20f);
+            velocity2.y = Mathf.Lerp(velocity2.y, playerMovent.dir2.y * knockback, Time.deltaTime * 20f);
+
+
+            Controller2D2.move(velocity2 * Time.deltaTime);
+            velocity2 = Controller2D2.velocity;
+            
+            
             Iframs = true;
             StartCoroutine(IFramsV());
         }
 
+        
 
         if (enemyHp <= 0)
         {
@@ -175,6 +203,7 @@ public class WayPoints : MonoBehaviour
             GameManager.Instance.AddPoints(50);
             GameManager.Instance.enemyCount--;
         }
+        
     }
     void chasing()
     {
@@ -228,7 +257,7 @@ public class WayPoints : MonoBehaviour
             
         }
 
-        if(HunterWaypoints.enemyHp <= 0)
+        if(HunterWaypoints.enemyHp <= 0 || HunterTransform == null)
         {
             dogischasing = true;
             float distance = Vector3.Distance(transform.position, player.position);
