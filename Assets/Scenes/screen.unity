@@ -272,6 +272,9 @@ MonoBehaviour:
   scoreUI: {fileID: 1919317993}
   GameOverbuttonUI: {fileID: 1128766932}
   StartGameButtonUI: {fileID: 779142422}
+  Inventory:
+  - {fileID: 0}
+  - {fileID: 0}
   currentState: 0
 --- !u!4 &213443691
 Transform:
@@ -1246,7 +1249,7 @@ GameObject:
   - component: {fileID: 1190703206}
   - component: {fileID: 1190703205}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: debugscript
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1265,6 +1268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   l: {fileID: 1306535993}
+  scoreUI: {fileID: 0}
 --- !u!4 &1190703206
 Transform:
   m_ObjectHideFlags: 0

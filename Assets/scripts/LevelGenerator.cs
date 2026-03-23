@@ -76,23 +76,23 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       {
-          "6#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d,",
-"#d#bTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyTyTyyTy#b#d,",
-"#d#bTyyTrTrTrTrTrTrTrTrTrTyTyy#b#b#bTyTyTrWr21TrTrTrTrTrTrWr22Ty#b#d,",
-"#d#bTyWr13TrTrWr14TrTrWr15Er3TrTyyTy#b#b#bTyTyyTrTrTrTrBrTrTrTrTrTy#b#d,",
-"#d#bTyTrTrTyyTyTyTyTyWr10TrTyTy#b#b#bTyTyTrTrTyTyTyTyTyTrTrTy#b#d,",
-"#b#bTyTrTrTy#b#bTyTyyTrTrTyTyyTyTyTyTyTyTrTrTyyTy#b#bTyyTrTrTy#b#b,",
-"#yTyTyyTrTrTy#b#bTyTyTrTrTyTyTyTyTyyTyTyTrTrTyTy#b#bTyTrTrTyTyFyd,",
-"#rTrTrTrTrTy#b#bTyTyyTrTrTrTrTrBrTrTrTrTrTrTyTyy#b#bTyTrTrTrTrFyd,",
-"#rTrPrTrTrTyy#b#bTyTyTrTrTrTrTrTrTrTrTrTrTrTyTy#b#bTyTrWr23TrTrFyd,",
-"#yTyyTyTrTrTy#b#bTyTyTrTrTyTyTyTyTyTyTyTrTrTyTy#b#bTyyTrTrTyTyFyd,",
-"#b#bTyTrTrTy#b#bTyyTyTrTrTyTyTyyTyTyTyyTyTrTrTyyTy#b#bTyTrTrTy#b#b,",
-"#d#bTyTrTrTyTyyTyTyTyTrTrTyyTy#b#b#bTyTyTrWr20TyTyTyTyTyTrTrTyy#b#d,",
-"#d#bTyyWr12TrTrTrTrTrTrWr11TrTyTy#b#b#bTyTyyTrEr2TrWr25TrTrTrTrWr24Ty#b#d,",
-"#d#bTyTrTrTrTrBrTrTrTrTrTyTy#b#b#bTyTyTrTrTrTrTrTrTrTrTrTy#b#d,",
-"#d#bTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyTyyTyTy#b#d,",
-"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d,",
-"#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d,"
+          "6#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyTyTyyTy#b#d",
+"#d#bTyyTrTrTrTrTrTrTrTrTrTyTyy#b#b#bTyTyTrWr21TrTrTrTrTrTrWr22Ty#b#d",
+"#d#bTyWr43TrTrWr44TrTrWr45Er4TrTyyTy#b#b#bTyTyyTrTrTrTrBrTrTrTrTrTy#b#d",
+"#d#bTyTrTrTyyTyTyTyTyWr40TrTyTy#b#b#bTyTyTrTrTyTyTyTyTyTrTrTy#b#d",
+"#b#bTyTrTrTy#b#bTyTyyTrTrTyTyyTyTyTyTyTyTrTrTyyTy#b#bTyyTrTrTy#b#b",
+"#yTyTyyTrTrTy#b#bTyTyTrTrTyTyTyTyTyyTyTyTrTrTyTy#b#bTyTrTrTyTyFyd",
+"#rTrTrTrTrTy#b#bTyTyyTrTrTrTrTrBrTrTrTrTrTrTyTyy#b#bTyTrTrTrTrFyd",
+"#rTrPrTrTrTyy#b#bTyTyTrTrTrTrTrTrTrTrTrTrTrTyTy#b#bTyTrWr23TrTrFyd",
+"#yTyyTyTrTrTy#b#bTyTyTrTrTyTyTyTyTyTyTyTrTrTyTy#b#bTyyTrTrTyTyFyd",
+"#b#bTyTrTrTy#b#bTyyTyTrTrTyTyTyyTyTyTyyTyTrTrTyyTy#b#bTyTrTrTy#b#b",
+"#d#bTyTrTrTyTyyTyTyTyTrTrTyyTy#b#b#bTyTyTrWr20TyTyTyTyTyTrTrTyy#b#d",
+"#d#bTyyWr42TrTrTrTrTrTrWr41TrTyTy#b#b#bTyTyyTrEr2TrWr25TrTrTrTrWr24Ty#b#d",
+"#d#bTyTrTrTrTrBrTrTrTrTrTyTy#b#b#bTyTyTrTrTrTrTrTrTrTrTrTy#b#d",
+"#d#bTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyTyyTyTy#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d"
       }
 
     };
@@ -117,7 +117,7 @@ public class LevelGenerator : MonoBehaviour
         gridx = 0;
         if (l == 0)
         {
-            Genlevel = 0;// UnityEngine.Random.Range(0, levelData.Length);
+            Genlevel = 2;// UnityEngine.Random.Range(0, levelData.Length);
         }
         else
         {

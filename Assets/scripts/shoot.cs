@@ -14,16 +14,16 @@ public class shoot : MonoBehaviour
     public Vector3 velosty;
     void Start()
     {
-        transform.position = go.transform.position;
-        dir2 = g.dir;
+       // transform.position = go.transform.position;
+        
         Controller2D3.onTriggerEnterEvent += onTriggerEnterEvent3;
 
     }
     private void Awake()
     {
         Controller2D3 = GetComponent<CharacterController2D>();
-        go = GameObject.FindGameObjectWithTag("Player");
-        g = go.GetComponent<PlayerMovent>();
+        //go = GameObject.FindGameObjectWithTag("Player");
+        //g = go.GetComponent<PlayerMovent>();
 
         
 

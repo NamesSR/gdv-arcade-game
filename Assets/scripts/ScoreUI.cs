@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
@@ -7,6 +8,7 @@ public class ScoreUI : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI ClasUI;
+   
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,7 +19,7 @@ public class ScoreUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+            
     }
     public void ScoreUpdate(int score)
     {
@@ -40,4 +42,5 @@ public class ScoreUI : MonoBehaviour
     {
         ClasUI.text = Clas;
     }
+  
 }

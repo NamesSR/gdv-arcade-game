@@ -1,10 +1,12 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class test : MonoBehaviour
 {
     public LevelGenerator l;
-   
+    public ScoreUI scoreUI;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,7 +33,14 @@ public class test : MonoBehaviour
             StartCoroutine(WaitV());
 
         }
-       
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            GameManager.Instance.vulnerable = true;
+            GameManager.Instance.hp = 100;
+            scoreUI.HpUpdate(GameManager.Instance.hp);
+
+        }
+
     }
     IEnumerator WaitV()
     {
@@ -39,5 +48,6 @@ public class test : MonoBehaviour
         yield return new WaitForSeconds(0.001f);
         l.GenerateLevel(1);
     }
+     
 
 }

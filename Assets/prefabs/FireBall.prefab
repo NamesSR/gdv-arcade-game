@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   go: {fileID: 0}
+  dir2: {x: 0, y: 0, z: 0}
   velosty: {x: 0, y: 0, z: 0}
 --- !u!61 &-2602051805678339841
 BoxCollider2D:

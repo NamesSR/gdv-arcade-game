@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+//using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlayerMovent : MonoBehaviour
 {
@@ -32,7 +33,9 @@ public class PlayerMovent : MonoBehaviour
     public  WayPoints hunter;
     public WayPoints enemy1;
     public Color mainColer;
+    Transform transform23;
     bool Iframs = false;
+    shoot shoot;
 
 
 
@@ -69,7 +72,7 @@ public class PlayerMovent : MonoBehaviour
                  
 
                     GameManager.Instance.TakeDamage(1);
-                nockback();
+                nockback(20f);
                 StartCoroutine(Iframsv2());
 
                 }
@@ -81,7 +84,17 @@ public class PlayerMovent : MonoBehaviour
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback();
+                nockback(20f);
+                StartCoroutine(Iframsv2());
+
+            }
+        }
+        else if (col.gameObject.tag == "EnemyAttack")
+        {
+            if (Iframs == false)
+            {
+                GameManager.Instance.TakeDamage(1);
+                nockback(15f);
                 StartCoroutine(Iframsv2());
 
             }
@@ -108,7 +121,7 @@ public class PlayerMovent : MonoBehaviour
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback();
+                nockback(20f);
                 StartCoroutine(Iframsv2());
 
             }
@@ -120,7 +133,17 @@ public class PlayerMovent : MonoBehaviour
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback();
+                nockback(20f);
+                StartCoroutine(Iframsv2());
+
+            }
+        }
+        else if(col.gameObject.tag == "EnemyAttack")
+        {
+            if (Iframs == false)
+            {
+                GameManager.Instance.TakeDamage(1);
+                nockback(15f);
                 StartCoroutine(Iframsv2());
 
             }
@@ -188,10 +211,10 @@ public class PlayerMovent : MonoBehaviour
         var smoothedMovementFactor = groundDamping; // how fast do we change direction?
          
 
-        velocity.x = Mathf.Lerp(velocity.x, x * speed, Time.deltaTime * smoothedMovementFactor);
+        velocity.x = Mathf.Lerp(velocity.x, x * GameManager.Instance.speed, Time.deltaTime * smoothedMovementFactor);
 
 
-        velocity.y = Mathf.Lerp(velocity.y, y * speed, Time.deltaTime * smoothedMovementFactor);
+        velocity.y = Mathf.Lerp(velocity.y, y * GameManager.Instance.speed, Time.deltaTime * smoothedMovementFactor);
         if (y != 0 || x != 0)
         {
            dir = new Vector3(x, y, 0);
@@ -225,6 +248,11 @@ public class PlayerMovent : MonoBehaviour
             {
                 dir2 = dir;
                 GameObject projectile = Instantiate(FireBallPrefab);
+                transform23 = projectile.transform;
+                transform23.position = transform.position;
+                shoot = projectile.GetComponent<shoot>();
+                shoot.dir2 = dir;
+
                 CanShoot = false;
                 StartCoroutine(AttackCoolDown());
             }
@@ -258,7 +286,7 @@ public class PlayerMovent : MonoBehaviour
             if (GameManager.Instance.vulnerable == true)
             {
                 Debug.Log("vunerable");
-                enemy.GetComponent<WayPoints>().takeDamage(damage, 20f);
+                enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage, 20f);
             }
         }
     }
@@ -270,11 +298,11 @@ public class PlayerMovent : MonoBehaviour
         
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
-    void nockback()
+    void nockback(float knockBack)
     {
         
-            velocity2.x = Mathf.Lerp(velocity2.x, enemy1.dir.x * 20f, Time.deltaTime * 20f);
-            velocity2.y = Mathf.Lerp(velocity2.y, enemy1.dir.y * 20f, Time.deltaTime * 20f);
+            velocity2.x = Mathf.Lerp(velocity2.x, enemy1.dir.x * knockBack, Time.deltaTime * 20f);
+            velocity2.y = Mathf.Lerp(velocity2.y, enemy1.dir.y * knockBack, Time.deltaTime * 20f);
 
 
             Controller2D.move(velocity2 * Time.deltaTime);
