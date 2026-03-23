@@ -8,7 +8,7 @@ public class shoot : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     PlayerMovent g;
    public GameObject go;
-    Vector3 dir2;
+   public Vector3 dir2;
     CharacterController2D Controller2D3;
     float speed = 8f;
     public Vector3 velosty;

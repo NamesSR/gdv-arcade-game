@@ -114,7 +114,9 @@ MonoBehaviour:
   chaseRange: 4
   whichEnemy: 0
   chaseDog: 0
+  playerMovent: {fileID: 6559907360353652895, guid: 45c3cbb9a93efdb47bf5ee0db1838d8b, type: 3}
   Iframs: 0
+  dogischasing: 0
   enemyHp: 2
   mainColer: {r: 1, g: 0.019607844, b: 0.41960785, a: 1}
 --- !u!61 &4487844811101134396
