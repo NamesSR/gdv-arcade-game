@@ -217,10 +217,10 @@ MonoBehaviour:
   _skinWidth: 0.02
   platformMask:
     serializedVersion: 2
-    m_Bits: 33344
+    m_Bits: 98880
   triggerMask:
     serializedVersion: 2
-    m_Bits: 33856
+    m_Bits: 230464
   oneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 0

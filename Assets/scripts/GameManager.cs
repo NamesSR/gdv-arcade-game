@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 public enum GameState
@@ -34,7 +36,13 @@ public class GameManager : MonoBehaviour
  public ScoreUI scoreUI;
  public buttonUI GameOverbuttonUI;
  public buttonUI StartGameButtonUI;
- 
+ public float speed;
+ public int damage = 2;
+    public int AddHp = 0;
+    public int AddDamage = 0;
+    public int AddMageDamage = 0;
+    public float AddSpeed = 0f;
+    //public List<GameObject> Inventory;
 
 
     public static GameManager Instance;
@@ -194,16 +202,28 @@ public class GameManager : MonoBehaviour
     void LoadGameData()
     {
      score = 0;
-     hp = 3;
+     
      level = 0;
      vulnerable = false;
      //Ehp = 2;
      BossHp = 3;
-     FireBallDagame = 1;
+    
      enemyCount = 0;
      powerOrbCount = 0;
     
      switsing = false;
+     if(Clas == "Mage")
+        {
+            hp = 3 + AddHp;
+            FireBallDagame = 1 + AddMageDamage;
+            speed = 6f + AddSpeed;
+        }
+     if(Clas == "Knight")
+        {
+            hp = 4 + AddHp;
+            damage = 2 + AddDamage;
+            speed = 5f + AddSpeed;
+        }
      
      scoreUI.ClasUpdate(Clas);
      scoreUI.Resetscore();

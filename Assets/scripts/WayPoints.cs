@@ -35,7 +35,14 @@ public class WayPoints : MonoBehaviour
     public int enemyHp = 2;
     private SpriteRenderer enemyColler;
     public Color mainColer;
-
+     shoot shoot;
+    Vector3 dir234;
+    Transform shootransform;
+    float nextAttackTime = 0f;
+    public float AttackRate = 2f;
+    bool movetoWaypoints234 = false;
+    float next = 0f;
+    public GameObject FireBallEnemyprefab;
     private void Start()
     {
         
@@ -94,8 +101,24 @@ public class WayPoints : MonoBehaviour
                 Debug.Log($"check 1: s.dir2: {playerMovent.dir2} dir: {dir}");
                 //dir = playerMovent.dir2;
                 Debug.Log($"check 2: s.dir2: {playerMovent.dir2} dir: {dir}");
-                takeDamage(GameManager.Instance.FireBallDagame, 30f);
+                takeDamage(GameManager.Instance.FireBallDagame, 50f);
           }
+        }
+        if (col.gameObject.tag == "Wall")
+        {
+            if (Time.time >= next)
+            {
+                if (currentWaypointIndex >= offset + MaxOffset)
+                {
+                    currentWaypointIndex = offset;
+                }
+                else
+                {
+
+                    currentWaypointIndex++;
+                }
+                next = Time.time + 1f / 10f;
+            }
         }
         
 
@@ -141,14 +164,15 @@ public class WayPoints : MonoBehaviour
         }
         if (whichEnemy == 4 && Iframs == false)
         {
-            moveToWaypoint();
+            shootingEnemy();
         }
 
     }   
     void moveToWaypoint()
     {
-        
-        
+            movetoWaypoints234 = true;
+
+
             if (lg.waypoints.Length == currentWaypointIndex) return;
 
             // Huidige waypoint
@@ -162,7 +186,7 @@ public class WayPoints : MonoBehaviour
 
         // Check of we er zijn
         if (Vector3.Distance(transform.position, target) < 0.1f)
-            {
+        {
                 // Volgende waypoint
                 currentWaypointIndex++;
 
@@ -171,7 +195,8 @@ public class WayPoints : MonoBehaviour
                 {
                     currentWaypointIndex = offset;
                 }
-            }
+        }
+        
        
     }
    
@@ -219,6 +244,7 @@ public class WayPoints : MonoBehaviour
 
             if (distance < chaseRange)
             {
+                movetoWaypoints234 = false;
                 isChasing = true;
                 dir = (player.position - transform.position).normalized;
                 velocity2 = dir * speed;
@@ -232,8 +258,36 @@ public class WayPoints : MonoBehaviour
 
         }
     }
+    void shootingEnemy()
+    {
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance > chaseRange)
+        {
+            moveToWaypoint();
+        }
+        else
+        {
+            movetoWaypoints234 = false;
+            shoot23();
+        }
+    }
+    void shoot23()
+    {
+        if (Time.time >= nextAttackTime)
+        {
+            dir234 = (player.position - transform.position).normalized;
+            var FireBallEnemy = Instantiate(FireBallEnemyprefab);
+            shootransform = FireBallEnemy.transform;
+            shootransform.position = transform.position;
+            shoot = FireBallEnemy.GetComponent<shoot>();
+            shoot.dir2 = dir234;
+            nextAttackTime = Time.time + 1 / AttackRate;
+        }
+
+    }
     void chasingdog()
     {
+
         if (HunterWaypoints.isChasing == false && dogischasing == false)
         {
             float distance = Vector3.Distance(transform.position, HunterTransform.position);
