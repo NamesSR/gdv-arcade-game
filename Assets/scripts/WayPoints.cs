@@ -1,5 +1,6 @@
 using Prime31;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,9 +18,10 @@ public class WayPoints : MonoBehaviour
     public bool chaseDog = false;
     Transform HunterTransform;
     WayPoints HunterWaypoints;
-    PlayerMovent playerMovent;
+    public PlayerMovent playerMovent;
     LevelGenerator lg;
-   
+    public Node currentNode;
+    public List<Node> path;
   //  public GameObject sho;
     public Vector3 dir;
     

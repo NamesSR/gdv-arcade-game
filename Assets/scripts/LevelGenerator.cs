@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class LevelGenerator : MonoBehaviour
     public GameObject PowerOrbPrefab;
     public GameObject groundTilePrefab;
     public GameObject NextlevelTilePrefab;
+    public Node nodePrefab;
+    public List<Node> nodeList;
     private SpriteRenderer TileColor;
     public Vector3[] waypoints = new Vector3[24];
     public static event Action startgame;
@@ -243,6 +246,8 @@ public class LevelGenerator : MonoBehaviour
                         var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity, this.transform);
                         TileColor = groundTiles.GetComponent<SpriteRenderer>();
                         mapCollerSet(row, x);
+                        Node n = Instantiate(nodePrefab, new Vector3(gridx + 0.5f, y + 0.5f, 0), Quaternion.identity, this.transform);
+                        nodeList.Add(n);
 
 
 
@@ -253,6 +258,7 @@ public class LevelGenerator : MonoBehaviour
 
             gridx = 0;
         }
+        ConnectNodes();
         startgame.Invoke();
     }
     public void destroyLevel()
@@ -351,6 +357,20 @@ public class LevelGenerator : MonoBehaviour
                 way.MaxOffset = wayMaxOffset;
                 way.whichEnemy = whichEnemy;
                 GameManager.Instance.enemycountAdd(1);
+        }
+    }
+    public void ConnectNodes()
+    {
+        for (int i = 0; i < nodeList.Count; i++)
+        {
+            for (int j = i + 1; j < nodeList.Count; j++)
+            {
+                if (Vector2.Distance(nodeList[i].transform.position, nodeList[j].transform.position) <= 2.0f)
+                {
+                    nodeList[i].connections.Add(nodeList[j]);
+                    nodeList[j].connections.Add(nodeList[i]);
+                }
+            }
         }
     }
 }

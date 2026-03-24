@@ -272,9 +272,12 @@ MonoBehaviour:
   scoreUI: {fileID: 1919317993}
   GameOverbuttonUI: {fileID: 1128766932}
   StartGameButtonUI: {fileID: 779142422}
-  Inventory:
-  - {fileID: 0}
-  - {fileID: 0}
+  speed: 0
+  damage: 2
+  AddHp: 0
+  AddDamage: 0
+  AddMageDamage: 0
+  AddSpeed: 0
   currentState: 0
 --- !u!4 &213443691
 Transform:
@@ -1457,6 +1460,8 @@ MonoBehaviour:
   PowerOrbPrefab: {fileID: 2149494556136846080, guid: 7cb3f11c22f32c44f9f93ffece08bfb5, type: 3}
   groundTilePrefab: {fileID: 5888367800521781257, guid: 83c67641e108f9a4b8403ecb44024773, type: 3}
   NextlevelTilePrefab: {fileID: 7524922517238911674, guid: bd6995a0028fb1e438db688425622483, type: 3}
+  nodePrefab: {fileID: 0}
+  nodeList: []
   waypoints:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
