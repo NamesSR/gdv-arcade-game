@@ -10,6 +10,7 @@ public class ANodeStartManager : MonoBehaviour
         instance = this;
     }
 
+
     public List<Node> GeneratePath(Node start, Node end)
     {
         List<Node> openSet = new List<Node>();
@@ -18,24 +19,27 @@ public class ANodeStartManager : MonoBehaviour
         {
             n.gScore = float.MaxValue;
         }
+
         start.gScore = 0;
-        start.gScore = Vector2.Distance(start.transform.position, end.transform.position);
+        start.hScore = Vector2.Distance(start.transform.position, end.transform.position);
+        openSet.Add(start);
 
         while (openSet.Count > 0)
         {
             int lowestF = default;
 
-            for (int i = 1; i < openSet.Count; i++) 
+            for (int i = 1; i < openSet.Count; i++)
             {
                 if (openSet[i].FScore() < openSet[lowestF].FScore())
                 {
                     lowestF = i;
                 }
             }
+
             Node currentNode = openSet[lowestF];
             openSet.Remove(currentNode);
 
-            if(currentNode == end)
+            if (currentNode == end)
             {
                 List<Node> path = new List<Node>();
 
@@ -46,19 +50,20 @@ public class ANodeStartManager : MonoBehaviour
                     currentNode = currentNode.cameFrom;
                     path.Add(currentNode);
                 }
+
                 path.Reverse();
                 return path;
             }
 
-            foreach(Node connectedNode in currentNode.connections)
+            foreach (Node connectedNode in currentNode.connections)
             {
                 float heldGScore = currentNode.gScore + Vector2.Distance(currentNode.transform.position, connectedNode.transform.position);
 
-                if(heldGScore < connectedNode.gScore)
+                if (heldGScore < connectedNode.gScore)
                 {
                     connectedNode.cameFrom = currentNode;
                     connectedNode.gScore = heldGScore;
-                    connectedNode.hScore =  Vector2.Distance(connectedNode.transform.position, end.transform.position);
+                    connectedNode.hScore = Vector2.Distance(connectedNode.transform.position, end.transform.position);
 
                     if (!openSet.Contains(connectedNode))
                     {
@@ -67,35 +72,41 @@ public class ANodeStartManager : MonoBehaviour
                 }
             }
         }
+
         return null;
     }
+
     public Node FindNearestNode(Vector2 pos)
     {
         Node foundNode = null;
         float minDistance = float.MaxValue;
-        foreach(Node n in NodesInScene())
+
+        foreach (Node node in FindObjectsByType<Node>(FindObjectsSortMode.None))
         {
-            float currentDistance = Vector2.Distance(pos, n.transform.position);
-            if(currentDistance < minDistance)
+            float currentDistance = Vector2.Distance(pos, node.transform.position);
+
+            if (currentDistance < minDistance)
             {
                 minDistance = currentDistance;
-                foundNode = n;
+                foundNode = node;
             }
         }
+
         return foundNode;
     }
+
     public Node FindFurthestNode(Vector2 pos)
     {
         Node foundNode = null;
-        float maxDistance = 0;
+        float maxDistance = default;
 
-        foreach(Node n in NodesInScene())
+        foreach (Node node in FindObjectsByType<Node>(FindObjectsSortMode.None))
         {
-            float currentDistance = Vector2.Distance(pos, n.transform.position);
+            float currentDistance = Vector2.Distance(pos, node.transform.position);
             if (currentDistance > maxDistance)
             {
                 maxDistance = currentDistance;
-                foundNode = n;
+                foundNode = node;
             }
         }
 

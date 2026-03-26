@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 55.17681, y: -3.53392, z: 0}
-  m_LocalScale: {x: 0.95, y: 0.95, z: 0.95}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,13 +114,15 @@ MonoBehaviour:
   chaseRange: 4
   whichEnemy: 0
   chaseDog: 0
+  currentNode: {fileID: 2660570399259680119, guid: 3b5c52cdebcc7554a9bb2ed4fefc8478, type: 3}
+  path: []
   dir: {x: 0, y: 0, z: 0}
   Iframs: 0
-  dogischasing: 0
   enemyHp: 2
   mainColer: {r: 1, g: 0.019607844, b: 0.41960785, a: 1}
   AttackRate: 2
   FireBallEnemyprefab: {fileID: 1659798822667013855, guid: bfc2c78fd9ba77c44997d7a37f0298d8, type: 3}
+  currentState: 0
 --- !u!61 &4487844811101134396
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -155,7 +157,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.001062423, y: 0.0031927824}
+  m_Offset: {x: -0.005320832, y: 0.0010640025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -165,7 +167,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.9638054, y: 0.95955276}
+  m_Size: {x: 0.9297421, y: 0.92123437}
   m_EdgeRadius: 0
 --- !u!50 &-1972394501582409544
 Rigidbody2D:

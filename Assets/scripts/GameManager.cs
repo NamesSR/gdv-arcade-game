@@ -42,7 +42,12 @@ public class GameManager : MonoBehaviour
     public int AddDamage = 0;
     public int AddMageDamage = 0;
     public float AddSpeed = 0f;
+    public bool hunterdead = false;
+    public bool isChasing = false;
+    public bool gameStarted = false;
+    public bool ishunterinScene = false;
     //public List<GameObject> Inventory;
+   
 
 
     public static GameManager Instance;
@@ -96,7 +101,10 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 // Toon game over scherm
                 GameOverbuttonUI.GameOverButton();
+                LevelGen.RemoveNodes();
                 LevelGen.destroyLevel();
+                
+                GameManager.Instance.enemyCount = 0;
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(true);
@@ -135,7 +143,7 @@ public class GameManager : MonoBehaviour
         if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1 && switsing == false)
         {
             SetState(GameState.GameOver);
-           
+            gameStarted = false;
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -178,6 +186,7 @@ public class GameManager : MonoBehaviour
         if(hp <= 0)
         {
             Debug.Log("game over");
+            gameStarted = false;
             SetState(GameState.GameOver);
         }
     }
@@ -207,11 +216,11 @@ public class GameManager : MonoBehaviour
      vulnerable = false;
      //Ehp = 2;
      BossHp = 3;
-    
-     enemyCount = 0;
+        isChasing = false;
+        enemyCount = 0;
      powerOrbCount = 0;
-    
-     switsing = false;
+        hunterdead = false;
+        switsing = false;
      if(Clas == "Mage")
         {
             hp = 3 + AddHp;
@@ -240,11 +249,15 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator nextLevel()
     {
-       
+        
         switsing = true;
+
         enemyCount = 0;
         powerOrbCount = 0;
+        LevelGen.RemoveNodes();
         LevelGen.destroyLevel();
+        ishunterinScene = false;
+        gameStarted = false;
         vulnerable = false;
         yield return new WaitForSeconds(0.1f);
         LevelGen.GenerateLevel(1);
@@ -252,6 +265,7 @@ public class GameManager : MonoBehaviour
     }
     public void nextlevelfin()
     {
+        
         if (enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
         {
             StartCoroutine(nextLevel());
