@@ -282,6 +282,9 @@ MonoBehaviour:
   isChasing: 0
   gameStarted: 0
   ishunterinScene: 0
+  bossIsVulnerable: 0
+  bossLevel: 0
+  bossSicels: 0
   currentState: 0
 --- !u!4 &213443691
 Transform:
@@ -1465,6 +1468,7 @@ MonoBehaviour:
   PowerOrbPrefab: {fileID: 2149494556136846080, guid: 7cb3f11c22f32c44f9f93ffece08bfb5, type: 3}
   groundTilePrefab: {fileID: 5888367800521781257, guid: 83c67641e108f9a4b8403ecb44024773, type: 3}
   NextlevelTilePrefab: {fileID: 7524922517238911674, guid: bd6995a0028fb1e438db688425622483, type: 3}
+  BossPrefab: {fileID: 2239954856890289690, guid: a760fe4354f106847be74fc63e67c23c, type: 3}
   nodePrefab: {fileID: 2660570399259680119, guid: 3b5c52cdebcc7554a9bb2ed4fefc8478, type: 3}
   nodeList: []
 --- !u!4 &1306535994

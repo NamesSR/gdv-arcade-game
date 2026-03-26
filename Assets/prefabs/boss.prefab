@@ -240,6 +240,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164f1dcfb9ee7144194a2c30ab4b6403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Boss
+  hp: 3
+  FireBallEnemyprefab: {fileID: 1659798822667013855, guid: bfc2c78fd9ba77c44997d7a37f0298d8, type: 3}
+  currentState: 0
 --- !u!114 &6308071287598707595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,10 +259,10 @@ MonoBehaviour:
   _skinWidth: 0.02
   platformMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   triggerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2176
   oneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 0

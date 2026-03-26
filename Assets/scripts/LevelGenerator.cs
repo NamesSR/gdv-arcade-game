@@ -20,6 +20,7 @@ public class LevelGenerator : MonoBehaviour
     public GameObject PowerOrbPrefab;
     public GameObject groundTilePrefab;
     public GameObject NextlevelTilePrefab;
+    public GameObject BossPrefab;
     public Node nodePrefab;
     public List<Node> nodeList;
     private SpriteRenderer TileColor;
@@ -342,6 +343,17 @@ public class LevelGenerator : MonoBehaviour
                 nodeList.RemoveAt(i);
                 i--;
             
+        }
+    }
+    public void SpawnPowerOrbRandom()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+
+
+            Node randoSpawn = nodeList[UnityEngine.Random.Range(0, nodeList.Count)];
+            Instantiate(PowerOrbPrefab, randoSpawn.transform.position, Quaternion.identity, this.transform);
+            GameManager.Instance.powerOrbCountAdd(1);
         }
     }
     public void ConnectNodes()

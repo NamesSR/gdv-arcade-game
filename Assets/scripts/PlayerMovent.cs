@@ -106,6 +106,19 @@ public class PlayerMovent : MonoBehaviour
 
             }
         }
+        else if (col.gameObject.tag == "boss")
+        {
+            if (Iframs == false)
+            {
+
+
+                GameManager.Instance.TakeDamage(1);
+                nockback(20f);
+                StartCoroutine(Iframsv2());
+
+            }
+
+        }
     }
     void onControllerCollider(RaycastHit2D hit)
     {
@@ -155,7 +168,19 @@ public class PlayerMovent : MonoBehaviour
 
             }
         }
+        else if (col.gameObject.tag == "boss")
+        {
+            if (Iframs == false)
+            {
 
+
+                GameManager.Instance.TakeDamage(1);
+                nockback(20f);
+                StartCoroutine(Iframsv2());
+
+            }
+
+        }
         if (col.CompareTag("nextlevel")) 
         {
             GameManager.Instance.nextlevelfin();
@@ -297,10 +322,15 @@ public class PlayerMovent : MonoBehaviour
         foreach (Collider2D enemy in HitEnemies)
         {
             Debug.Log("invonerble");
-            if (GameManager.Instance.vulnerable == true)
+            if (GameManager.Instance.vulnerable == true && (enemy.tag == "Enemy" || enemy.tag == "hunter"))
             {
                 Debug.Log("vunerable");
                 enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage, 30f);
+            }
+            if(GameManager.Instance.bossIsVulnerable == true && enemy.tag == "boss")
+            {
+                Debug.Log("vunerable");
+                enemy.GetComponent<Boss>().takedamage();
             }
         }
     }
