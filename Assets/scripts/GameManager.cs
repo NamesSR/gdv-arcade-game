@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
     public bool isChasing = false;
     public bool gameStarted = false;
     public bool ishunterinScene = false;
+    public bool bossIsVulnerable = false;
+    public bool bossLevel = false;
+    public int bossSicels = 0;
     //public List<GameObject> Inventory;
    
 
@@ -99,6 +102,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.GameOver:
                 Time.timeScale = 0;
+                ishunterinScene = false;
                 // Toon game over scherm
                 GameOverbuttonUI.GameOverButton();
                 LevelGen.RemoveNodes();
@@ -140,7 +144,7 @@ public class GameManager : MonoBehaviour
                 SetState(GameState.Menu);
             }
         }*/
-        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1 && switsing == false)
+        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1 && switsing == false && bossLevel == false)
         {
             SetState(GameState.GameOver);
             gameStarted = false;
@@ -162,8 +166,27 @@ public class GameManager : MonoBehaviour
             }
 
         }
+        if(bossLevel == true)
+        {
+            if(powerOrbCount <= 0)
+            {
+                StartCoroutine(bossvonerblesd());
+            }
+            if(bossSicels == 5)
+            {
+                SetState(GameState.GameOver);
+                gameStarted = false;
+            }
+        }
     }
     
+    IEnumerator bossvonerblesd()
+    {
+        bossIsVulnerable = true;
+        yield return new WaitForSeconds(10f);
+        bossIsVulnerable = false;
+        LevelGen.SpawnPowerOrbRandom();
+    }
     public void AddPoints(int points)
     {
         score += points;
@@ -211,8 +234,9 @@ public class GameManager : MonoBehaviour
     void LoadGameData()
     {
      score = 0;
-     
-     level = 0;
+        ishunterinScene = false;
+        bossSicels = 0;
+        level = 0;
      vulnerable = false;
      //Ehp = 2;
      BossHp = 3;
@@ -249,9 +273,9 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator nextLevel()
     {
-        
+        ishunterinScene = false;
         switsing = true;
-
+        bossSicels = 0;
         enemyCount = 0;
         powerOrbCount = 0;
         LevelGen.RemoveNodes();
@@ -268,6 +292,7 @@ public class GameManager : MonoBehaviour
         
         if (enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
         {
+            ishunterinScene = false;
             StartCoroutine(nextLevel());
         }
     }
