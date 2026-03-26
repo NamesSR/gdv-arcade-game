@@ -272,9 +272,16 @@ MonoBehaviour:
   scoreUI: {fileID: 1919317993}
   GameOverbuttonUI: {fileID: 1128766932}
   StartGameButtonUI: {fileID: 779142422}
-  Inventory:
-  - {fileID: 0}
-  - {fileID: 0}
+  speed: 0
+  damage: 2
+  AddHp: 0
+  AddDamage: 0
+  AddMageDamage: 0
+  AddSpeed: 0
+  hunterdead: 0
+  isChasing: 0
+  gameStarted: 0
+  ishunterinScene: 0
   currentState: 0
 --- !u!4 &213443691
 Transform:
@@ -783,7 +790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -389.25, y: 169.9}
+  m_AnchoredPosition: {x: -400.4, y: 169.9}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &779142417
@@ -1268,7 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   l: {fileID: 1306535993}
-  scoreUI: {fileID: 0}
+  scoreUI: {fileID: 1919317993}
 --- !u!4 &1190703206
 Transform:
   m_ObjectHideFlags: 0
@@ -1430,6 +1437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1306535994}
   - component: {fileID: 1306535993}
+  - component: {fileID: 1306535995}
   m_Layer: 0
   m_Name: LevelGenerator
   m_TagString: Untagged
@@ -1457,31 +1465,8 @@ MonoBehaviour:
   PowerOrbPrefab: {fileID: 2149494556136846080, guid: 7cb3f11c22f32c44f9f93ffece08bfb5, type: 3}
   groundTilePrefab: {fileID: 5888367800521781257, guid: 83c67641e108f9a4b8403ecb44024773, type: 3}
   NextlevelTilePrefab: {fileID: 7524922517238911674, guid: bd6995a0028fb1e438db688425622483, type: 3}
-  waypoints:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  nodePrefab: {fileID: 2660570399259680119, guid: 3b5c52cdebcc7554a9bb2ed4fefc8478, type: 3}
+  nodeList: []
 --- !u!4 &1306535994
 Transform:
   m_ObjectHideFlags: 0
@@ -1497,6 +1482,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1306535995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306535992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e15aa04827df14a97f3e271ca87cf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ANodeStartManager
 --- !u!1 &1459546070
 GameObject:
   m_ObjectHideFlags: 0

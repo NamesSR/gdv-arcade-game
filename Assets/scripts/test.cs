@@ -19,10 +19,11 @@ public class test : MonoBehaviour
        
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
-           // GameManager.Instance.AddPoints(10);
-           // Debug.Log("a");
+            // GameManager.Instance.AddPoints(10);
+            // Debug.Log("a");
             //GameManager.Instance.TakeDamage(1);
-           l.destroyLevel();
+            l.RemoveNodes();
+            l.destroyLevel();
 
 
         }
@@ -44,8 +45,12 @@ public class test : MonoBehaviour
     }
     IEnumerator WaitV()
     {
+        l.RemoveNodes();
         l.destroyLevel();
+        GameManager.Instance.ishunterinScene = false;
+        GameManager.Instance.enemyCount = 0;
         yield return new WaitForSeconds(0.001f);
+       
         l.GenerateLevel(1);
     }
      

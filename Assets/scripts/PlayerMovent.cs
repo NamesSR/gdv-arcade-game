@@ -21,7 +21,7 @@ public class PlayerMovent : MonoBehaviour
     public Transform AttackPoint;
     public Transform sword;
     public int damage = 1;
-    public bool mele = true;
+   
     private Vector3 velocity;
     private Vector3 velocity2;
     
@@ -36,6 +36,7 @@ public class PlayerMovent : MonoBehaviour
     Transform transform23;
     bool Iframs = false;
     shoot shoot;
+    
 
 
 
@@ -53,13 +54,19 @@ public class PlayerMovent : MonoBehaviour
     }
     void loaddateforenemy()
     {
-        if (GameManager.Instance.enemyCount > 0)
+        if (GameManager.Instance.enemyCount > 0 && enemy1 == null)
         {
             enemy1 = GameObject.FindGameObjectWithTag("Enemy").GetComponent<WayPoints>();
         }
-        if (GameManager.Instance.enemyCount > 1){
+        if (GameManager.Instance.enemyCount > 1 && hunter == null)
+        {
             hunter = GameObject.FindGameObjectWithTag("hunter").GetComponent<WayPoints>();
         }
+    }
+    private void OnDestroy()
+    {
+        hunter = null;
+        enemy1 = null;
     }
     void onTriggerStayEvent(Collider2D col)
     {
@@ -198,7 +205,9 @@ public class PlayerMovent : MonoBehaviour
         {
             ShootFireBall();
         }
-        
+       
+
+
     }
 
     private void FixedUpdate()
@@ -215,23 +224,28 @@ public class PlayerMovent : MonoBehaviour
 
 
         velocity.y = Mathf.Lerp(velocity.y, y * GameManager.Instance.speed, Time.deltaTime * smoothedMovementFactor);
-        if (y != 0 || x != 0)
+       
+        if(new Vector3(x,y,0).magnitude > 0.01f)
         {
-           dir = new Vector3(x, y, 0);
-           angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-           float currentZ = (transform.eulerAngles = new Vector3(0,0,angle)).z;
-           float snappedZ = Mathf.Round(currentZ / 90f) * 90f;
-           transform.rotation = Quaternion.Euler(0, 0, snappedZ);
-          // Debug.Log($"{currentZ}:{snappedZ}:{angle}");
-           
+            rotations(x, y);
         }
         
-        
+
+
+
         Controller2D.move(velocity * Time.deltaTime);
         velocity = Controller2D.velocity;//.normalized;
     }
-   
-    
+   void rotations(float x, float y)
+    {
+        dir = new Vector3(x, y, 0);
+        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float currentZ = (transform.eulerAngles = new Vector3(0, 0, angle)).z;
+        float snappedZ = Mathf.Round(currentZ / 90f) * 90f;
+        transform.rotation = Quaternion.Euler(0, 0, snappedZ);
+        // Debug.Log($"{currentZ}:{snappedZ}:{angle}");
+    }
+
     IEnumerator PowerOrbs()
     {
 
@@ -286,7 +300,7 @@ public class PlayerMovent : MonoBehaviour
             if (GameManager.Instance.vulnerable == true)
             {
                 Debug.Log("vunerable");
-                enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage, 20f);
+                enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage, 30f);
             }
         }
     }
