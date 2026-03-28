@@ -22,17 +22,17 @@ public class WayPoints : MonoBehaviour
     PlayerMovent playerMovent;
     LevelGenerator lg;
     public Node currentNode;
-    public List<Node> path = new List<Node>();
+   public List<Node> path = new List<Node>();
     //  public GameObject sho;
     public Vector3 dir;
 
     bool houddistance;
     public bool Iframs = false;
-    
+
     GameObject levlg;
     CharacterController2D Controller2D2;
     Transform player;
-    
+
     private RaycastHit2D _lastControllerColliderHit;
     private Vector3 velocity2;
     public int enemyHp = 2;
@@ -43,7 +43,7 @@ public class WayPoints : MonoBehaviour
     Transform shootransform;
     float nextAttackTime = 0f;
     public float AttackRate = 2f;
-    
+
     public GameObject FireBallEnemyprefab;
     bool gameStarted = false;
 
@@ -55,7 +55,7 @@ public class WayPoints : MonoBehaviour
         maddog,
         dogchases,
         dogchasesPlayer,
-            pause
+        pause
 
     };
     public StateMachine currentState;
@@ -66,7 +66,7 @@ public class WayPoints : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
 
-      //  currentNode = ANodeStartManager.instance.FindNearestNode(transform.position);
+        //  currentNode = ANodeStartManager.instance.FindNearestNode(transform.position);
 
     }
     private void Awake()
@@ -94,24 +94,24 @@ public class WayPoints : MonoBehaviour
     void loaddateforenemy()
     {
         playerMovent = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovent>();
-       // currentNode = ANodeStartManager.instance.FindNearestNode(transform.position);
-        
+        // currentNode = ANodeStartManager.instance.FindNearestNode(transform.position);
+
         if (whichEnemy == 3)
         {
-            
-                if (HunterTransform == null && GameManager.Instance.ishunterinScene ==  true)
-                {
-                  HunterTransform = GameObject.FindGameObjectWithTag("hunter").transform;
-                    
-                }
-                
-            
+
+            if (HunterTransform == null && GameManager.Instance.ishunterinScene == true)
+            {
+                HunterTransform = GameObject.FindGameObjectWithTag("hunter").transform;
+
+            }
+
+
         }
         GameManager.Instance.gameStarted = true;
     }
     private void OnDestroy()
     {
-        HunterTransform =  null;
+        HunterTransform = null;
         playerMovent = null;
     }
     void onTriggerEnterEvent2(Collider2D col)
@@ -129,16 +129,16 @@ public class WayPoints : MonoBehaviour
                 takeDamage(GameManager.Instance.FireBallDagame, 15f);
             }
         }
-       
+
 
 
     }
     void patrol()
     {
-       
+
         if (path.Count == 0)
         {
-            
+
             path = ANodeStartManager.instance.GeneratePath(currentNode, ANodeStartManager.instance.NodesInScene()[Random.Range(0, ANodeStartManager.instance.NodesInScene().Length)]);
         }
     }
@@ -146,10 +146,10 @@ public class WayPoints : MonoBehaviour
     {
         if (path.Count == 0)
         {
-            
-                path = ANodeStartManager.instance.GeneratePath(currentNode, ANodeStartManager.instance.FindNearestNode(player.position));
-            
-            
+
+            path = ANodeStartManager.instance.GeneratePath(currentNode, ANodeStartManager.instance.FindNearestNode(player.position));
+
+
         }
     }
     void attacking()
@@ -160,21 +160,21 @@ public class WayPoints : MonoBehaviour
     {
         if (path.Count == 0)
         {
-            
-                path = ANodeStartManager.instance.GeneratePath(currentNode, ANodeStartManager.instance.FindNearestNode(HunterTransform.position));
-            
-            
+
+            path = ANodeStartManager.instance.GeneratePath(currentNode, ANodeStartManager.instance.FindNearestNode(HunterTransform.position));
+
+
         }
 
     }
-   
+
     public void CreatePath()
     {
-       
+
         if (path.Count > 0)
         {
             int r = 0;
-            
+
             dir = (path[r].transform.position - transform.position).normalized;
             velocity2 = dir * speed;
             Controller2D2.move(velocity2 * Time.deltaTime);
@@ -216,7 +216,7 @@ public class WayPoints : MonoBehaviour
                     break;
                 case StateMachine.Chasings:
                     Chasing();
-                    if(whichEnemy == 2)
+                    if (whichEnemy == 2)
                     {
                         GameManager.Instance.isChasing = true;
                     }
@@ -240,7 +240,7 @@ public class WayPoints : MonoBehaviour
         }
     }
 
-  private  void FixedUpdate()
+    private void FixedUpdate()
     {
         if (whichEnemy == 3)
         {
@@ -248,9 +248,9 @@ public class WayPoints : MonoBehaviour
         }
         if (GameManager.Instance.gameStarted == true)
         {
-           
+
             bool PlayerSeen = Vector3.Distance(transform.position, player.position) < chaseRange;
-            if( whichEnemy == 3 && HunterTransform != null)
+            if (whichEnemy == 3 && HunterTransform != null)
             {
                 houddistance = Vector3.Distance(transform.position, HunterTransform.position) > 2f;
             }
@@ -276,31 +276,31 @@ public class WayPoints : MonoBehaviour
             }
             else if (whichEnemy == 3 && GameManager.Instance.isChasing == true && currentState != StateMachine.dogchasesPlayer && GameManager.Instance.hunterdead == false)
             {
-               
 
-                    currentState = StateMachine.dogchasesPlayer;
-                    path.Clear();
-                
+
+                currentState = StateMachine.dogchasesPlayer;
+                path.Clear();
+
             }
-            else if (houddistance == true && whichEnemy == 3  && GameManager.Instance.isChasing == false && currentState != StateMachine.dogchases && GameManager.Instance.hunterdead == false)
+            else if (houddistance == true && whichEnemy == 3 && GameManager.Instance.isChasing == false && currentState != StateMachine.dogchases && GameManager.Instance.hunterdead == false)
             {
-                
-                
-                    currentState = StateMachine.dogchases;
-                    path.Clear();
-                
+
+
+                currentState = StateMachine.dogchases;
+                path.Clear();
+
             }
             else if (houddistance == false && whichEnemy == 3 && GameManager.Instance.isChasing == false && currentState != StateMachine.pause && GameManager.Instance.hunterdead == false)
             {
-                
-                
-                    currentState = StateMachine.pause;
-                    
-                
+
+
+                currentState = StateMachine.pause;
+
+
             }
 
-          
-           
+
+
 
         }
     }
@@ -323,7 +323,7 @@ public class WayPoints : MonoBehaviour
             }
 
 
-            
+
 
 
             Iframs = true;
@@ -337,7 +337,7 @@ public class WayPoints : MonoBehaviour
             Destroy(this.gameObject);
             GameManager.Instance.AddPoints(50);
             GameManager.Instance.enemyCount--;
-            if(whichEnemy == 2)
+            if (whichEnemy == 2)
             {
                 GameManager.Instance.hunterdead = true;
             }
