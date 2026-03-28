@@ -9,7 +9,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class LevelGenerator : MonoBehaviour
 {
-    
+
     public GameObject wallPrefab;
     // public GameObject dotPrefab;
     WayPoints way;
@@ -25,14 +25,14 @@ public class LevelGenerator : MonoBehaviour
     public List<Node> nodeList;
     private SpriteRenderer TileColor;
     GameObject sd;
-    
+
     public static event Action startgame;
-    
+
 
     int a = 0;
     private Transform t;
     int Genlevel;
-    private int offsetwaypoint = 0;
+    
     int gridx = 0;
     int index3;
     int index4;
@@ -99,8 +99,28 @@ public class LevelGenerator : MonoBehaviour
 "#d#bTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyTyyTyTy#b#d",
 "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d"
-      }
+      },
+      new string[]
+      {
+          "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTyTyTyTyTyTyTyTy#bTyTyTy#bTyTyTy#bTyTyTyTyTyByTy#b#d",
+"#d#bTyTyEy1TyTyTyTyTyyTyTyTy#bTyTyTy#bTyTyyTy#bTyTyTyTyTyyTyTy#b#d",
+"#d#bTyTyyTyTy#bTyTy#b#bTyTy#bTyTyyTy#bTyTy#b#bTyTy#b#b#b#b#b#b#d",
+"#d#bTyTy#b#b#bTyTyTy#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTy#b#d",
+"#b#bTyTyTyTyTyTyTyTy#bTyTyTyTyTyTyTyTyTyTyTyTyEy2TyTyyTyTyTy#b#b",
+"#yTyTyTyTyTyTyTyByTy#bTyTy#bTyTyTyy#bTyTyTyTyTyTy#bTyTyTyTyTyFyd",
+"#yTyTyTyTy#bTyTyTyTy#bTyTy#bTyTyTy#b#b#b#bTyTyTy#bTyTyTyTyTyFyd",
+"#yPyTyTyTy#b#bTyTy#b#bTyTy#b#b#b#b#bTyTy#b#b#b#b#bTyTyTyTyTyFyd",
+"#yTyTyTyTyTyTyTyTyTyyTyTyTyTyTyTyTyTyTyTyy#bTyTyTyTyTyTyTyyTyTyFyd",
+"#b#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyyTyTyTyTy#bTyTyTyTyTyTyTyTy#b#b",
+"#d#b#b#b#bTyTy#b#b#b#bTyTy#b#b#b#b#bTyTy#bTyTy#b#b#b#bTyTy#b#d",
+"#d#bTyyTy#bTyTy#bTyTy#bTyTy#bTyTyTy#bTyTyTyTyTy#bTyTyyTyTyTy#b#d",
+"#d#bTyTyTyTyTyyTyTyTyEy4TyTy#bTyByTyTyTyTyTyTyTyTyTyTyEy3TyTy#b#d",
+"#d#bTyTyTyTyTyTyTyTyTyTyTy#bTyyTyTyTyTyTyTyyTyTyTyTyTyTyTyTy#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d",
 
+      }
     };
 
 
@@ -109,15 +129,15 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-       
+
         //GenerateLevel(); 
     }
-    
+
 
 
     public void GenerateLevel(int l)
     {
-        
+
         GameManager.Instance.level++;
         Debug.Log(GameManager.Instance.level);
         gridx = 0;
@@ -127,14 +147,14 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            if(GameManager.Instance.level < 4)
+            if (GameManager.Instance.level < 4)
             {
-            Genlevel = GameManager.Instance.level - 1; // UnityEngine.Random.Range(0, levelData.Length - 1);
+                Genlevel = GameManager.Instance.level - 1; // UnityEngine.Random.Range(0, levelData.Length - 1);
 
             }
             else
             {
-              Genlevel = UnityEngine.Random.Range(0, levelData.Length);
+                Genlevel = UnityEngine.Random.Range(0, levelData.Length);
             }
         }
 
@@ -145,10 +165,10 @@ public class LevelGenerator : MonoBehaviour
             string row = line;
             for (int x = 0; x < row.Length; x++)
             {
-                
+
                 char tile = row[x];
                 Vector3 position = new Vector3(gridx, -y, 0);
-                Vector3 nodePos = new Vector3(gridx + 0.5f, -y + -0.5f ,0);
+                Vector3 nodePos = new Vector3(gridx + 0.5f, -y + -0.5f, 0);
 
                 switch (tile)
                 {
@@ -160,10 +180,10 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         a = 0;
                         break;
-                    
+
                     case 'P':
                         Instantiate(playerPrefab, position, Quaternion.identity, this.transform);
-                        
+
                         gridx++;
                         break;
                     case 'E':
@@ -174,31 +194,31 @@ public class LevelGenerator : MonoBehaviour
                                 enemyOffsetSet(position, enemyPrefab, 1, false, y);
                                 break;
                             case 2:
-                                enemyOffsetSet(position,  enemy2Prefab, 2, true,y);
+                                enemyOffsetSet(position, enemy2Prefab, 2, true, y);
                                 GameManager.Instance.ishunterinScene = true;
                                 break;
                             case 3:
-                                enemyOffsetSet(position,   enemyPrefab, 3, true, y);
+                                enemyOffsetSet(position, enemyPrefab, 3, true, y);
                                 break;
                             case 4:
-                                enemyOffsetSet(position,   enemyPrefab, 4, false, y);                                
+                                enemyOffsetSet(position, enemyPrefab, 4, false, y);
                                 break;
                         }
-                        
+
                         gridx++;
                         break;
                     case 'W':
 
 
 
-                        
+
                         // Debug.Log("check 2: " + "index: " + index + position);
                         gridx++;
                         break;
                     case 'B':
                         Instantiate(PowerOrbPrefab, position, Quaternion.identity, this.transform);
                         GameManager.Instance.powerOrbCountAdd(1);
-                        
+
                         gridx++;
                         break;
                     case 'F':
@@ -206,11 +226,11 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         break;
                     case 'T':
-                        
+
                         gridx++;
                         break;
 
-                     }
+                }
                 if (tile != '#' && tile != 'F')
                 {
                     if (!char.IsLower(tile) && !char.IsNumber(tile))
@@ -218,7 +238,7 @@ public class LevelGenerator : MonoBehaviour
                         var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity, this.transform);
                         TileColor = groundTiles.GetComponent<SpriteRenderer>();
                         mapCollerSet(row, x);
-                        if(tile != 'E')
+                        if (tile != 'E')
                         {
                             n = Instantiate(nodePrefab, position, Quaternion.identity, this.transform);
                             nodeList.Add(n);
@@ -238,7 +258,7 @@ public class LevelGenerator : MonoBehaviour
     }
     public void destroyLevel()
     {
-        
+
         foreach (Transform t in this.transform)
         {
             if (t != null)
@@ -302,47 +322,47 @@ public class LevelGenerator : MonoBehaviour
     }
     void enemyOffsetSet(Vector3 position, GameObject enemy, int whichEnemy, bool chashing, int y)
     {
-        
-            sd = Instantiate(enemy, position, Quaternion.identity, this.transform);
-            way = sd.GetComponent<WayPoints>();
-            n = Instantiate(nodePrefab, position, Quaternion.identity, this.transform);
-            nodeList.Add(n);
-            way.currentNode = n;
-            
-            way.whichEnemy = whichEnemy;
-            way.chase = false;
-            GameManager.Instance.enemycountAdd(1);
-        
-       /* else
-        {
-            if(whichEnemy == 2) 
-            {
-                var chasingE = Instantiate(enemy, position, Quaternion.identity, this.transform);
-                way = chasingE.GetComponent<WayPoints>();
-                way.chase = true;
-            }
-            if(whichEnemy == 3)
-            {
-                var chasdogE = Instantiate(enemy, position, Quaternion.identity, this.transform);
-                way = chasdogE.GetComponent<WayPoints>();
-                way.chaseDog = true;
 
-            }
-            
-               
-                way.whichEnemy = whichEnemy;
-                GameManager.Instance.enemycountAdd(1);
-        }*/
+        sd = Instantiate(enemy, position, Quaternion.identity, this.transform);
+        way = sd.GetComponent<WayPoints>();
+        n = Instantiate(nodePrefab, position, Quaternion.identity, this.transform);
+        nodeList.Add(n);
+        way.currentNode = n;
+
+        way.whichEnemy = whichEnemy;
+        way.chase = false;
+        GameManager.Instance.enemycountAdd(1);
+
+        /* else
+         {
+             if(whichEnemy == 2) 
+             {
+                 var chasingE = Instantiate(enemy, position, Quaternion.identity, this.transform);
+                 way = chasingE.GetComponent<WayPoints>();
+                 way.chase = true;
+             }
+             if(whichEnemy == 3)
+             {
+                 var chasdogE = Instantiate(enemy, position, Quaternion.identity, this.transform);
+                 way = chasdogE.GetComponent<WayPoints>();
+                 way.chaseDog = true;
+
+             }
+
+
+                 way.whichEnemy = whichEnemy;
+                 GameManager.Instance.enemycountAdd(1);
+         }*/
     }
     public void RemoveNodes()
     {
         for (int i = 0; i < nodeList.Count; i++)
         {
-            
-            
-                nodeList.RemoveAt(i);
-                i--;
-            
+
+
+            nodeList.RemoveAt(i);
+            i--;
+
         }
     }
     public void SpawnPowerOrbRandom()

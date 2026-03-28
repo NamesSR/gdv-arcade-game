@@ -17,6 +17,8 @@ TagManager:
   - boss
   - hunter
   - EnemyAttack
+  - knight
+  - mage
   layers:
   - Default
   - TransparentFX

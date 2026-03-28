@@ -10,34 +10,37 @@ public enum GameState
     Playing,
     Paused,
     GameOver,
-    Victory
+    Victory,
+    ClassSlect
 }
 
 public class GameManager : MonoBehaviour
 {
- public int score = 0;
- public int hp = 3;
- public int enemyCount;
- public int powerOrbCount;
- public int level = 0;
+    public int score = 0;
+    public int hp = 3;
+    public int enemyCount;
+    public int powerOrbCount;
+    public int level = 0;
 
- public bool vulnerable = false;
- //public int Ehp = 2;
- public int BossHp = 3;
- public int FireBallDagame = 1;
- public int highScore = 0;
- public bool Mele = false;
- private string Clas = "Mage";
- public bool switsing = false;
- public GameObject menuPanel;
- public GameObject pausePanel;
- public GameObject gameOverPanel;
- public LevelGenerator LevelGen;
- public ScoreUI scoreUI;
- public buttonUI GameOverbuttonUI;
- public buttonUI StartGameButtonUI;
- public float speed;
- public int damage = 2;
+    public bool vulnerable = false;
+    //public int Ehp = 2;
+    public int BossHp = 3;
+    public int FireBallDagame = 1;
+    public int highScore = 0;
+    public bool Mele = false;
+    private string Clas = "Mage";
+    public bool switsing = false;
+    public GameObject menuPanel;
+    public GameObject pausePanel;
+    public GameObject gameOverPanel;
+    public LevelGenerator LevelGen;
+    public ScoreUI scoreUI;
+    public buttonUI GameOverbuttonUI;
+    public buttonUI StartGameButtonUI;
+    public GameObject MageButton;
+    public GameObject knightButton;
+    public float speed;
+    public int damage = 2;
     public int AddHp = 0;
     public int AddDamage = 0;
     public int AddMageDamage = 0;
@@ -50,27 +53,27 @@ public class GameManager : MonoBehaviour
     public bool bossLevel = false;
     public int bossSicels = 0;
     //public List<GameObject> Inventory;
-   
+
 
 
     public static GameManager Instance;
 
-  public GameState currentState = GameState.Menu;
+    public GameState currentState = GameState.ClassSlect;
 
-   void Awake()
-{
-    if (Instance == null)
+    void Awake()
     {
-        Instance = this;
-       DontDestroyOnLoad(gameObject);
-        LoadHighScore();
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            LoadHighScore();
+
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    else
-    {
-       Destroy(gameObject);
-    }
-}
 
     public void SetState(GameState newState)
     {
@@ -107,18 +110,40 @@ public class GameManager : MonoBehaviour
                 GameOverbuttonUI.GameOverButton();
                 LevelGen.RemoveNodes();
                 LevelGen.destroyLevel();
-                
+
                 GameManager.Instance.enemyCount = 0;
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(true);
                 break;
+            case GameState.ClassSlect:
+                MageButton.SetActive(true);
+                knightButton.SetActive(true);
+                Time.timeScale = 0;
+                menuPanel.SetActive(true);
+                pausePanel.SetActive(false);
+                gameOverPanel.SetActive(false);
+                break;
         }
     }
 
-   void Start()
+    void Start()
     {
-        SetState(GameState.Menu);
+        SetState(GameState.ClassSlect);
+    }
+    public void knight()
+    {
+        Clas = "Knight";
+        Mele = true;
+        currentState = GameState.Menu;
+        StartGameButtonUI.StartGameButton();
+    }
+    public void Mage()
+    {
+        Clas = "Mage";
+        Mele = false;
+        currentState = GameState.Menu;
+        StartGameButtonUI.StartGameButton();
     }
 
     void Update()
@@ -130,26 +155,26 @@ public class GameManager : MonoBehaviour
             else if (currentState == GameState.Paused)
                 SetState(GameState.Playing);
         }
-      /*  if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (currentState == GameState.Menu)
-            {
-                SetState(GameState.Playing);
-                LoadGameData();
-                LevelGen.GenerateLevel(0);
-            }
-            if (currentState == GameState.GameOver)
-            {
-                
-                SetState(GameState.Menu);
-            }
-        }*/
-        if(enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1 && switsing == false && bossLevel == false)
+        /*  if (Input.GetKeyDown(KeyCode.Space))
+          {
+              if (currentState == GameState.Menu)
+              {
+                  SetState(GameState.Playing);
+                  LoadGameData();
+                  LevelGen.GenerateLevel(0);
+              }
+              if (currentState == GameState.GameOver)
+              {
+
+                  SetState(GameState.Menu);
+              }
+          }*/
+        if (enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1 && switsing == false && bossLevel == false)
         {
             SetState(GameState.GameOver);
             gameStarted = false;
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (Mele == true)
@@ -166,20 +191,20 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        if(bossLevel == true)
+        if (bossLevel == true)
         {
-            if(powerOrbCount <= 0)
+            if (powerOrbCount <= 0)
             {
                 StartCoroutine(bossvonerblesd());
             }
-            if(bossSicels == 5)
+            if (bossSicels == 5)
             {
                 SetState(GameState.GameOver);
                 gameStarted = false;
             }
         }
     }
-    
+
     IEnumerator bossvonerblesd()
     {
         bossIsVulnerable = true;
@@ -205,8 +230,8 @@ public class GameManager : MonoBehaviour
             hp -= damage;
             scoreUI.HpUpdate(hp);
         }
-        
-        if(hp <= 0)
+
+        if (hp <= 0)
         {
             Debug.Log("game over");
             gameStarted = false;
@@ -224,7 +249,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SetState(GameState.Playing);
-        
+
         LoadGameData();
         LevelGen.GenerateLevel(0);
     }
@@ -233,34 +258,34 @@ public class GameManager : MonoBehaviour
     public void Menu() => SetState(GameState.Menu);
     void LoadGameData()
     {
-     score = 0;
+        score = 0;
         ishunterinScene = false;
         bossSicels = 0;
         level = 0;
-     vulnerable = false;
-     //Ehp = 2;
-     BossHp = 3;
+        vulnerable = false;
+        //Ehp = 2;
+        BossHp = 3;
         isChasing = false;
         enemyCount = 0;
-     powerOrbCount = 0;
+        powerOrbCount = 0;
         hunterdead = false;
         switsing = false;
-     if(Clas == "Mage")
+        if (Clas == "Mage")
         {
             hp = 3 + AddHp;
             FireBallDagame = 1 + AddMageDamage;
             speed = 6f + AddSpeed;
         }
-     if(Clas == "Knight")
+        if (Clas == "Knight")
         {
             hp = 4 + AddHp;
             damage = 2 + AddDamage;
             speed = 5f + AddSpeed;
         }
-     
-     scoreUI.ClasUpdate(Clas);
-     scoreUI.Resetscore();
-     scoreUI.ResetHp(hp);
+
+        scoreUI.ClasUpdate(Clas);
+        scoreUI.Resetscore();
+        scoreUI.ResetHp(hp);
     }
     void SaveHighScore()
     {
@@ -289,7 +314,7 @@ public class GameManager : MonoBehaviour
     }
     public void nextlevelfin()
     {
-        
+
         if (enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
         {
             ishunterinScene = false;
