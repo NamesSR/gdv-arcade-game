@@ -19,11 +19,11 @@ public class Boss : MonoBehaviour
 
     };
     shoot shoot;
-    float nextAttackTime = 0;
-    float attackrate = 0.75f;
-    float AttackingAttackRate = 0.75f;
-    float normalAttackRate = 1.5f;
-    float panicAttackRate = 0.5f;
+   public float nextAttackTime = 0;
+    public float attackrate = 0.75f;
+   public  float AttackingAttackRate = 0.75f;
+    public float normalAttackRate = 1.5f;
+   public  float panicAttackRate = 0.5f;
     public enum StateMachine
     {
         normal,
@@ -41,6 +41,7 @@ public class Boss : MonoBehaviour
     {
         CCD2 = GetComponent<CharacterController2D>();
         CCD2.onTriggerEnterEvent += onTriggerEnterEvent;
+        LevelGenerator.startgame += loaddateforenemy;
     }
     void loaddateforenemy()
     {

@@ -200,7 +200,7 @@ public class LevelGenerator : MonoBehaviour
         gridx = 0;
         if (l == 0)
         {
-            Genlevel = 0;// UnityEngine.Random.Range(0, levelData.Length);
+            Genlevel = 4;// UnityEngine.Random.Range(0, levelData.Length);
         }
         else
         { 

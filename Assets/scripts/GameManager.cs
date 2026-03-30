@@ -233,7 +233,10 @@ public class GameManager : MonoBehaviour
         bossIsVulnerable = true;
         yield return new WaitForSeconds(10f);
         bossIsVulnerable = false;
-        LevelGen.SpawnPowerOrbRandom();
+        if (powerOrbCount <= 0)
+        {
+            LevelGen.SpawnPowerOrbRandom();
+        }
     }
     public void AddPoints(int points)
     {
@@ -334,7 +337,7 @@ public class GameManager : MonoBehaviour
         ishunterinScene = false;
         gameStarted = false;
         vulnerable = false;
-        bossLevel = true;
+        bossLevel = false;
         yield return new WaitForSeconds(0.1f);
         LevelGen.GenerateLevel(1);
         switsing = false;
