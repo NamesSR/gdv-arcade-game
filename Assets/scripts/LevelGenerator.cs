@@ -123,9 +123,9 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       { "q#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
-"#d#bTyTyTyTyTyTy#b#bTyTy#bTyTyTyTyTy#bTyTyTyTyTyTyTyTyTyTy#b#d",
-"#d#bTyTyTyy#bByTyTyTyTyTy#bTyyTyUyTyTy#bTyTyTyyTy#b#b#bTyTyyTy#b#d",
-"#d#bTy#b#b#bTyTyTyTyyTyTy#bTyTyTyTyTy#bTyTyTyTyTyTy#bTyTyTy#b#d",
+"#d#bTyTyTyTyTyTy#b#bTyTy#b#y#y#y#y#y#bTyTyTyTyTyTyTyTyTyTy#b#d",
+"#d#bTyTyTyy#bByTyTyTyTyTy#b#yy#yUy#y#y#bTyTyTyyTy#b#b#bTyTyyTy#b#d",
+"#d#bTy#b#b#bTyTyTyTyyTyTy#b#y#y#y#y#y#bTyTyTyTyTyTy#bTyTyTy#b#d",
 "#d#bTyTyTyTyTyTyTy#b#b#b#bTyTyTyTyTyy#b#b#b#bTyTyTyTyTyTyTy#b#d",
 "#d#bTy#b#b#bTyTyTy#bTyTyTyTyTyTyTyTyTyTyTy#bTyTyTyTyyTy#b#b#b#d",
 "#b#bTy#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTy#b#bTyBy#bTy#b#b",
@@ -307,7 +307,7 @@ public class LevelGenerator : MonoBehaviour
                         var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity, this.transform);
                         TileColor = groundTiles.GetComponent<SpriteRenderer>();
                         mapCollerSet(row, x);
-                        if (tile != 'E')
+                        if (tile != 'E' && tile != 'U')
                         {
                             n = Instantiate(nodePrefab, position, Quaternion.identity, this.transform);
                             nodeList.Add(n);

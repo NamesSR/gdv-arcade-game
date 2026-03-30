@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
         else
         {
             scoreUI.canNotHealUpdate(heal - Time.time);
-            Debug.Log("cooldown");
+            
         }
 
 
@@ -233,7 +233,10 @@ public class GameManager : MonoBehaviour
         bossIsVulnerable = true;
         yield return new WaitForSeconds(10f);
         bossIsVulnerable = false;
-        LevelGen.SpawnPowerOrbRandom();
+        if (powerOrbCount <= 0)
+        {
+            LevelGen.SpawnPowerOrbRandom();
+        }
     }
     public void AddPoints(int points)
     {

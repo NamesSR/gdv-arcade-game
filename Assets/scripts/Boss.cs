@@ -8,6 +8,7 @@ public class Boss : MonoBehaviour
     CharacterController2D CCD2;
     public GameObject FireBallEnemyprefab;
     Transform player;
+    LevelGenerator lg;
     Vector3 dir;
     Vector3[] shootpos = new UnityEngine.Vector3[5] 
     {new Vector3(-1f,-0.2f,0f), 
@@ -19,11 +20,11 @@ public class Boss : MonoBehaviour
 
     };
     shoot shoot;
-    float nextAttackTime = 0;
-    float attackrate = 0.75f;
-    float AttackingAttackRate = 0.75f;
-    float normalAttackRate = 1.5f;
-    float panicAttackRate = 0.5f;
+   public float nextAttackTime = 0f;
+    public float attackrate = 0.75f;
+   public  float AttackingAttackRate = 0.75f;
+    public float normalAttackRate = 1.5f;
+   public  float panicAttackRate = 0.5f;
     public enum StateMachine
     {
         normal,
@@ -41,11 +42,14 @@ public class Boss : MonoBehaviour
     {
         CCD2 = GetComponent<CharacterController2D>();
         CCD2.onTriggerEnterEvent += onTriggerEnterEvent;
+        CCD2.onTriggerStayEvent += onTriggerStayEvent;
+        LevelGenerator.startgame += loaddateforenemy;
     }
     void loaddateforenemy()
     {
         
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        lg = GameObject.FindGameObjectWithTag("levelgen").GetComponent<LevelGenerator>();
     }
     // Update is called once per frame
     void Update()
@@ -90,18 +94,30 @@ public class Boss : MonoBehaviour
             }
         }
        
+
+    }
+    void onTriggerStayEvent(Collider2D col)
+    {
+        Debug.Log("dasdads23");
+        if (col.tag == "Wall")
+        {
+            Destroy(col.gameObject);
+        }
     }
    public void takedamage()
     {
         hp -= 1;
         GameManager.Instance.bossIsVulnerable = false;
+        lg.SpawnPowerOrbRandom();
     }
     void normal()
     {
         if (Time.time >= nextAttackTime)
         {
              dir = (player.position - transform.position).normalized;
-            var FireBallEnemy = Instantiate(FireBallEnemyprefab, transform);
+           
+            var pos = transform.position + new Vector3(0,-2,0);
+            var FireBallEnemy = Instantiate(FireBallEnemyprefab, pos, Quaternion.identity);
                 shoot = FireBallEnemy.GetComponent<shoot>();
             shoot.dir2 = dir;
             nextAttackTime = Time.time + 1 / attackrate;
@@ -114,11 +130,13 @@ public class Boss : MonoBehaviour
         {
             for (int i = 0; i < shootpos.Length; i++)
             {
-                var FireBallEnemy = Instantiate(FireBallEnemyprefab, transform);
+                var pos = transform.position + shootpos[i];
+                var FireBallEnemy = Instantiate(FireBallEnemyprefab, pos, Quaternion.identity);
                 shoot = FireBallEnemy.GetComponent<shoot>();
                 shoot.dir2 = shootpos[i];
-                nextAttackTime = Time.time + 1 / attackrate;
+                
             }
+            nextAttackTime = Time.time + 1 / attackrate;
         }
     }
     void panic()
@@ -129,8 +147,9 @@ public class Boss : MonoBehaviour
              if (WA == 0)
              {
                  dir = (player.position - transform.position).normalized;
-                 var FireBallEnemy = Instantiate(FireBallEnemyprefab, transform);
-                 shoot = FireBallEnemy.GetComponent<shoot>();
+                var pos = transform.position + new Vector3(0, -2, 0);
+                var FireBallEnemy = Instantiate(FireBallEnemyprefab, pos, Quaternion.identity);
+                shoot = FireBallEnemy.GetComponent<shoot>();
                  shoot.dir2 = dir;
                  nextAttackTime = Time.time + 1 / attackrate;
              }
@@ -138,7 +157,8 @@ public class Boss : MonoBehaviour
             {
                 for (int i = 0; i < shootpos.Length; i++)
                 {
-                    var FireBallEnemy = Instantiate(FireBallEnemyprefab, transform);
+                    var pos = transform.position + shootpos[i];
+                    var FireBallEnemy = Instantiate(FireBallEnemyprefab, pos, Quaternion.identity);
                     shoot = FireBallEnemy.GetComponent<shoot>();
                     shoot.dir2 = shootpos[i];
                     nextAttackTime = Time.time + 1 / attackrate;

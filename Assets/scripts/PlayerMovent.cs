@@ -17,7 +17,7 @@ public class PlayerMovent : MonoBehaviour
     public Vector3 dir2;
     public float angle;
     public GameObject FireBallPrefab;
-    public LayerMask enemyLayers;
+    public LayerMask enemyLayers ;
     public Transform AttackPoint;
     public Transform sword;
     public int damage = 1;
@@ -80,41 +80,41 @@ public class PlayerMovent : MonoBehaviour
 
 
                 GameManager.Instance.TakeDamage(1);
-                nockback(20f);
+                nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
             }
 
 
         }
-        else if (col.gameObject.tag == "hunter")
+        if (col.gameObject.tag == "hunter")
         {
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback(15f);
+                nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
             }
         }
-        else if (col.gameObject.tag == "EnemyAttack")
+        if (col.gameObject.tag == "EnemyAttack")
         {
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback(10f);
+                nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
             }
         }
-        else if (col.gameObject.tag == "boss")
+        if (col.gameObject.tag == "boss")
         {
             if (Iframs == false)
             {
 
 
                 GameManager.Instance.TakeDamage(1);
-                nockback(15f);
+                nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
             }
@@ -142,41 +142,42 @@ public class PlayerMovent : MonoBehaviour
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback(15f);
+                nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
             }
 
 
         }
-        else if (col.gameObject.tag == "hunter")
+        if (col.gameObject.tag == "hunter")
         {
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback(15f);
+                nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
             }
         }
-        else if (col.gameObject.tag == "EnemyAttack")
+        if (col.gameObject.tag == "EnemyAttack")
         {
             if (Iframs == false)
             {
+                
                 GameManager.Instance.TakeDamage(1);
-                nockback(10f);
+                nockback(5f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
             }
         }
-        else if (col.gameObject.tag == "boss")
+        if (col.gameObject.tag == "boss")
         {
             if (Iframs == false)
             {
 
 
                 GameManager.Instance.TakeDamage(1);
-                nockback(15f);
+                nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
             }
@@ -260,7 +261,7 @@ public class PlayerMovent : MonoBehaviour
 
 
         Controller2D.move(velocity * Time.deltaTime);
-        velocity = Controller2D.velocity;//.normalized;
+       //velocity = Controller2D.velocity;//.normalized;
     }
     void rotations(float x, float y)
     {
@@ -343,19 +344,56 @@ public class PlayerMovent : MonoBehaviour
 
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
-    void nockback(float knockBack)
+    void nockback(float knockBack, string tag,Collider2D dsw)
     {
-        for (int i = 0; i < 3; i++)
+        
+        
+            
+        if(tag == "EnemyAttack")
         {
+           var swe =  dsw.gameObject.GetComponent<shoot>();
+            for (int i = 0; i < 3; i++)
+            {
 
 
-            velocity2.x = Mathf.Lerp(velocity2.x, enemy1.dir.x * knockBack, Time.deltaTime * 20f);
-            velocity2.y = Mathf.Lerp(velocity2.y, enemy1.dir.y * knockBack, Time.deltaTime * 20f);
+                velocity2.x = Mathf.Lerp(velocity2.x, swe.dir2.x * knockBack, Time.deltaTime * 20f);
+                velocity2.y = Mathf.Lerp(velocity2.y, swe.dir2.y * knockBack, Time.deltaTime * 20f);
 
 
-            Controller2D.move(velocity2 * Time.deltaTime);
-            velocity = Controller2D.velocity;
+                Controller2D.move(velocity2 * Time.deltaTime);
+                //velocity = Controller2D.velocity;
+            }
         }
+        else if(tag == "Enemy")
+        {
+            for (int i = 0; i < 3; i++)
+            {
+
+                WayPoints swe = dsw.gameObject.GetComponent<WayPoints>();
+                velocity2.x = Mathf.Lerp(velocity2.x, swe.dir.x * knockBack, Time.deltaTime * 20f);
+                velocity2.y = Mathf.Lerp(velocity2.y, swe.dir.y * knockBack, Time.deltaTime * 20f);
+
+
+                Controller2D.move(velocity2 * Time.deltaTime);
+               // velocity2 = Controller2D.velocity;
+            }
+        }
+        else if(tag == "boss")
+        {
+            for (int i = 0; i < 3; i++)
+            {
+
+                WayPoints swe = dsw.gameObject.GetComponent<WayPoints>();
+                velocity2.x = Mathf.Lerp(velocity2.x, 0 * knockBack, Time.deltaTime * 20f);
+                velocity2.y = Mathf.Lerp(velocity2.y, -1 * knockBack, Time.deltaTime * 20f);
+
+
+                Controller2D.move(velocity2 * Time.deltaTime);
+               // velocity2 = Controller2D.velocity;
+            }
+        }
+
+
 
 
     }
