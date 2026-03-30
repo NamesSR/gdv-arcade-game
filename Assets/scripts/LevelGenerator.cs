@@ -41,7 +41,7 @@ public class LevelGenerator : MonoBehaviour
 
     string[][] levelData = {new string[]
       {
-       "#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
+       ",#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
 "#gTgTgTg#gdTgTgTg#gdTgTgTgTg#gdTgTg#gdTgTgTgTg#gdTgTgTg#gdTgTgTgTg#gd",
 "#gTgTg#gd#gd#gdTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTgTgTgTgTgTg#gdTgTgTg#g",
 "#g#gdTgTg#gdTgTgTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTy#y",
@@ -61,7 +61,7 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       {
-          "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+          ",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#bTyTyTyTyyTyTyTyyTyTyByTyTyTyyWy13TyTyTyTyWy12TyTyTyTyTyTyTyTy#b#d",
 "#d#bTyTyTyyTy#bTyTyTyTyyTy#bTyTyTyTyTyy#bTyTyyTyTyTy#bTyyTyTyTy#b#d",
 "#d#bTyyTyTy#b#b#bTyTyTy#b#b#bTyTyyTy#b#b#bTyTyTy#b#b#bTyTyyTy#b#d",
@@ -82,7 +82,7 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       {
-          "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+          ",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#bTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyTyTyyTy#b#d",
 "#d#bTyyTrTrTrTrTrTrTrTrTrTyTyy#b#b#bTyTyTrWr21TrTrTrTrTrTrWr22Ty#b#d",
 "#d#bTyWr43TrTrWr44TrTrWr45Er3TrTyyTy#b#b#bTyTyyTrTrTrTrBrTrTrTrTrTy#b#d",
@@ -102,7 +102,7 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       {
-          "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+          ",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#bTyTyTyTyTyTyTyTyTyTyTy#bTyTyTy#bTyTyTy#bTyTyTyTyTyByTy#b#d",
 "#d#bTyTyEy1TyTyTyTyTyyTyTyTy#bTyTyTy#bTyTyyTy#bTyTyTyTyTyyTyTy#b#d",
 "#d#bTyTyyTyTy#bTyTy#b#bTyTy#bTyTyyTy#bTyTy#b#bTyTy#b#b#b#b#b#b#d",
@@ -120,7 +120,64 @@ public class LevelGenerator : MonoBehaviour
 "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d",
 
-      }
+      },
+      new string[]
+      { "q#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTyTyTy#b#bTyTy#bTyTyTyTyTy#bTyTyTyTyTyTyTyTyTyTy#b#d",
+"#d#bTyTyTyy#bByTyTyTyTyTy#bTyyTyUyTyTy#bTyTyTyyTy#b#b#bTyTyyTy#b#d",
+"#d#bTy#b#b#bTyTyTyTyyTyTy#bTyTyTyTyTy#bTyTyTyTyTyTy#bTyTyTy#b#d",
+"#d#bTyTyTyTyTyTyTy#b#b#b#bTyTyTyTyTyy#b#b#b#bTyTyTyTyTyTyTy#b#d",
+"#d#bTy#b#b#bTyTyTy#bTyTyTyTyTyTyTyTyTyTyTy#bTyTyTyTyyTy#b#b#b#d",
+"#b#bTy#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTy#b#bTyBy#bTy#b#b",
+"#yTyTyTyTyTyTyy#bTyTyTyTyTyTyTyTyTyTyTyyTyTyTyTyTyTyTyTyTyTyTyFyd",
+"#yPyTyTyTyTyTy#bTy#bTyTyTyyTyTyTyTyTyTyTyTy#bTyTyyTyTyTyTyTyTyFyd",
+"#yTyTyTyTy#b#b#bTy#b#bTyTyTy#b#b#bTyTyTy#b#bTyTyTyTy#b#bTyTyFyd",
+"#b#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTy#bTy#b#b",
+"#d#bTy#bTyTyTyTyTyTy#bTyTyTy#b#bTyTyy#bTyTyTyTyTy#bTyTyTyTy#b#d",
+"#d#bTy#b#b#bTyTyTy#b#bTyTyTyTy#bTyTy#b#bTyTy#b#b#bTyTyTyyTy#b#d",
+"#d#bTyTyTyyTyTyTyTyTy#bTyTyTyTy#bTyTy#b#bTyTy#bTyTyTyTyTyTy#b#d",
+"#d#bTyTyTyTy#bTyTyTy#b#bTyTyTyByTyTyTyTyTyTyTyyTyTyTy#b#bTy#b#d",
+"#d#bTyTyTy#b#b#bTyTyTyyTyTyTyTyTy#b#bTyTyTyTyTyTyTyTy#b#bTy#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+
+
+    }, new string[] {",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTy#b#bTyTyTy#bTyTyTyTy#bTyTyyTyTyTy#b#b#b#bTyTyTy#b#d",
+"#d#bTyEy1TyyTy#b#bTyByTy#bTyTyTyTy#bTyTyTyTyTyTy#b#bTyTyEy2Ty#b#d",
+"#d#bTyTyTyTy#b#bTyTyTy#bTyTyTyTyy#bTyTyTy#bTyTy#b#bTyTyy#bTy#b#d",
+"#d#bTyyTyTyTyTyTyTyTyTy#b#bTyTy#b#b#bTyTy#bTyTyTyTyTyTy#bTy#b#d",
+"#d#bTyTyTyTyTyTyTyTyTy#bTyTyTyTyTy#bTyTy#b#bTyyTyTyTy#b#bTy#b#d",
+"#b#b#b#b#b#bTyTy#b#b#b#bTyTyTyTyTy#b#b#b#bTyTyTyTyTyTy#b#b#b#b",
+"#yTyTyTyTyTyTyyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyFyd",
+"#yPyTyTyTyTyTyTyTyTyTyTyyTyTyTyTyTyTyEy3TyTyTyTyTyTyTyTyTyTyTyFyd",
+"#yTyTyTyyTyTyTyTyTyTyTyTyTyTyTyTyTyyTyTyTyTyTyTyTyTyyTyTyTyyTyTyFyd",
+"#b#b#b#b#b#bTyTy#b#b#b#bTyTyTyTyTy#b#b#b#bTyTyTyTyTyTy#b#b#b#b",
+"#d#bTyTyTyTyTyTyTyTyTy#bTyTyTyTyTy#bTyTy#b#bTyTyTyTy#b#bTy#b#d",
+"#d#bTyyTyTyTyTyTyTyTyTyy#b#bTyTy#b#b#bTyTy#bTyTyTyTyTyTy#bTy#b#d",
+"#d#bTyTyTyTy#b#bTyTyTy#bTyTyTyTy#bTyTyTyy#bTyTy#b#bTyTy#bTy#b#d",
+"#d#bTyByTyyTy#b#bTyEy4Ty#bTyTyyTyTy#bTyByTyTyTyTy#b#bTyTyyTyTy#b#d",
+"#d#bTyTyTyTy#b#bTyTyTy#bTyTyTyTy#bTyTyTyTyTy#b#b#b#bTyTyTy#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+ },
+      new string[] { ",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#b#b#bTyTyTyTyTyTyTyTyyTy#b#b#b#b#bTyTyTyTyTyTyTyyTyTyTy#b#b#d",
+"#d#b#bTyTyTyTyTyTyTyTyTyTyTy#b#b#bTyyTyTyTyTyTyTyTyTyByTyTy#b#d",
+"#d#bTyTyTyTyyTyTyTyTyTyTyTyTyTy#bTyTyTyTy#b#b#b#bTyTyTyTyyTy#b#d",
+"#d#bTyTyTyTy#b#b#b#b#bTyTyEy1Ty#bTyTyTy#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTy#bTyTyTy#bTyTyTyTy#bTyTyTyTy#bTyTyTyTyTyTyTyTy#b#d",
+"#b#b#bTyTy#b#bTyTyTyTyTyTyTy#b#bTyTyTyTyTyyTyTyTyTyTyTyTyTyy#b#b",
+"#yTyTyTyTyTy#bTyByTyTyTyTyy#b#b#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyFyd",
+"#yPyTyTyTyTy#bTyTyTyTyTyTyTy#b#bTyTyTyTyTyTyTyTyTyTyEy2TyTyTyFyd",
+"#yTyTyyTyTyTy#bTyTyy#b#bTyTyTyTy#bTyyTyTyTy#bTyTyTyTyyTyTyTyTyTyFyd",
+"#b#b#bTyTy#b#b#b#b#bTyTyTyTyTy#bTyTyTy#b#b#b#b#bTyTyTyTyTy#b#b",
+"#d#bTyTyTyTyTyTyy#bTyTyTyTyTy#b#bTyTyTy#bTyyTyTy#b#bTyTyTy#b#b#d",
+"#d#bTyTyTyTyTyTy#bTyTyTy#b#b#bTyTyTyTy#bTyByTy#bTyTyTyTyTy#b#d",
+"#d#b#bTyTy#b#b#b#bTyTyTyy#b#bTyTyTyTyTy#bTyTyTyTyTyTyTyTyTy#b#d",
+"#d#bTyTyTyyTyEy4Ty#bTyTyTyTyTyTyTyTyTy#b#bTyEy3TyTyTyTyTyTyy#b#b#d",
+"#d#bTyTyTyTyTyTy#bTyTyTyTyTyTyTyyTy#b#b#bTyTyTyy#bTyTyTy#b#b#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+}
+
     };
 
 
@@ -143,18 +200,18 @@ public class LevelGenerator : MonoBehaviour
         gridx = 0;
         if (l == 0)
         {
-            Genlevel = 1;// UnityEngine.Random.Range(0, levelData.Length);
+            Genlevel = 0;// UnityEngine.Random.Range(0, levelData.Length);
         }
         else
-        {
-            if (GameManager.Instance.level < 4)
+        { 
+            if (GameManager.Instance.level < 7)
             {
                 Genlevel = GameManager.Instance.level - 1; // UnityEngine.Random.Range(0, levelData.Length - 1);
 
             }
             else
             {
-                Genlevel = UnityEngine.Random.Range(0, levelData.Length);
+                Genlevel = UnityEngine.Random.Range(1, levelData.Length);
             }
         }
 
@@ -165,6 +222,14 @@ public class LevelGenerator : MonoBehaviour
             string row = line;
             for (int x = 0; x < row.Length; x++)
             {
+                if(y == 0 && x == 0)
+                {
+                    if (row[0] == 'q')
+                    {
+                        GameManager.Instance.bossLevel = true;
+                    }
+                    x++;
+                }
 
                 char tile = row[x];
                 Vector3 position = new Vector3(gridx, -y, 0);
@@ -191,17 +256,17 @@ public class LevelGenerator : MonoBehaviour
                         switch (esindex)
                         {
                             case 1:
-                                enemyOffsetSet(position, enemyPrefab, 1, false, y);
+                                enemyOffsetSet(position, enemyPrefab, 1, false, y, new Color32(255, 0, 0, 255));
                                 break;
                             case 2:
-                                enemyOffsetSet(position, enemy2Prefab, 2, true, y);
+                                enemyOffsetSet(position, enemy2Prefab, 2, true, y, new Color32(255, 5, 107, 255));
                                 GameManager.Instance.ishunterinScene = true;
                                 break;
                             case 3:
-                                enemyOffsetSet(position, enemyPrefab, 3, true, y);
+                                enemyOffsetSet(position, enemyPrefab, 3, true, y, new Color32(198, 87, 64, 255));
                                 break;
                             case 4:
-                                enemyOffsetSet(position, enemyPrefab, 4, false, y);
+                                enemyOffsetSet(position, enemyPrefab, 4, false, y, new Color32(34, 201, 156, 255));
                                 break;
                         }
 
@@ -227,6 +292,10 @@ public class LevelGenerator : MonoBehaviour
                         break;
                     case 'T':
 
+                        gridx++;
+                        break;
+                    case 'U':
+                        Instantiate(BossPrefab, position, Quaternion.identity, this.transform);
                         gridx++;
                         break;
 
@@ -314,13 +383,14 @@ public class LevelGenerator : MonoBehaviour
                     TileColor.color = new Color32(173, 56, 54, 255);
                     break;
 
+
             }
 
 
         }
         a = 0;
     }
-    void enemyOffsetSet(Vector3 position, GameObject enemy, int whichEnemy, bool chashing, int y)
+    void enemyOffsetSet(Vector3 position, GameObject enemy, int whichEnemy, bool chashing, int y, Color32 maincoller)
     {
 
         sd = Instantiate(enemy, position, Quaternion.identity, this.transform);
@@ -328,6 +398,7 @@ public class LevelGenerator : MonoBehaviour
         n = Instantiate(nodePrefab, position, Quaternion.identity, this.transform);
         nodeList.Add(n);
         way.currentNode = n;
+        way.mainColer = maincoller;
 
         way.whichEnemy = whichEnemy;
         way.chase = false;

@@ -8,7 +8,7 @@ public class ScoreUI : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI ClasUI;
-   
+    public TextMeshProUGUI HealText;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,5 +42,12 @@ public class ScoreUI : MonoBehaviour
     {
         ClasUI.text = Clas;
     }
-  
+  public void canHealUpdate()
+    {
+        HealText.text = "Heal: Ready";
+    }
+    public void canNotHealUpdate(float couldown)
+    {
+        HealText.text = $"Heal: {couldown}";
+    }
 }

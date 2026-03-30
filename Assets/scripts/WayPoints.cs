@@ -43,9 +43,12 @@ public class WayPoints : MonoBehaviour
     Transform shootransform;
     float nextAttackTime = 0f;
     public float AttackRate = 2f;
-
+    ParticleSystem ps;
     public GameObject FireBallEnemyprefab;
     bool gameStarted = false;
+    BoxCollider2D bc;
+    SpriteRenderer sr;
+    
 
     public enum StateMachine
     {
@@ -59,12 +62,14 @@ public class WayPoints : MonoBehaviour
 
     };
     public StateMachine currentState;
+    
     private void Start()
     {
+       
         currentState = StateMachine.patrol;
-
+        
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
+       
 
         //  currentNode = ANodeStartManager.instance.FindNearestNode(transform.position);
 
@@ -72,6 +77,9 @@ public class WayPoints : MonoBehaviour
     private void Awake()
     {
         lg = GameObject.Find("LevelGenerator").GetComponent<LevelGenerator>();
+        sr = GetComponent<SpriteRenderer>();
+        bc = GetComponent<BoxCollider2D>();
+        ps = GetComponent<ParticleSystem>();
         // s = sho.GetComponent<shoot>();
         Controller2D2 = GetComponent<CharacterController2D>();
         Controller2D2.onControllerCollidedEvent += onControllerCollider2;
@@ -79,6 +87,11 @@ public class WayPoints : MonoBehaviour
         //enemyHp //.= GameManager.Instance.enemyHealth();
         enemyColler = GetComponent<SpriteRenderer>();
         LevelGenerator.startgame += loaddateforenemy;
+        var s = ps.main;
+        sr.enabled = true;
+        bc.enabled = true;
+        ps?.Stop();
+        s.startColor = mainColer;
 
 
     }
@@ -203,7 +216,7 @@ public class WayPoints : MonoBehaviour
         {
             enemyColler.color = mainColer;
         }
-        if (GameManager.Instance.gameStarted == true)
+        if (GameManager.Instance.gameStarted == true && enemyHp > 0)
         {
             switch (currentState)
             {
@@ -334,7 +347,11 @@ public class WayPoints : MonoBehaviour
 
         if (enemyHp <= 0)
         {
-            Destroy(this.gameObject);
+            sr.enabled = false;
+            bc.enabled = false;
+            ps?.Stop();
+            ps?.Play();
+            Destroy(this.gameObject, 0.3f);
             GameManager.Instance.AddPoints(50);
             GameManager.Instance.enemyCount--;
             if (whichEnemy == 2)
