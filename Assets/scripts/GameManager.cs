@@ -334,7 +334,7 @@ public class GameManager : MonoBehaviour
         ishunterinScene = false;
         gameStarted = false;
         vulnerable = false;
-        bossLevel = true;
+        bossLevel = false;
         yield return new WaitForSeconds(0.1f);
         LevelGen.GenerateLevel(1);
         switsing = false;
