@@ -30,17 +30,17 @@ public class shoot : MonoBehaviour
     private void Awake()
     {
         Controller2D3 = GetComponent<CharacterController2D>();
-       
+
         //go = GameObject.FindGameObjectWithTag("Player");
         //g = go.GetComponent<PlayerMovent>();
 
-
+        Destroy(this.gameObject, 5f);
 
     }
 
     void onTriggerEnterEvent3(Collider2D col)
     {
-        Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
+       // Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
         if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Wall" || col.gameObject.tag == "hunter" || col.gameObject.tag == "nextlevel")
         {
             

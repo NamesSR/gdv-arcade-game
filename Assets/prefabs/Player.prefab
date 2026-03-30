@@ -119,7 +119,7 @@ MonoBehaviour:
   FireBallPrefab: {fileID: 1419254304389681315, guid: f7f13990b17287e4898ee4e89c2d5882, type: 3}
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65600
   AttackPoint: {fileID: 4836111770518251302}
   sword: {fileID: 8911927683241424134}
   damage: 1

@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
         else
         {
             scoreUI.canNotHealUpdate(heal - Time.time);
-            Debug.Log("cooldown");
+            
         }
 
 

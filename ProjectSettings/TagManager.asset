@@ -19,6 +19,7 @@ TagManager:
   - EnemyAttack
   - knight
   - mage
+  - levelgen
   layers:
   - Default
   - TransparentFX
