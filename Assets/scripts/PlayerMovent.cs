@@ -51,6 +51,7 @@ public class PlayerMovent : MonoBehaviour
         AttackPoint = GameObject.FindGameObjectWithTag("attackPoint").transform;
         Coller = GetComponent<SpriteRenderer>();
         Coller.color = mainColer;
+        speed = GameManager.Instance.speed;
     }
     void loaddateforenemy()
     {

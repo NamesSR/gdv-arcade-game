@@ -52,6 +52,9 @@ public class GameManager : MonoBehaviour
     public bool bossIsVulnerable = false;
     public bool bossLevel = false;
     public int bossSicels = 0;
+    public float heal = 0f;
+    public float healcouldown = 0f;
+    public int maxHp = 3;
     //public List<GameObject> Inventory;
 
 
@@ -189,8 +192,28 @@ public class GameManager : MonoBehaviour
                 Clas = "Knight";
                 scoreUI.ClasUpdate(Clas);
             }
-
         }
+
+        if (Time.time >= heal)
+        {
+            scoreUI.canHealUpdate();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (maxHp > hp)
+                {
+                    Debug.Log("healing");
+                    hp += 1;
+                    heal = Time.time + healcouldown;
+                }
+            }
+        }
+        else
+        {
+            scoreUI.canNotHealUpdate(heal - Time.time);
+            Debug.Log("cooldown");
+        }
+
+
         if (bossLevel == true)
         {
             if (powerOrbCount <= 0)
@@ -256,6 +279,7 @@ public class GameManager : MonoBehaviour
     public void PauseGame() => SetState(GameState.Paused);
     public void GameOver() => SetState(GameState.GameOver);
     public void Menu() => SetState(GameState.Menu);
+
     void LoadGameData()
     {
         score = 0;
@@ -275,12 +299,14 @@ public class GameManager : MonoBehaviour
             hp = 3 + AddHp;
             FireBallDagame = 1 + AddMageDamage;
             speed = 6f + AddSpeed;
+            healcouldown = 30f;
         }
         if (Clas == "Knight")
         {
             hp = 4 + AddHp;
             damage = 2 + AddDamage;
             speed = 5f + AddSpeed;
+            healcouldown = 45f;
         }
 
         scoreUI.ClasUpdate(Clas);
@@ -308,6 +334,7 @@ public class GameManager : MonoBehaviour
         ishunterinScene = false;
         gameStarted = false;
         vulnerable = false;
+        bossLevel = true;
         yield return new WaitForSeconds(0.1f);
         LevelGen.GenerateLevel(1);
         switsing = false;
