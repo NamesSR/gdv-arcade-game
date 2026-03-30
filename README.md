@@ -18,6 +18,9 @@ Fallen archer: Loopt niet rond, maar werkt ongeveer zoals een turret met een bep
 Black shadow assasin: Loopt snel maar heeft iets minder hp dan een normale enemy, en doet iets minder dan gemiddelde dmg. Na een attack gaat hij weg en komt na 5-10 seconden weer terug uit de schaduwen
 Fallen Shadow Assasin: sterkere versie van de black shadow assasin. Heeft even veel hp maar doet veel dmg. Na 1 attack verdwijnt hij en komt niet meer terug in dat level.
 
+# semiAutomaticGridMapLoader 
+[link to repo](https://github.com/NamesSR/semiAutoMaticGridMapLoader)
+
 | Als speler wil ik...                                  | Zodat...                              |
 | ----------------------------------------------------- | ------------------------------------- |
 | Het character in vaste richtingen kunnen besturen      | Ik door een speelruimte kan navigeren |
@@ -80,6 +83,13 @@ Fallen Shadow Assasin: sterkere versie van de black shadow assasin. Heeft even v
 | Dat je in de UI kan zien dat je points krijgt    | Je kan zien hoe goed je het doet |
 |Directe feedback op acties |Het spel responsief aanvoelt    |
 | Optionele uitdagingen voor extra beloning                  | Meesterschap wordt beloond        |
+# grid
+## ![](image/grid.gif)
+### [grid code](Assets/scripts/LevelGenerator.cs)
+# this are debug keys
+## press 1 to delete level
+## press 2 to swap levels
+## press 3 to swap bewtine mele and range attack 
 
 
 

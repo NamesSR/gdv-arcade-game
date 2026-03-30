@@ -2,8 +2,24 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - dot
+  - Enemy
+  - Wall
+  - PowerOrb
+  - Attack
+  - dir
+  - attackPoint
+  - menu
+  - GameOver
+  - nextlevel
+  - boss
+  - hunter
+  - EnemyAttack
+  - knight
+  - mage
+  - levelgen
   layers:
   - Default
   - TransparentFX
@@ -11,18 +27,18 @@ TagManager:
   - 
   - Water
   - UI
+  - Enemys
+  - Players
+  - PlayerColider
+  - walls
+  - dot
+  - fireBall
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ground0
+  - nextLevel
+  - boss
+  - enemyAttack
   - 
   - 
   - 
@@ -41,3 +57,5 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  m_RenderingLayers:
+  - Default

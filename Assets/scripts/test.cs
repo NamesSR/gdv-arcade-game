@@ -1,0 +1,58 @@
+using System.Collections;
+using TMPro;
+using UnityEngine;
+
+public class test : MonoBehaviour
+{
+    public LevelGenerator l;
+    public ScoreUI scoreUI;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+       
+        if (Input.GetKeyDown(KeyCode.Alpha1)) 
+        {
+            // GameManager.Instance.AddPoints(10);
+            // Debug.Log("a");
+            //GameManager.Instance.TakeDamage(1);
+            l.RemoveNodes();
+            l.destroyLevel();
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+
+
+            StartCoroutine(WaitV());
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            GameManager.Instance.vulnerable = true;
+            GameManager.Instance.hp = 100;
+            scoreUI.HpUpdate(GameManager.Instance.hp);
+
+        }
+
+    }
+    IEnumerator WaitV()
+    {
+        l.RemoveNodes();
+        l.destroyLevel();
+        GameManager.Instance.ishunterinScene = false;
+        GameManager.Instance.enemyCount = 0;
+        yield return new WaitForSeconds(0.001f);
+       
+        l.GenerateLevel(1);
+    }
+     
+
+}
