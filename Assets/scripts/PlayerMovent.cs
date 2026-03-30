@@ -21,21 +21,22 @@ public class PlayerMovent : MonoBehaviour
     public Transform AttackPoint;
     public Transform sword;
     public int damage = 1;
-    public bool mele = true;
+
     private Vector3 velocity;
     private Vector3 velocity2;
-    
+
     private RaycastHit2D _lastControllerColliderHit;
     private CharacterController2D Controller2D;
     float nextAttackTime = 0f;
     public float AttackRate = 2f;
     private SpriteRenderer Coller;
-    public  WayPoints hunter;
+    public WayPoints hunter;
     public WayPoints enemy1;
     public Color mainColer;
     Transform transform23;
     bool Iframs = false;
     shoot shoot;
+
 
 
 
@@ -50,46 +51,43 @@ public class PlayerMovent : MonoBehaviour
         AttackPoint = GameObject.FindGameObjectWithTag("attackPoint").transform;
         Coller = GetComponent<SpriteRenderer>();
         Coller.color = mainColer;
+        speed = GameManager.Instance.speed;
     }
     void loaddateforenemy()
     {
-        if (GameManager.Instance.enemyCount > 0)
+        if (GameManager.Instance.enemyCount > 0 && enemy1 == null)
         {
             enemy1 = GameObject.FindGameObjectWithTag("Enemy").GetComponent<WayPoints>();
         }
-        if (GameManager.Instance.enemyCount > 1){
+        if (GameManager.Instance.enemyCount > 1 && hunter == null)
+        {
             hunter = GameObject.FindGameObjectWithTag("hunter").GetComponent<WayPoints>();
         }
+    }
+    private void OnDestroy()
+    {
+        hunter = null;
+        enemy1 = null;
     }
     void onTriggerStayEvent(Collider2D col)
     {
         if (col.gameObject.tag == "Enemy")
         {
-            
-            
-                if (Iframs == false)
-                {
-                 
 
-                    GameManager.Instance.TakeDamage(1);
-                nockback(20f);
-                StartCoroutine(Iframsv2());
 
-                }
-            
-                
-        }
-        else if (col.gameObject.tag == "hunter")
-        {
             if (Iframs == false)
             {
+
+
                 GameManager.Instance.TakeDamage(1);
                 nockback(20f);
                 StartCoroutine(Iframsv2());
 
             }
+
+
         }
-        else if (col.gameObject.tag == "EnemyAttack")
+        else if (col.gameObject.tag == "hunter")
         {
             if (Iframs == false)
             {
@@ -99,6 +97,29 @@ public class PlayerMovent : MonoBehaviour
 
             }
         }
+        else if (col.gameObject.tag == "EnemyAttack")
+        {
+            if (Iframs == false)
+            {
+                GameManager.Instance.TakeDamage(1);
+                nockback(10f);
+                StartCoroutine(Iframsv2());
+
+            }
+        }
+        else if (col.gameObject.tag == "boss")
+        {
+            if (Iframs == false)
+            {
+
+
+                GameManager.Instance.TakeDamage(1);
+                nockback(15f);
+                StartCoroutine(Iframsv2());
+
+            }
+
+        }
     }
     void onControllerCollider(RaycastHit2D hit)
     {
@@ -107,9 +128,9 @@ public class PlayerMovent : MonoBehaviour
             return;
 
         // logs any collider hits if uncommented. it gets noisy so it is commented out for the demo
-       // Debug.Log( "flags: " + Controller2D.collisionState + ", hit.normal: " + hit.normal );
+        // Debug.Log( "flags: " + Controller2D.collisionState + ", hit.normal: " + hit.normal );
     }
-   
+
 
     void onTriggerEnterEvent(Collider2D col)
     {
@@ -121,7 +142,7 @@ public class PlayerMovent : MonoBehaviour
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback(20f);
+                nockback(15f);
                 StartCoroutine(Iframsv2());
 
             }
@@ -133,32 +154,44 @@ public class PlayerMovent : MonoBehaviour
             if (Iframs == false)
             {
                 GameManager.Instance.TakeDamage(1);
-                nockback(20f);
-                StartCoroutine(Iframsv2());
-
-            }
-        }
-        else if(col.gameObject.tag == "EnemyAttack")
-        {
-            if (Iframs == false)
-            {
-                GameManager.Instance.TakeDamage(1);
                 nockback(15f);
                 StartCoroutine(Iframsv2());
 
             }
         }
+        else if (col.gameObject.tag == "EnemyAttack")
+        {
+            if (Iframs == false)
+            {
+                GameManager.Instance.TakeDamage(1);
+                nockback(10f);
+                StartCoroutine(Iframsv2());
 
-        if (col.CompareTag("nextlevel")) 
+            }
+        }
+        else if (col.gameObject.tag == "boss")
+        {
+            if (Iframs == false)
+            {
+
+
+                GameManager.Instance.TakeDamage(1);
+                nockback(15f);
+                StartCoroutine(Iframsv2());
+
+            }
+
+        }
+        if (col.CompareTag("nextlevel"))
         {
             GameManager.Instance.nextlevelfin();
 
 
         }
-       
+
 
         Debug.Log("trigger");
-        
+
 
         if (col.CompareTag("PowerOrb"))
         {
@@ -180,14 +213,14 @@ public class PlayerMovent : MonoBehaviour
 
     void Update()
     {
-        
+
         if (GameManager.Instance.Mele == true)
         {
             if (Time.time >= nextAttackTime)
             {
                 if (Input.GetMouseButton(0))
                 {
-                    
+
 
                     Attack();
                     nextAttackTime = Time.time + 1f / AttackRate;
@@ -198,40 +231,47 @@ public class PlayerMovent : MonoBehaviour
         {
             ShootFireBall();
         }
-        
+
+
+
     }
 
     private void FixedUpdate()
     {
-        
+
         float x = Input.GetAxisRaw("Horizontal");
 
-        
+
         float y = Input.GetAxisRaw("Vertical");
         var smoothedMovementFactor = groundDamping; // how fast do we change direction?
-         
+
 
         velocity.x = Mathf.Lerp(velocity.x, x * GameManager.Instance.speed, Time.deltaTime * smoothedMovementFactor);
 
 
         velocity.y = Mathf.Lerp(velocity.y, y * GameManager.Instance.speed, Time.deltaTime * smoothedMovementFactor);
-        if (y != 0 || x != 0)
+
+        if (new Vector3(x, y, 0).magnitude > 0.01f)
         {
-           dir = new Vector3(x, y, 0);
-           angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-           float currentZ = (transform.eulerAngles = new Vector3(0,0,angle)).z;
-           float snappedZ = Mathf.Round(currentZ / 90f) * 90f;
-           transform.rotation = Quaternion.Euler(0, 0, snappedZ);
-          // Debug.Log($"{currentZ}:{snappedZ}:{angle}");
-           
+            rotations(x, y);
         }
-        
-        
+
+
+
+
         Controller2D.move(velocity * Time.deltaTime);
         velocity = Controller2D.velocity;//.normalized;
     }
-   
-    
+    void rotations(float x, float y)
+    {
+        dir = new Vector3(x, y, 0);
+        angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float currentZ = (transform.eulerAngles = new Vector3(0, 0, angle)).z;
+        float snappedZ = Mathf.Round(currentZ / 90f) * 90f;
+        transform.rotation = Quaternion.Euler(0, 0, snappedZ);
+        // Debug.Log($"{currentZ}:{snappedZ}:{angle}");
+    }
+
     IEnumerator PowerOrbs()
     {
 
@@ -261,7 +301,7 @@ public class PlayerMovent : MonoBehaviour
     IEnumerator AttackCoolDown()
     {
 
-        
+
         yield return new WaitForSeconds(1f);
         CanShoot = true;
 
@@ -276,17 +316,22 @@ public class PlayerMovent : MonoBehaviour
     }
     void Attack()
     {
-        
-        
+
+
         Collider2D[] HitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, enemyLayers);
         sword.Rotate(0, 0, -90f);
         foreach (Collider2D enemy in HitEnemies)
         {
             Debug.Log("invonerble");
-            if (GameManager.Instance.vulnerable == true)
+            if (GameManager.Instance.vulnerable == true && (enemy.tag == "Enemy" || enemy.tag == "hunter"))
             {
                 Debug.Log("vunerable");
-                enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage, 20f);
+                enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage, 30f);
+            }
+            if (GameManager.Instance.bossIsVulnerable == true && enemy.tag == "boss")
+            {
+                Debug.Log("vunerable");
+                enemy.GetComponent<Boss>().takedamage();
             }
         }
     }
@@ -294,20 +339,24 @@ public class PlayerMovent : MonoBehaviour
     {
         if (AttackPoint == null)
             return;
-            
-        
+
+
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
     void nockback(float knockBack)
     {
-        
+        for (int i = 0; i < 3; i++)
+        {
+
+
             velocity2.x = Mathf.Lerp(velocity2.x, enemy1.dir.x * knockBack, Time.deltaTime * 20f);
             velocity2.y = Mathf.Lerp(velocity2.y, enemy1.dir.y * knockBack, Time.deltaTime * 20f);
 
 
             Controller2D.move(velocity2 * Time.deltaTime);
             velocity = Controller2D.velocity;
-        
-       
+        }
+
+
     }
 }

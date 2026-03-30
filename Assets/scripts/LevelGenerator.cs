@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,7 +9,7 @@ using static UnityEngine.Rendering.DebugUI.Table;
 
 public class LevelGenerator : MonoBehaviour
 {
-    
+
     public GameObject wallPrefab;
     // public GameObject dotPrefab;
     WayPoints way;
@@ -19,23 +20,28 @@ public class LevelGenerator : MonoBehaviour
     public GameObject PowerOrbPrefab;
     public GameObject groundTilePrefab;
     public GameObject NextlevelTilePrefab;
+    public GameObject BossPrefab;
+    public Node nodePrefab;
+    public List<Node> nodeList;
     private SpriteRenderer TileColor;
-    public Vector3[] waypoints = new Vector3[24];
+    GameObject sd;
+
     public static event Action startgame;
-    
+
 
     int a = 0;
     private Transform t;
     int Genlevel;
-    private int offsetwaypoint = 0;
+    
     int gridx = 0;
     int index3;
     int index4;
     int waypointoffseter;
+    Node n;
 
     string[][] levelData = {new string[]
       {
-       "0#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
+       ",#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
 "#gTgTgTg#gdTgTgTg#gdTgTgTgTg#gdTgTg#gdTgTgTgTg#gdTgTgTg#gdTgTgTgTg#gd",
 "#gTgTg#gd#gd#gdTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTgTgTgTgTgTg#gdTgTgTg#g",
 "#g#gdTgTg#gdTgTgTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTy#y",
@@ -55,7 +61,7 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       {
-          "6#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+          ",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#bTyTyTyTyyTyTyTyyTyTyByTyTyTyyWy13TyTyTyTyWy12TyTyTyTyTyTyTyTy#b#d",
 "#d#bTyTyTyyTy#bTyTyTyTyyTy#bTyTyTyTyTyy#bTyTyyTyTyTy#bTyyTyTyTy#b#d",
 "#d#bTyyTyTy#b#b#bTyTyTy#b#b#bTyTyyTy#b#b#bTyTyTy#b#b#bTyTyyTy#b#d",
@@ -76,10 +82,10 @@ public class LevelGenerator : MonoBehaviour
       },
       new string[]
       {
-          "6#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+          ",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#bTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyyTyTyTyTyTyTyyTyTyTyTyTyTyyTy#b#d",
 "#d#bTyyTrTrTrTrTrTrTrTrTrTyTyy#b#b#bTyTyTrWr21TrTrTrTrTrTrWr22Ty#b#d",
-"#d#bTyWr43TrTrWr44TrTrWr45Er4TrTyyTy#b#b#bTyTyyTrTrTrTrBrTrTrTrTrTy#b#d",
+"#d#bTyWr43TrTrWr44TrTrWr45Er3TrTyyTy#b#b#bTyTyyTrTrTrTrBrTrTrTrTrTy#b#d",
 "#d#bTyTrTrTyyTyTyTyTyWr40TrTyTy#b#b#bTyTyTrTrTyTyTyTyTyTrTrTy#b#d",
 "#b#bTyTrTrTy#b#bTyTyyTrTrTyTyyTyTyTyTyTyTrTrTyyTy#b#bTyyTrTrTy#b#b",
 "#yTyTyyTrTrTy#b#bTyTyTrTrTyTyTyTyTyyTyTyTrTrTyTy#b#bTyTrTrTyTyFyd",
@@ -93,7 +99,84 @@ public class LevelGenerator : MonoBehaviour
 "#d#bTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyyTyTyTyTyTyyTyTy#b#d",
 "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
 "#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d"
-      }
+      },
+      new string[]
+      {
+          ",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTyTyTyTyTyTyTyTy#bTyTyTy#bTyTyTy#bTyTyTyTyTyByTy#b#d",
+"#d#bTyTyEy1TyTyTyTyTyyTyTyTy#bTyTyTy#bTyTyyTy#bTyTyTyTyTyyTyTy#b#d",
+"#d#bTyTyyTyTy#bTyTy#b#bTyTy#bTyTyyTy#bTyTy#b#bTyTy#b#b#b#b#b#b#d",
+"#d#bTyTy#b#b#bTyTyTy#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTy#b#d",
+"#b#bTyTyTyTyTyTyTyTy#bTyTyTyTyTyTyTyTyTyTyTyTyEy2TyTyyTyTyTy#b#b",
+"#yTyTyTyTyTyTyTyByTy#bTyTy#bTyTyTyy#bTyTyTyTyTyTy#bTyTyTyTyTyFyd",
+"#yTyTyTyTy#bTyTyTyTy#bTyTy#bTyTyTy#b#b#b#bTyTyTy#bTyTyTyTyTyFyd",
+"#yPyTyTyTy#b#bTyTy#b#bTyTy#b#b#b#b#bTyTy#b#b#b#b#bTyTyTyTyTyFyd",
+"#yTyTyTyTyTyTyTyTyTyyTyTyTyTyTyTyTyTyTyTyy#bTyTyTyTyTyTyTyyTyTyFyd",
+"#b#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyyTyTyTyTy#bTyTyTyTyTyTyTyTy#b#b",
+"#d#b#b#b#bTyTy#b#b#b#bTyTy#b#b#b#b#bTyTy#bTyTy#b#b#b#bTyTy#b#d",
+"#d#bTyyTy#bTyTy#bTyTy#bTyTy#bTyTyTy#bTyTyTyTyTy#bTyTyyTyTyTy#b#d",
+"#d#bTyTyTyTyTyyTyTyTyEy4TyTy#bTyByTyTyTyTyTyTyTyTyTyTyEy3TyTy#b#d",
+"#d#bTyTyTyTyTyTyTyTyTyTyTy#bTyyTyTyTyTyTyTyyTyTyTyTyTyTyTyTy#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d#d",
+
+      },
+      new string[]
+      { "q#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTyTyTy#b#bTyTy#bTyTyTyTyTy#bTyTyTyTyTyTyTyTyTyTy#b#d",
+"#d#bTyTyTyy#bByTyTyTyTyTy#bTyyTyUyTyTy#bTyTyTyyTy#b#b#bTyTyyTy#b#d",
+"#d#bTy#b#b#bTyTyTyTyyTyTy#bTyTyTyTyTy#bTyTyTyTyTyTy#bTyTyTy#b#d",
+"#d#bTyTyTyTyTyTyTy#b#b#b#bTyTyTyTyTyy#b#b#b#bTyTyTyTyTyTyTy#b#d",
+"#d#bTy#b#b#bTyTyTy#bTyTyTyTyTyTyTyTyTyTyTy#bTyTyTyTyyTy#b#b#b#d",
+"#b#bTy#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTy#b#bTyBy#bTy#b#b",
+"#yTyTyTyTyTyTyy#bTyTyTyTyTyTyTyTyTyTyTyyTyTyTyTyTyTyTyTyTyTyTyFyd",
+"#yPyTyTyTyTyTy#bTy#bTyTyTyyTyTyTyTyTyTyTyTy#bTyTyyTyTyTyTyTyTyFyd",
+"#yTyTyTyTy#b#b#bTy#b#bTyTyTy#b#b#bTyTyTy#b#bTyTyTyTy#b#bTyTyFyd",
+"#b#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTy#bTy#b#b",
+"#d#bTy#bTyTyTyTyTyTy#bTyTyTy#b#bTyTyy#bTyTyTyTyTy#bTyTyTyTy#b#d",
+"#d#bTy#b#b#bTyTyTy#b#bTyTyTyTy#bTyTy#b#bTyTy#b#b#bTyTyTyyTy#b#d",
+"#d#bTyTyTyyTyTyTyTyTy#bTyTyTyTy#bTyTy#b#bTyTy#bTyTyTyTyTyTy#b#d",
+"#d#bTyTyTyTy#bTyTyTy#b#bTyTyTyByTyTyTyTyTyTyTyyTyTyTy#b#bTy#b#d",
+"#d#bTyTyTy#b#b#bTyTyTyyTyTyTyTyTy#b#bTyTyTyTyTyTyTyTy#b#bTy#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+
+
+    }, new string[] {",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTy#b#bTyTyTy#bTyTyTyTy#bTyTyyTyTyTy#b#b#b#bTyTyTy#b#d",
+"#d#bTyEy1TyyTy#b#bTyByTy#bTyTyTyTy#bTyTyTyTyTyTy#b#bTyTyEy2Ty#b#d",
+"#d#bTyTyTyTy#b#bTyTyTy#bTyTyTyTyy#bTyTyTy#bTyTy#b#bTyTyy#bTy#b#d",
+"#d#bTyyTyTyTyTyTyTyTyTy#b#bTyTy#b#b#bTyTy#bTyTyTyTyTyTy#bTy#b#d",
+"#d#bTyTyTyTyTyTyTyTyTy#bTyTyTyTyTy#bTyTy#b#bTyyTyTyTy#b#bTy#b#d",
+"#b#b#b#b#b#bTyTy#b#b#b#bTyTyTyTyTy#b#b#b#bTyTyTyTyTyTy#b#b#b#b",
+"#yTyTyTyTyTyTyyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyTyFyd",
+"#yPyTyTyTyTyTyTyTyTyTyTyyTyTyTyTyTyTyEy3TyTyTyTyTyTyTyTyTyTyTyFyd",
+"#yTyTyTyyTyTyTyTyTyTyTyTyTyTyTyTyTyyTyTyTyTyTyTyTyTyyTyTyTyyTyTyFyd",
+"#b#b#b#b#b#bTyTy#b#b#b#bTyTyTyTyTy#b#b#b#bTyTyTyTyTyTy#b#b#b#b",
+"#d#bTyTyTyTyTyTyTyTyTy#bTyTyTyTyTy#bTyTy#b#bTyTyTyTy#b#bTy#b#d",
+"#d#bTyyTyTyTyTyTyTyTyTyy#b#bTyTy#b#b#bTyTy#bTyTyTyTyTyTy#bTy#b#d",
+"#d#bTyTyTyTy#b#bTyTyTy#bTyTyTyTy#bTyTyTyy#bTyTy#b#bTyTy#bTy#b#d",
+"#d#bTyByTyyTy#b#bTyEy4Ty#bTyTyyTyTy#bTyByTyTyTyTy#b#bTyTyyTyTy#b#d",
+"#d#bTyTyTyTy#b#bTyTyTy#bTyTyTyTy#bTyTyTyTyTy#b#b#b#bTyTyTy#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+ },
+      new string[] { ",#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#b#b#bTyTyTyTyTyTyTyTyyTy#b#b#b#b#bTyTyTyTyTyTyTyyTyTyTy#b#b#d",
+"#d#b#bTyTyTyTyTyTyTyTyTyTyTy#b#b#bTyyTyTyTyTyTyTyTyTyByTyTy#b#d",
+"#d#bTyTyTyTyyTyTyTyTyTyTyTyTyTy#bTyTyTyTy#b#b#b#bTyTyTyTyyTy#b#d",
+"#d#bTyTyTyTy#b#b#b#b#bTyTyEy1Ty#bTyTyTy#b#b#b#b#b#b#b#b#b#b#b#d",
+"#d#bTyTyTyTy#bTyTyTy#bTyTyTyTy#bTyTyTyTy#bTyTyTyTyTyTyTyTy#b#d",
+"#b#b#bTyTy#b#bTyTyTyTyTyTyTy#b#bTyTyTyTyTyyTyTyTyTyTyTyTyTyy#b#b",
+"#yTyTyTyTyTy#bTyByTyTyTyTyy#b#b#bTyTyTyTyTyTyTyTyTyTyTyTyTyTyFyd",
+"#yPyTyTyTyTy#bTyTyTyTyTyTyTy#b#bTyTyTyTyTyTyTyTyTyTyEy2TyTyTyFyd",
+"#yTyTyyTyTyTy#bTyTyy#b#bTyTyTyTy#bTyyTyTyTy#bTyTyTyTyyTyTyTyTyTyFyd",
+"#b#b#bTyTy#b#b#b#b#bTyTyTyTyTy#bTyTyTy#b#b#b#b#bTyTyTyTyTy#b#b",
+"#d#bTyTyTyTyTyTyy#bTyTyTyTyTy#b#bTyTyTy#bTyyTyTy#b#bTyTyTy#b#b#d",
+"#d#bTyTyTyTyTyTy#bTyTyTy#b#b#bTyTyTyTy#bTyByTy#bTyTyTyTyTy#b#d",
+"#d#b#bTyTy#b#b#b#bTyTyTyy#b#bTyTyTyTyTy#bTyTyTyTyTyTyTyTyTy#b#d",
+"#d#bTyTyTyyTyEy4Ty#bTyTyTyTyTyTyTyTyTy#b#bTyEy3TyTyTyTyTyTyy#b#b#d",
+"#d#bTyTyTyTyTyTy#bTyTyTyTyTyTyTyyTy#b#b#bTyTyTyy#bTyTyTy#b#b#b#d",
+"#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
+}
 
     };
 
@@ -103,32 +186,32 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-       
+
         //GenerateLevel(); 
     }
-    
+
 
 
     public void GenerateLevel(int l)
     {
-        
+
         GameManager.Instance.level++;
         Debug.Log(GameManager.Instance.level);
         gridx = 0;
         if (l == 0)
         {
-            Genlevel = 2;// UnityEngine.Random.Range(0, levelData.Length);
+            Genlevel = 0;// UnityEngine.Random.Range(0, levelData.Length);
         }
         else
-        {
-            if(GameManager.Instance.level < 4)
+        { 
+            if (GameManager.Instance.level < 7)
             {
-            Genlevel = GameManager.Instance.level - 1; // UnityEngine.Random.Range(0, levelData.Length - 1);
+                Genlevel = GameManager.Instance.level - 1; // UnityEngine.Random.Range(0, levelData.Length - 1);
 
             }
             else
             {
-              Genlevel = UnityEngine.Random.Range(0, levelData.Length - 1);
+                Genlevel = UnityEngine.Random.Range(1, levelData.Length);
             }
         }
 
@@ -139,14 +222,18 @@ public class LevelGenerator : MonoBehaviour
             string row = line;
             for (int x = 0; x < row.Length; x++)
             {
-                if(x == 0 && y == 0)
+                if(y == 0 && x == 0)
                 {
-                     waypointoffseter = row[0] - '0';
-                    Debug.Log(waypointoffseter);
+                    if (row[0] == 'q')
+                    {
+                        GameManager.Instance.bossLevel = true;
+                    }
                     x++;
                 }
+
                 char tile = row[x];
                 Vector3 position = new Vector3(gridx, -y, 0);
+                Vector3 nodePos = new Vector3(gridx + 0.5f, -y + -0.5f, 0);
 
                 switch (tile)
                 {
@@ -158,11 +245,10 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         a = 0;
                         break;
-                    case '.':
-                        gridx++;
-                        break;
+
                     case 'P':
                         Instantiate(playerPrefab, position, Quaternion.identity, this.transform);
+
                         gridx++;
                         break;
                     case 'E':
@@ -170,51 +256,24 @@ public class LevelGenerator : MonoBehaviour
                         switch (esindex)
                         {
                             case 1:
-                                enemyOffsetSet(position, 0, waypointoffseter, enemyPrefab, 1, false);
+                                enemyOffsetSet(position, enemyPrefab, 1, false, y, new Color32(255, 0, 0, 255));
                                 break;
                             case 2:
-                                enemyOffsetSet(position, waypointoffseter, waypointoffseter, enemy2Prefab, 2, true);
+                                enemyOffsetSet(position, enemy2Prefab, 2, true, y, new Color32(255, 5, 107, 255));
+                                GameManager.Instance.ishunterinScene = true;
                                 break;
                             case 3:
-                                enemyOffsetSet(position, waypointoffseter * 2, waypointoffseter, enemyPrefab, 3, true);
+                                enemyOffsetSet(position, enemyPrefab, 3, true, y, new Color32(198, 87, 64, 255));
                                 break;
                             case 4:
-                                enemyOffsetSet(position, waypointoffseter * 3, waypointoffseter, enemyPrefab, 4, false);                                
+                                enemyOffsetSet(position, enemyPrefab, 4, false, y, new Color32(34, 201, 156, 255));
                                 break;
                         }
 
                         gridx++;
                         break;
                     case 'W':
-                        int SIndex = row[x + 2] - '0';
-                        switch (SIndex)
-                        {
-                            case 1:
-                                offsetwaypoint = 0;
-                                break;
-                            case 2:
-                                offsetwaypoint = waypointoffseter;
-                                break;
-                            case 3:
-                                offsetwaypoint = waypointoffseter * 2;
-                                break;
-                            case 4:
-                                offsetwaypoint = waypointoffseter * 3;
-                                break;
 
-                        }
-
-
-                        int index = row[x + 3] - '0';
-
-                        Vector3 Position = new Vector3(gridx, -y, 0);
-
-                        //Instantiate(dotPrefab, position, Quaternion.identity, this.transform);
-                        Instantiate(waypointPrefab, position, Quaternion.identity, this.transform);
-
-                       // Debug.Log("check 1: " + "index: " + (index + offsetwaypoint) + position);
-
-                        waypoints[index + offsetwaypoint] = position; // it works finaly
 
 
 
@@ -224,6 +283,7 @@ public class LevelGenerator : MonoBehaviour
                     case 'B':
                         Instantiate(PowerOrbPrefab, position, Quaternion.identity, this.transform);
                         GameManager.Instance.powerOrbCountAdd(1);
+
                         gridx++;
                         break;
                     case 'F':
@@ -231,11 +291,15 @@ public class LevelGenerator : MonoBehaviour
                         gridx++;
                         break;
                     case 'T':
-                        
+
+                        gridx++;
+                        break;
+                    case 'U':
+                        Instantiate(BossPrefab, position, Quaternion.identity, this.transform);
                         gridx++;
                         break;
 
-                     }
+                }
                 if (tile != '#' && tile != 'F')
                 {
                     if (!char.IsLower(tile) && !char.IsNumber(tile))
@@ -243,6 +307,11 @@ public class LevelGenerator : MonoBehaviour
                         var groundTiles = Instantiate(groundTilePrefab, position, Quaternion.identity, this.transform);
                         TileColor = groundTiles.GetComponent<SpriteRenderer>();
                         mapCollerSet(row, x);
+                        if (tile != 'E')
+                        {
+                            n = Instantiate(nodePrefab, position, Quaternion.identity, this.transform);
+                            nodeList.Add(n);
+                        }
 
 
 
@@ -253,6 +322,7 @@ public class LevelGenerator : MonoBehaviour
 
             gridx = 0;
         }
+        ConnectNodes();
         startgame.Invoke();
     }
     public void destroyLevel()
@@ -313,44 +383,93 @@ public class LevelGenerator : MonoBehaviour
                     TileColor.color = new Color32(173, 56, 54, 255);
                     break;
 
+
             }
 
 
         }
         a = 0;
     }
-    void enemyOffsetSet(Vector3 position, int wayOffset, int wayMaxOffset, GameObject enemy, int whichEnemy, bool chashing)
+    void enemyOffsetSet(Vector3 position, GameObject enemy, int whichEnemy, bool chashing, int y, Color32 maincoller)
     {
-        if (chashing == false)
-        {
-            var E = Instantiate(enemy, position, Quaternion.identity, this.transform);
-            way = E.GetComponent<WayPoints>();
-            way.offset = wayOffset;
-            way.MaxOffset = wayMaxOffset;
-            way.whichEnemy = whichEnemy;
-            way.chase = false;
-            GameManager.Instance.enemycountAdd(1);
-        }
-        else
-        {
-            if(whichEnemy == 2) 
-            {
-                var chasingE = Instantiate(enemy, position, Quaternion.identity, this.transform);
-                way = chasingE.GetComponent<WayPoints>();
-                way.chase = true;
-            }
-            if(whichEnemy == 3)
-            {
-                var chasdogE = Instantiate(enemy, position, Quaternion.identity, this.transform);
-                way = chasdogE.GetComponent<WayPoints>();
-                way.chaseDog = true;
 
-            }
-            
-                way.offset = wayOffset;
-                way.MaxOffset = wayMaxOffset;
-                way.whichEnemy = whichEnemy;
-                GameManager.Instance.enemycountAdd(1);
+        sd = Instantiate(enemy, position, Quaternion.identity, this.transform);
+        way = sd.GetComponent<WayPoints>();
+        n = Instantiate(nodePrefab, position, Quaternion.identity, this.transform);
+        nodeList.Add(n);
+        way.currentNode = n;
+        way.mainColer = maincoller;
+
+        way.whichEnemy = whichEnemy;
+        way.chase = false;
+        GameManager.Instance.enemycountAdd(1);
+
+        /* else
+         {
+             if(whichEnemy == 2) 
+             {
+                 var chasingE = Instantiate(enemy, position, Quaternion.identity, this.transform);
+                 way = chasingE.GetComponent<WayPoints>();
+                 way.chase = true;
+             }
+             if(whichEnemy == 3)
+             {
+                 var chasdogE = Instantiate(enemy, position, Quaternion.identity, this.transform);
+                 way = chasdogE.GetComponent<WayPoints>();
+                 way.chaseDog = true;
+
+             }
+
+
+                 way.whichEnemy = whichEnemy;
+                 GameManager.Instance.enemycountAdd(1);
+         }*/
+    }
+    public void RemoveNodes()
+    {
+        for (int i = 0; i < nodeList.Count; i++)
+        {
+
+
+            nodeList.RemoveAt(i);
+            i--;
+
         }
     }
+    public void SpawnPowerOrbRandom()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+
+
+            Node randoSpawn = nodeList[UnityEngine.Random.Range(0, nodeList.Count)];
+            Instantiate(PowerOrbPrefab, randoSpawn.transform.position, Quaternion.identity, this.transform);
+            GameManager.Instance.powerOrbCountAdd(1);
+        }
+    }
+    public void ConnectNodes()
+    {
+        for (int i = 0; i < nodeList.Count; i++)
+        {
+            for (int j = i + 1; j < nodeList.Count; j++)
+            {
+                Vector2 a = nodeList[i].transform.position;
+                Vector2 b = nodeList[j].transform.position;
+
+                float dx = Mathf.Abs(a.x - b.x);
+                float dy = Mathf.Abs(a.y - b.y);
+
+                // Only allow straight connections (no diagonals)
+                bool isHorizontal = dy < 0.1f && dx <= 1.0f;
+                bool isVertical = dx < 0.1f && dy <= 1.0f;
+
+                if (isHorizontal || isVertical)
+                {
+                    nodeList[i].connections.Add(nodeList[j]);
+                    nodeList[j].connections.Add(nodeList[i]);
+                }
+            }
+        }
+    }
+
 }
