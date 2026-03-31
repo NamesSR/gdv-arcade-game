@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     public buttonUI StartGameButtonUI;
     public GameObject MageButton;
     public GameObject knightButton;
+    public GameObject damagetext;
+    public GameObject speedText;
     public float speed;
     public int damage = 2;
     public int AddHp = 0;
@@ -55,6 +57,9 @@ public class GameManager : MonoBehaviour
     public float heal = 0f;
     public float healcouldown = 0f;
     public int maxHp = 3;
+    public int bosscount = 0;
+    public int addEnemyHp = 0;
+    public int AddMaxHp = 0;
     //public List<GameObject> Inventory;
 
 
@@ -65,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+         heal = 0f;
         if (Instance == null)
         {
             Instance = this;
@@ -90,6 +96,8 @@ public class GameManager : MonoBehaviour
                 menuPanel.SetActive(true);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(false);
+                speedText.SetActive(false);
+                damagetext.SetActive(false);
                 // Toon menu UI
                 break;
             case GameState.Playing:
@@ -98,10 +106,24 @@ public class GameManager : MonoBehaviour
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(false);
+                speedText.SetActive(false);
+                damagetext.SetActive(false);
                 break;
             case GameState.Paused:
                 Time.timeScale = 0;
                 // Toon pause menu
+                speedText.SetActive(true);
+                damagetext.SetActive(true);
+                if (Mele == true)
+                {
+                    scoreUI.damageTextUpdate(damage);
+                }
+                else
+                {
+                    scoreUI.damageTextUpdate(FireBallDagame);
+
+                }
+                scoreUI.speedTextUpdate();
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(true);
                 gameOverPanel.SetActive(false);
@@ -110,11 +132,14 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0;
                 ishunterinScene = false;
                 // Toon game over scherm
+                speedText.SetActive(false);
+                damagetext.SetActive(false);
                 GameOverbuttonUI.GameOverButton();
                 LevelGen.RemoveNodes();
                 LevelGen.destroyLevel();
 
                 GameManager.Instance.enemyCount = 0;
+
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(true);
@@ -122,6 +147,8 @@ public class GameManager : MonoBehaviour
             case GameState.ClassSlect:
                 MageButton.SetActive(true);
                 knightButton.SetActive(true);
+                speedText.SetActive(false);
+                damagetext.SetActive(false);
                 Time.timeScale = 0;
                 menuPanel.SetActive(true);
                 pausePanel.SetActive(false);
@@ -285,6 +312,8 @@ public class GameManager : MonoBehaviour
 
     void LoadGameData()
     {
+        heal = 0f;
+        bosscount = 0;
         score = 0;
         ishunterinScene = false;
         bossSicels = 0;
@@ -299,6 +328,7 @@ public class GameManager : MonoBehaviour
         switsing = false;
         if (Clas == "Mage")
         {
+            maxHp = 3;
             hp = 3 + AddHp;
             FireBallDagame = 1 + AddMageDamage;
             speed = 6f + AddSpeed;
@@ -306,6 +336,7 @@ public class GameManager : MonoBehaviour
         }
         if (Clas == "Knight")
         {
+            maxHp = 4;
             hp = 4 + AddHp;
             damage = 2 + AddDamage;
             speed = 5f + AddSpeed;
@@ -314,6 +345,15 @@ public class GameManager : MonoBehaviour
 
         scoreUI.ClasUpdate(Clas);
         scoreUI.Resetscore();
+        scoreUI.ResetHp(hp);
+    }
+    public void addStats()
+    {
+        maxHp += AddMaxHp;
+        hp += AddHp;
+        FireBallDagame += AddMageDamage;
+        speed += AddSpeed;
+        damage += AddDamage;
         scoreUI.ResetHp(hp);
     }
     void SaveHighScore()
@@ -332,6 +372,7 @@ public class GameManager : MonoBehaviour
         bossSicels = 0;
         enemyCount = 0;
         powerOrbCount = 0;
+        bosscount = 0;
         LevelGen.RemoveNodes();
         LevelGen.destroyLevel();
         ishunterinScene = false;
@@ -344,11 +385,23 @@ public class GameManager : MonoBehaviour
     }
     public void nextlevelfin()
     {
-
-        if (enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
+        if(bossLevel == true)
         {
-            ishunterinScene = false;
-            StartCoroutine(nextLevel());
+            if(bosscount <= 0 && currentState == GameState.Playing && switsing == false)
+            {
+                ishunterinScene = false;
+                StartCoroutine(nextLevel());
+            }
         }
+        else
+        {
+            if (enemyCount <= 0 && currentState == GameState.Playing && switsing == false)
+            {
+                ishunterinScene = false;
+                StartCoroutine(nextLevel());
+            }
+
+        }
+        
     }
 }

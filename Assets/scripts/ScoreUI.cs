@@ -9,7 +9,9 @@ public class ScoreUI : MonoBehaviour
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI ClasUI;
     public TextMeshProUGUI HealText;
-    
+    public TextMeshProUGUI SpeedText;
+    public TextMeshProUGUI damageText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -50,4 +52,13 @@ public class ScoreUI : MonoBehaviour
     {
         HealText.text = $"Heal: {couldown}";
     }
+    public void speedTextUpdate()
+    {
+        SpeedText.text = $"Speed: {GameManager.Instance.speed}";
+    }
+    public void damageTextUpdate(int damage)
+    {
+        damageText.text = $"Damage: {damage}";
+    }
 }
+

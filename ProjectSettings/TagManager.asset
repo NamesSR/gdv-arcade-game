@@ -20,6 +20,7 @@ TagManager:
   - knight
   - mage
   - levelgen
+  - PowerUP
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - walls
   - dot
   - fireBall
-  - 
+  - Upgrade
   - 
   - ground0
   - nextLevel
