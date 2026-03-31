@@ -1,5 +1,5 @@
 using Prime31;
-
+using System;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -25,6 +25,7 @@ public class Boss : MonoBehaviour
    public  float AttackingAttackRate = 0.75f;
     public float normalAttackRate = 1.5f;
    public  float panicAttackRate = 0.5f;
+    public static event Action Upragades;
     public enum StateMachine
     {
         normal,
@@ -109,6 +110,13 @@ public class Boss : MonoBehaviour
         hp -= 1;
         GameManager.Instance.bossIsVulnerable = false;
         lg.SpawnPowerOrbRandom();
+        if(hp <= 0)
+        {
+            Destroy(this.gameObject);
+            Upragades.Invoke();
+            
+            
+        }
     }
     void normal()
     {
@@ -143,7 +151,7 @@ public class Boss : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)
         {
-            int WA = Random.Range(0, 2);
+            int WA = UnityEngine.Random.Range(0, 2);
              if (WA == 0)
              {
                  dir = (player.position - transform.position).normalized;
