@@ -16,7 +16,7 @@ public class PowerUpManager : MonoBehaviour
 
     void Start()
     {
-        getUpgrades();
+        //getUpgrades();
         whitchupgrade = 0;
     }
     private void Awake()
