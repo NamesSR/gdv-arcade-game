@@ -114,7 +114,7 @@ public class Boss : MonoBehaviour
         {
             Destroy(this.gameObject);
             Upragades.Invoke();
-            
+            GameManager.Instance.bosscount--;
             
         }
     }
