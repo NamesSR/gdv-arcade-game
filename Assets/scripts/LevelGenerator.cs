@@ -227,6 +227,7 @@ public class LevelGenerator : MonoBehaviour
                     if (row[0] == 'q')
                     {
                         GameManager.Instance.bossLevel = true;
+                        GameManager.Instance.addEnemyHp++;
                     }
                     x++;
                 }
@@ -296,6 +297,7 @@ public class LevelGenerator : MonoBehaviour
                         break;
                     case 'U':
                         Instantiate(BossPrefab, position, Quaternion.identity, this.transform);
+                        GameManager.Instance.bosscount++;
                         gridx++;
                         break;
 

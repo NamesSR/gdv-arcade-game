@@ -45,7 +45,7 @@ public class WayPoints : MonoBehaviour
     public float AttackRate = 2f;
     ParticleSystem ps;
     public GameObject FireBallEnemyprefab;
-    bool gameStarted = false;
+   
     BoxCollider2D bc;
     SpriteRenderer sr;
     
@@ -92,6 +92,7 @@ public class WayPoints : MonoBehaviour
         bc.enabled = true;
         ps?.Stop();
         s.startColor = mainColer;
+        enemyHp += GameManager.Instance.addEnemyHp;
 
 
     }
