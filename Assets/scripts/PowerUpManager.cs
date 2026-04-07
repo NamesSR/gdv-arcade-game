@@ -108,34 +108,34 @@ public class PowerUpManager : MonoBehaviour
                 {
                     if (lastrando != rando2)
                     {
-                     AddValue += " Damage: +1";
+                     AddValue += " Damage: +5";
                         switch (whitchupgrade)
                         {
                             case 1:
-                                setupgrade1.damage = 1;
+                                setupgrade1.damage = 5;
                                 break;
                             case 2:
-                                setupgrade2.damage = 1;
+                                setupgrade2.damage = 5;
                                 break;
                             case 3:
-                                setupgrade3.damage = 1;
+                                setupgrade3.damage = 5;
                                 break;
                         }
 
                     }
                     else
                     {
-                        AddValue = " Damage: +2";
+                        AddValue = " Damage: +10";
                         switch (whitchupgrade)
                         {
                             case 1:
-                                setupgrade1.damage = 2;
+                                setupgrade1.damage = 10;
                                 break;
                             case 2:
-                                setupgrade2.damage = 2;
+                                setupgrade2.damage = 10;
                                 break;
                             case 3:
-                                setupgrade3.damage = 2;
+                                setupgrade3.damage = 10;
                                 break;
                         }
                     }
@@ -144,33 +144,33 @@ public class PowerUpManager : MonoBehaviour
                 {
                     if (lastrando != rando2)
                     {
-                     AddValue += " Hp: +1";
+                     AddValue += " Hp: +10";
                         switch (whitchupgrade)
                         {
                             case 1:
-                                setupgrade1.hp = 1;
+                                setupgrade1.hp = 10;
                                 break;
                             case 2:
-                                setupgrade2.hp = 1;
+                                setupgrade2.hp = 10;
                                 break;
                             case 3:
-                                setupgrade3.hp = 1;
+                                setupgrade3.hp = 10;
                                 break;
                         }
                     }
                     else
                     {
-                        AddValue = " Hp: +2";
+                        AddValue = " Hp: +20";
                         switch (whitchupgrade)
                         {
                             case 1:
-                                setupgrade1.hp = 2;
+                                setupgrade1.hp = 20;
                                 break;
                             case 2:
-                                setupgrade2.hp = 2;
+                                setupgrade2.hp = 20;
                                 break;
                             case 3:
-                                setupgrade3.hp = 2;
+                                setupgrade3.hp = 20;
                                 break;
                         }
                     }
@@ -200,33 +200,33 @@ public class PowerUpManager : MonoBehaviour
 
             if (rando == 1)
             {
-                AddValue = "Damage: +1";
+                AddValue = "Damage: +5";
                 switch (whitchupgrade)
                 {
                     case 1:
-                        setupgrade1.damage = 1;
+                        setupgrade1.damage = 5;
                         break;
                     case 2:
-                        setupgrade2.damage = 1;
+                        setupgrade2.damage = 5;
                         break;
                     case 3:
-                        setupgrade3.damage = 1;
+                        setupgrade3.damage = 5;
                         break;
                 }
             }
             if (rando == 2)
             {
-                AddValue = "Hp: +1";
+                AddValue = "Hp: +10";
                 switch (whitchupgrade)
                 {
                     case 1:
-                        setupgrade1.hp = 1;
+                        setupgrade1.hp = 10;
                         break;
                     case 2:
-                        setupgrade2.hp = 1;
+                        setupgrade2.hp = 10;
                         break;
                     case 3:
-                        setupgrade3.hp = 1;
+                        setupgrade3.hp = 10;
                         break;
                 }
             }
