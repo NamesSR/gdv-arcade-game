@@ -405,6 +405,7 @@ MonoBehaviour:
   enemyCount: 0
   powerOrbCount: 0
   level: 0
+  hit234: 0
   vulnerable: 0
   BossHp: 3
   FireBallDagame: 10
@@ -440,6 +441,9 @@ MonoBehaviour:
   bosscount: 0
   addEnemyHp: 0
   AddMaxHp: 0
+  up1: {fileID: 1715474033}
+  up2: {fileID: 296757077}
+  up3: {fileID: 1697126750}
   currentState: 5
 --- !u!4 &213443691
 Transform:
@@ -519,7 +523,7 @@ GameObject:
   - component: {fileID: 296757082}
   m_Layer: 5
   m_Name: upgrade2
-  m_TagString: Untagged
+  m_TagString: 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3859,7 +3863,7 @@ GameObject:
   - component: {fileID: 1697126755}
   m_Layer: 5
   m_Name: upgrade3
-  m_TagString: Untagged
+  m_TagString: 3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4041,7 +4045,7 @@ GameObject:
   - component: {fileID: 1715474038}
   m_Layer: 5
   m_Name: upgrade1
-  m_TagString: Untagged
+  m_TagString: 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
