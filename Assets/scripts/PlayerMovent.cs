@@ -79,7 +79,7 @@ public class PlayerMovent : MonoBehaviour
             {
 
 
-                GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(10);
                 nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
@@ -91,7 +91,7 @@ public class PlayerMovent : MonoBehaviour
         {
             if (Iframs == false)
             {
-                GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(10);
                 nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
@@ -101,7 +101,7 @@ public class PlayerMovent : MonoBehaviour
         {
             if (Iframs == false)
             {
-                GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(10);
                 nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
@@ -113,7 +113,7 @@ public class PlayerMovent : MonoBehaviour
             {
 
 
-                GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(10);
                 nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
@@ -141,7 +141,7 @@ public class PlayerMovent : MonoBehaviour
 
             if (Iframs == false)
             {
-                GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(10);
                 nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
@@ -153,7 +153,7 @@ public class PlayerMovent : MonoBehaviour
         {
             if (Iframs == false)
             {
-                GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(10);
                 nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
@@ -164,7 +164,7 @@ public class PlayerMovent : MonoBehaviour
             if (Iframs == false)
             {
                 
-                GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(10);
                 nockback(5f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
@@ -176,7 +176,7 @@ public class PlayerMovent : MonoBehaviour
             {
 
 
-                GameManager.Instance.TakeDamage(1);
+                GameManager.Instance.TakeDamage(10);
                 nockback(10f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
 
@@ -317,7 +317,7 @@ public class PlayerMovent : MonoBehaviour
     }
     void Attack()
     {
-
+        dir2 = dir;
 
         Collider2D[] HitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, enemyLayers);
         sword.Rotate(0, 0, -90f);
@@ -327,6 +327,7 @@ public class PlayerMovent : MonoBehaviour
             if (GameManager.Instance.vulnerable == true && (enemy.tag == "Enemy" || enemy.tag == "hunter"))
             {
                 Debug.Log("vunerable");
+                
                 enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage, 30f);
             }
             if (GameManager.Instance.bossIsVulnerable == true && enemy.tag == "boss")

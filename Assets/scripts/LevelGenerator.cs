@@ -227,7 +227,7 @@ public class LevelGenerator : MonoBehaviour
                     if (row[0] == 'q')
                     {
                         GameManager.Instance.bossLevel = true;
-                        GameManager.Instance.addEnemyHp++;
+                        GameManager.Instance.addEnemyHp += 10;
                     }
                     x++;
                 }

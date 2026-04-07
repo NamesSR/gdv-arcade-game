@@ -11,6 +11,7 @@ public class ScoreUI : MonoBehaviour
     public TextMeshProUGUI HealText;
     public TextMeshProUGUI SpeedText;
     public TextMeshProUGUI damageText;
+    public TextMeshProUGUI timeEndText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,7 +43,7 @@ public class ScoreUI : MonoBehaviour
     }
     public void ClasUpdate(string Clas)
     {
-        ClasUI.text = Clas;
+        ClasUI.text = $"Class: {Clas}";
     }
   public void canHealUpdate()
     {
@@ -50,7 +51,7 @@ public class ScoreUI : MonoBehaviour
     }
     public void canNotHealUpdate(float couldown)
     {
-        HealText.text = $"Heal: {couldown}";
+        HealText.text = $"Heal: {couldown.ToString("mm")}";
     }
     public void speedTextUpdate()
     {
@@ -59,6 +60,10 @@ public class ScoreUI : MonoBehaviour
     public void damageTextUpdate(int damage)
     {
         damageText.text = $"Damage: {damage}";
+    }
+    public void endtimeAndFloor(string time, int floor)
+    {
+        timeEndText.text = $"Died At: {floor} Time: {time}";
     }
 }
 

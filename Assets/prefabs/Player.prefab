@@ -111,7 +111,7 @@ MonoBehaviour:
   speed: 6
   value: 10
   groundDamping: 20
-  AttackRange: 0.75
+  AttackRange: 1
   CanShoot: 1
   dir: {x: 1, y: 0, z: 0}
   dir2: {x: 0, y: 0, z: 0}
