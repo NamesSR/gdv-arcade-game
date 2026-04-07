@@ -27,7 +27,7 @@ public class Boss : MonoBehaviour
    public  float AttackingAttackRate = 0.75f;
     public float normalAttackRate = 1.5f;
    public  float panicAttackRate = 0.5f;
-    public static event Action Upragades;
+    
     public enum StateMachine
     {
         normal,
@@ -38,7 +38,6 @@ public class Boss : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public StateMachine currentState;
 
-    public object GameManger { get; private set; }
 
     void Start()
     {
