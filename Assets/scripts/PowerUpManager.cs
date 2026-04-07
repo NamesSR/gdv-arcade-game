@@ -21,7 +21,7 @@ public class PowerUpManager : MonoBehaviour
     }
     private void Awake()
     {
-        Boss.Upragades += getUpgrades;
+        GameManager.Upragades += getUpgrades;
     }
 
     // Update is called once per frame

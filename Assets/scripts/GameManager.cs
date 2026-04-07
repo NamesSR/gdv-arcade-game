@@ -65,14 +65,16 @@ public class GameManager : MonoBehaviour
     public GameObject up3;
 
 
-
+    public static event Action Upragades;
 
     public static GameManager Instance;
+    bool sdfdfsfsdf = false;
 
     public GameState currentState = GameState.ClassSlect;
 
     void Awake()
     {
+       
         heal = 0f;
         endtimeUI.SetActive(false);
        
@@ -94,7 +96,18 @@ public class GameManager : MonoBehaviour
         up1.SetActive(true);
         up2.SetActive(true);
         up3.SetActive(true);
-    }
+
+
+        if (sdfdfsfsdf)
+        {
+
+            Upragades.Invoke();
+        }
+        sdfdfsfsdf = true;
+
+
+
+     }
     public void SetState(GameState newState)
     {
         currentState = newState;
