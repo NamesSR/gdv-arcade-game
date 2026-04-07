@@ -146,6 +146,7 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 Time.timeScale = 0;
                 ishunterinScene = false;
+                resetAddedstats();
                 timer.instance.endTimer();
                 // Toon game over scherm
 
@@ -174,6 +175,16 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetState(GameState.ClassSlect);
+    }
+    void resetAddedstats()
+    {
+        addEnemyHp = 0;
+        AddMaxHp = 0;
+        AddHp = 0;
+        AddMageDamage = 0;
+        AddSpeed = 0;
+        AddDamage = 0;
+        addStats();
     }
     public void knight()
     {

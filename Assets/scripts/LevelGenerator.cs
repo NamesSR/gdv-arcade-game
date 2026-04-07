@@ -200,7 +200,7 @@ public class LevelGenerator : MonoBehaviour
         gridx = 0;
         if (l == 0)
         {
-            Genlevel = 4;// UnityEngine.Random.Range(0, levelData.Length);
+            Genlevel = 3;// UnityEngine.Random.Range(0, levelData.Length);
         }
         else
         { 
@@ -406,26 +406,6 @@ public class LevelGenerator : MonoBehaviour
         way.chase = false;
         GameManager.Instance.enemycountAdd(1);
 
-        /* else
-         {
-             if(whichEnemy == 2) 
-             {
-                 var chasingE = Instantiate(enemy, position, Quaternion.identity, this.transform);
-                 way = chasingE.GetComponent<WayPoints>();
-                 way.chase = true;
-             }
-             if(whichEnemy == 3)
-             {
-                 var chasdogE = Instantiate(enemy, position, Quaternion.identity, this.transform);
-                 way = chasdogE.GetComponent<WayPoints>();
-                 way.chaseDog = true;
-
-             }
-
-
-                 way.whichEnemy = whichEnemy;
-                 GameManager.Instance.enemycountAdd(1);
-         }*/
     }
     public void RemoveNodes()
     {

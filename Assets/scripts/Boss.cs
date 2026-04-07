@@ -50,6 +50,7 @@ public class Boss : MonoBehaviour
         CCD2.onTriggerStayEvent += onTriggerStayEvent;
         LevelGenerator.startgame += loaddateforenemy;
     }
+
     void loaddateforenemy()
     {
         
