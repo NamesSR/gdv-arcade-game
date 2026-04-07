@@ -35,7 +35,8 @@ public class WayPoints : MonoBehaviour
 
     private RaycastHit2D _lastControllerColliderHit;
     private Vector3 velocity2;
-    public int enemyHp = 2;
+    public int enemyHp = 20;
+    public bool knoback2;
     private SpriteRenderer enemyColler;
     public Color mainColer;
     shoot shoot;
@@ -150,7 +151,7 @@ public class WayPoints : MonoBehaviour
     void patrol()
     {
 
-        if (path.Count == 0)
+        if (path.Count == 0 && knoback2 == false)
         {
 
             path = ANodeStartManager.instance.GeneratePath(currentNode, ANodeStartManager.instance.NodesInScene()[Random.Range(0, ANodeStartManager.instance.NodesInScene().Length)]);
@@ -158,7 +159,7 @@ public class WayPoints : MonoBehaviour
     }
     void Chasing()
     {
-        if (path.Count == 0)
+        if (path.Count == 0 && knoback2 == false)
         {
 
             path = ANodeStartManager.instance.GeneratePath(currentNode, ANodeStartManager.instance.FindNearestNode(player.position));
@@ -168,11 +169,15 @@ public class WayPoints : MonoBehaviour
     }
     void attacking()
     {
+        if( knoback2 == false)
+        {
         shoot23();
+
+        }
     }
     void dogchases()
     {
-        if (path.Count == 0)
+        if (path.Count == 0 && knoback2 == false)
         {
 
             path = ANodeStartManager.instance.GeneratePath(currentNode, ANodeStartManager.instance.FindNearestNode(HunterTransform.position));
@@ -326,17 +331,17 @@ public class WayPoints : MonoBehaviour
         {
             enemyHp -= Damage;
             Debug.Log($"check 1: s.dir2: {playerMovent.dir2} dir: {dir}");
-
+             knoback2 = true;
             Debug.Log($"check 2: s.dir2: {playerMovent.dir2} dir: {dir}");
             for (int i = 0; i < 3; i++)
             {
-                velocity2.x = Mathf.Lerp(velocity2.x, playerMovent.dir2.x * knockback, Time.deltaTime * 20f);
-                velocity2.y = Mathf.Lerp(velocity2.y, playerMovent.dir2.y * knockback, Time.deltaTime * 20f);
+                velocity2.x = Mathf.Lerp(velocity2.x, playerMovent.dir.x * knockback, Time.deltaTime * 20f);
+                velocity2.y = Mathf.Lerp(velocity2.y, playerMovent.dir.y * knockback, Time.deltaTime * 20f);
                 Controller2D2.move(velocity2 * Time.deltaTime);
-                velocity2 = Controller2D2.velocity;
+               // velocity2 = Controller2D2.velocity;
             }
 
-
+            knoback2 = false;
 
 
 

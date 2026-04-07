@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
 
     public bool vulnerable = false;
     //public int Ehp = 2;
-    public int BossHp = 3;
-    public int FireBallDagame = 1;
+    public int BossHp = 30;
+    public int FireBallDagame = 10;
     public int highScore = 0;
     public bool Mele = false;
     private string Clas = "Mage";
@@ -39,9 +39,9 @@ public class GameManager : MonoBehaviour
     public buttonUI StartGameButtonUI;
     public GameObject MageButton;
     public GameObject knightButton;
-   
+    public GameObject endtimeUI;
     public float speed;
-    public int damage = 2;
+    public int damage = 15;
     public int AddHp = 0;
     public int AddDamage = 0;
     public int AddMageDamage = 0;
@@ -55,11 +55,11 @@ public class GameManager : MonoBehaviour
     public int bossSicels = 0;
     public float heal = 0f;
     public float healcouldown = 0f;
-    public int maxHp = 3;
+    public int maxHp = 30;
     public int bosscount = 0;
     public int addEnemyHp = 0;
     public int AddMaxHp = 0;
-    //public List<GameObject> Inventory;
+   
 
 
 
@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
          heal = 0f;
+        endtimeUI.SetActive(false);
         if (Instance == null)
         {
             Instance = this;
@@ -104,14 +105,16 @@ public class GameManager : MonoBehaviour
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(false);
-              
+                
                 break;
             case GameState.Paused:
                 Time.timeScale = 0;
                 // Toon pause menu
-               
+
                 
                 
+
+
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(true);
                 gameOverPanel.SetActive(false);
@@ -119,8 +122,9 @@ public class GameManager : MonoBehaviour
             case GameState.GameOver:
                 Time.timeScale = 0;
                 ishunterinScene = false;
+                timer.instance.endTimer();
                 // Toon game over scherm
-              
+                
                 GameOverbuttonUI.GameOverButton();
                 LevelGen.RemoveNodes();
                 LevelGen.destroyLevel();
@@ -134,7 +138,7 @@ public class GameManager : MonoBehaviour
             case GameState.ClassSlect:
                 MageButton.SetActive(true);
                 knightButton.SetActive(true);
-                
+               
                 Time.timeScale = 0;
                 menuPanel.SetActive(true);
                 pausePanel.SetActive(false);
@@ -188,6 +192,7 @@ public class GameManager : MonoBehaviour
         if (enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1 && switsing == false && bossLevel == false)
         {
             SetState(GameState.GameOver);
+            endtimeUI.SetActive(true);
             gameStarted = false;
         }
 
@@ -215,7 +220,8 @@ public class GameManager : MonoBehaviour
                 if (maxHp > hp)
                 {
                     Debug.Log("healing");
-                    hp += 1;
+                    hp += 10;
+                    scoreUI.HpUpdate(hp);
                     heal = Time.time + healcouldown;
                 }
             }
@@ -236,6 +242,7 @@ public class GameManager : MonoBehaviour
             if (bossSicels == 5)
             {
                 SetState(GameState.GameOver);
+                endtimeUI.SetActive(true);
                 gameStarted = false;
             }
         }
@@ -274,6 +281,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("game over");
             gameStarted = false;
+            endtimeUI.SetActive(true);
             SetState(GameState.GameOver);
         }
     }
@@ -314,18 +322,18 @@ public class GameManager : MonoBehaviour
         switsing = false;
         if (Clas == "Mage")
         {
-            maxHp = 3;
-            hp = 3 + AddHp;
-            FireBallDagame = 1 + AddMageDamage;
+            maxHp = 30;
+            hp = 30 + AddHp;
+            FireBallDagame = 10 + AddMageDamage;
             speed = 6f + AddSpeed;
             healcouldown = 30f;
             scoreUI.damageTextUpdate(FireBallDagame);
         }
         if (Clas == "Knight")
         {
-            maxHp = 4;
-            hp = 4 + AddHp;
-            damage = 2 + AddDamage;
+            maxHp = 40;
+            hp = 40 + AddHp;
+            damage = 15 + AddDamage;
             speed = 5f + AddSpeed;
             healcouldown = 45f;
             scoreUI.damageTextUpdate(damage);
