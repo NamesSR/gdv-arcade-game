@@ -275,10 +275,14 @@ public class PlayerMovent : MonoBehaviour
 
     IEnumerator PowerOrbs()
     {
+        if (GameManager.Instance.bossLevel == false)
+        {
 
-        GameManager.Instance.vulnerable = true;
-        yield return new WaitForSeconds(3);
-        GameManager.Instance.vulnerable = false;
+
+            GameManager.Instance.vulnerable = true;
+            yield return new WaitForSeconds(3);
+            GameManager.Instance.vulnerable = false;
+        }
 
     }
     void ShootFireBall()

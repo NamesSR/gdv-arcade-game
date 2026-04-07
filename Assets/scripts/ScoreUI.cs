@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class ScoreUI : MonoBehaviour
     public TextMeshProUGUI SpeedText;
     public TextMeshProUGUI damageText;
     public TextMeshProUGUI timeEndText;
+    private TimeSpan timdeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,7 +53,8 @@ public class ScoreUI : MonoBehaviour
     }
     public void canNotHealUpdate(float couldown)
     {
-        HealText.text = $"Heal: {couldown.ToString("mm")}";
+        timdeed = TimeSpan.FromSeconds(couldown);
+        HealText.text = $"Heal: {timdeed.ToString("ss")}";
     }
     public void speedTextUpdate()
     {
