@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public int enemyCount;
     public int powerOrbCount;
     public int level = 0;
-
+    public bool hit234 = false;
     public bool vulnerable = false;
     //public int Ehp = 2;
     public int BossHp = 30;
@@ -59,7 +59,11 @@ public class GameManager : MonoBehaviour
     public int bosscount = 0;
     public int addEnemyHp = 0;
     public int AddMaxHp = 0;
-   
+    float time23 = 0f;
+    public GameObject up1;
+    public GameObject up2;
+    public GameObject up3;
+
 
 
 
@@ -69,8 +73,9 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-         heal = 0f;
+        heal = 0f;
         endtimeUI.SetActive(false);
+       
         if (Instance == null)
         {
             Instance = this;
@@ -82,8 +87,14 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        shown();
     }
-
+    public void shown()
+    {
+        up1.SetActive(true);
+        up2.SetActive(true);
+        up3.SetActive(true);
+    }
     public void SetState(GameState newState)
     {
         currentState = newState;
@@ -96,7 +107,7 @@ public class GameManager : MonoBehaviour
                 menuPanel.SetActive(true);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(false);
-                
+
                 // Toon menu UI
                 break;
             case GameState.Playing:
@@ -105,14 +116,14 @@ public class GameManager : MonoBehaviour
                 menuPanel.SetActive(false);
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(false);
-                
+
                 break;
             case GameState.Paused:
                 Time.timeScale = 0;
                 // Toon pause menu
 
-                
-                
+
+
 
 
                 menuPanel.SetActive(false);
@@ -124,7 +135,7 @@ public class GameManager : MonoBehaviour
                 ishunterinScene = false;
                 timer.instance.endTimer();
                 // Toon game over scherm
-                
+
                 GameOverbuttonUI.GameOverButton();
                 LevelGen.RemoveNodes();
                 LevelGen.destroyLevel();
@@ -138,7 +149,7 @@ public class GameManager : MonoBehaviour
             case GameState.ClassSlect:
                 MageButton.SetActive(true);
                 knightButton.SetActive(true);
-               
+
                 Time.timeScale = 0;
                 menuPanel.SetActive(true);
                 pausePanel.SetActive(false);
@@ -229,7 +240,7 @@ public class GameManager : MonoBehaviour
         else
         {
             scoreUI.canNotHealUpdate(heal - Time.time);
-            
+
         }
 
 
@@ -237,7 +248,28 @@ public class GameManager : MonoBehaviour
         {
             if (powerOrbCount <= 0)
             {
-                StartCoroutine(bossvonerblesd());
+
+                time23 = Time.time + 10f;
+                bossIsVulnerable = true;
+                if (Time.time >= time23)
+                {
+
+
+
+
+
+                    
+
+                    bossIsVulnerable = false;
+                    hit234 = false;
+                    if (powerOrbCount <= 0 && bossIsVulnerable == false && hit234 == false)
+                    {
+                        LevelGen.SpawnPowerOrbRandom();
+                    }
+
+
+
+                }
             }
             if (bossSicels == 5)
             {
@@ -248,16 +280,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator bossvonerblesd()
-    {
-        bossIsVulnerable = true;
-        yield return new WaitForSeconds(10f);
-        bossIsVulnerable = false;
-        if (powerOrbCount <= 0)
-        {
-            LevelGen.SpawnPowerOrbRandom();
-        }
-    }
+
     public void AddPoints(int points)
     {
         score += points;
@@ -402,9 +425,9 @@ public class GameManager : MonoBehaviour
     }
     public void nextlevelfin()
     {
-        if(bossLevel == true)
+        if (bossLevel == true)
         {
-            if(bosscount <= 0 && currentState == GameState.Playing && switsing == false)
+            if (bosscount <= 0 && currentState == GameState.Playing && switsing == false)
             {
                 ishunterinScene = false;
                 StartCoroutine(nextLevel());
@@ -419,6 +442,6 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        
+
     }
 }

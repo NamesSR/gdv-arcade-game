@@ -19,6 +19,8 @@ public class Boss : MonoBehaviour
 
 
     };
+
+   
     shoot shoot;
    public float nextAttackTime = 0f;
     public float attackrate = 0.75f;
@@ -35,6 +37,9 @@ public class Boss : MonoBehaviour
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public StateMachine currentState;
+
+    public object GameManger { get; private set; }
+
     void Start()
     {
         currentState = StateMachine.normal;
@@ -50,11 +55,19 @@ public class Boss : MonoBehaviour
     {
         
         player = GameObject.FindGameObjectWithTag("Player").transform;
+       
         lg = GameObject.FindGameObjectWithTag("levelgen").GetComponent<LevelGenerator>();
     }
+   
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+           
+            GameManager.Instance.shown();
+            Debug.Log("show");
+        }
         switch (currentState)
         {
             case StateMachine.normal:
@@ -109,11 +122,13 @@ public class Boss : MonoBehaviour
     {
         hp -= 1;
         GameManager.Instance.bossIsVulnerable = false;
+        GameManager.Instance.hit234 = true;
         lg.SpawnPowerOrbRandom();
         if(hp <= 0)
         {
             Destroy(this.gameObject);
-            Upragades.Invoke();
+            GameManager.Instance.shown();
+
             GameManager.Instance.bosscount--;
             
         }

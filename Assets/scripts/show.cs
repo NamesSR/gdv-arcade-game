@@ -6,13 +6,11 @@ public class show : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
+
     }
     private void Awake()
     {
-        Boss.Upragades += shown;
+        //Boss.Upragades += shown;
     }
-    void shown()
-    {
-        gameObject.SetActive(true);
-    }
+   
 }

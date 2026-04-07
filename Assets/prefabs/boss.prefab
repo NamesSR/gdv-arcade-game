@@ -245,5 +245,5 @@ MonoBehaviour:
   attackrate: 0
   AttackingAttackRate: 1.25
   normalAttackRate: 0.75
-  panicAttackRate: 2
+  panicAttackRate: 1.5
   currentState: 0
