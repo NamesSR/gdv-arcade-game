@@ -11,7 +11,7 @@ public enum GameState
     Paused,
     GameOver,
     Victory,
-    ClassSlect
+    
 }
 
 public class GameManager : MonoBehaviour
@@ -22,12 +22,16 @@ public class GameManager : MonoBehaviour
     public int powerOrbCount;
     public int level = 0;
     public bool hit234 = false;
+    public int orbspawnAmount = 3;
+    public bool hit235 = false;
     public bool vulnerable = false;
+    public bool saveFlool = false;
     //public int Ehp = 2;
     public int BossHp = 30;
     public int FireBallDagame = 10;
     public int highScore = 0;
-    public bool Mele = false;
+    public int extraDamageX = 1;
+    public int extraBossDamageX = 1;
     private string Clas = "Mage";
     public bool switsing = false;
     public GameObject menuPanel;
@@ -37,8 +41,7 @@ public class GameManager : MonoBehaviour
     public ScoreUI scoreUI;
     public buttonUI GameOverbuttonUI;
     public buttonUI StartGameButtonUI;
-    public GameObject MageButton;
-    public GameObject knightButton;
+   
     public GameObject endtimeUI;
     public float speed;
     public int damage = 15;
@@ -65,12 +68,12 @@ public class GameManager : MonoBehaviour
     public GameObject up3;
 
 
-    public static event Action Upragades;
+  
 
     public static GameManager Instance;
-    bool sdfdfsfsdf = false;
+   
 
-    public GameState currentState = GameState.ClassSlect;
+    public GameState currentState = GameState.Menu;
 
     void Awake()
     {
@@ -89,7 +92,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        shown();
+        
     }
     public void shown()
     {
@@ -98,12 +101,7 @@ public class GameManager : MonoBehaviour
         up3.SetActive(true);
 
 
-        if (sdfdfsfsdf)
-        {
-
-            Upragades.Invoke();
-        }
-        sdfdfsfsdf = true;
+      
 
 
 
@@ -160,21 +158,13 @@ public class GameManager : MonoBehaviour
                 pausePanel.SetActive(false);
                 gameOverPanel.SetActive(true);
                 break;
-            case GameState.ClassSlect:
-                MageButton.SetActive(true);
-                knightButton.SetActive(true);
-
-                Time.timeScale = 0;
-                menuPanel.SetActive(true);
-                pausePanel.SetActive(false);
-                gameOverPanel.SetActive(false);
-                break;
+            
         }
     }
 
     void Start()
     {
-        SetState(GameState.ClassSlect);
+        
     }
     void resetAddedstats()
     {
@@ -186,20 +176,7 @@ public class GameManager : MonoBehaviour
         AddDamage = 0;
         addStats();
     }
-    public void knight()
-    {
-        Clas = "Knight";
-        Mele = true;
-        currentState = GameState.Menu;
-        StartGameButtonUI.StartGameButton();
-    }
-    public void Mage()
-    {
-        Clas = "Mage";
-        Mele = false;
-        currentState = GameState.Menu;
-        StartGameButtonUI.StartGameButton();
-    }
+    
 
     void Update()
     {
@@ -224,28 +201,14 @@ public class GameManager : MonoBehaviour
                   SetState(GameState.Menu);
               }
           }*/
-        if (enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && level > 1 && switsing == false && bossLevel == false)
+        if (enemyCount > 0 && powerOrbCount <= 0 && vulnerable == false && currentState == GameState.Playing && switsing == false && bossLevel == false && saveFlool == true)
         {
             SetState(GameState.GameOver);
             endtimeUI.SetActive(true);
             gameStarted = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (Mele == true)
-            {
-                Mele = false;
-                Clas = "Mage";
-                scoreUI.ClasUpdate(Clas);
-            }
-            else
-            {
-                Mele = true;
-                Clas = "Knight";
-                scoreUI.ClasUpdate(Clas);
-            }
-        }
+        
 
         if (Time.time >= heal)
         {
@@ -288,7 +251,7 @@ public class GameManager : MonoBehaviour
                     hit234 = false;
                     if (powerOrbCount <= 0 && bossIsVulnerable == false && hit234 == false)
                     {
-                        LevelGen.SpawnPowerOrbRandom();
+                        LevelGen.SpawnPowerOrbRandom(orbspawnAmount);
                     }
 
 
@@ -367,24 +330,16 @@ public class GameManager : MonoBehaviour
         powerOrbCount = 0;
         hunterdead = false;
         switsing = false;
-        if (Clas == "Mage")
-        {
+        
             maxHp = 30;
             hp = 30 + AddHp;
-            FireBallDagame = 10 + AddMageDamage;
-            speed = 6f + AddSpeed;
-            healcouldown = 30f;
-            scoreUI.damageTextUpdate(FireBallDagame);
-        }
-        if (Clas == "Knight")
-        {
-            maxHp = 40;
-            hp = 40 + AddHp;
-            damage = 15 + AddDamage;
+            
+            damage = 10 + AddDamage;
             speed = 5f + AddSpeed;
             healcouldown = 45f;
             scoreUI.damageTextUpdate(damage);
-        }
+        
+       
         scoreUI.speedTextUpdate();
 
         scoreUI.ClasUpdate(Clas);
@@ -399,15 +354,9 @@ public class GameManager : MonoBehaviour
         speed += AddSpeed;
         damage += AddDamage;
         scoreUI.ResetHp(hp);
-        if (Mele == true)
-        {
+        
             scoreUI.damageTextUpdate(damage);
-        }
-        else
-        {
-            scoreUI.damageTextUpdate(FireBallDagame);
-
-        }
+        
         scoreUI.speedTextUpdate();
     }
     void SaveHighScore()
@@ -433,17 +382,13 @@ public class GameManager : MonoBehaviour
         gameStarted = false;
         vulnerable = false;
         bossLevel = false;
+        saveFlool = false;
         yield return new WaitForSeconds(0.1f);
         LevelGen.GenerateLevel(1);
-        if (Mele == true)
-        {
+        
             scoreUI.damageTextUpdate(damage);
-        }
-        else
-        {
-            scoreUI.damageTextUpdate(FireBallDagame);
-
-        }
+        
+        
         scoreUI.speedTextUpdate();
         switsing = false;
     }

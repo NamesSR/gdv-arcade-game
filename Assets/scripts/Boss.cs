@@ -120,10 +120,10 @@ public class Boss : MonoBehaviour
     }
    public void takedamage()
     {
-        hp -= 1;
+        hp -= 1 * GameManager.Instance.extraBossDamageX;
         GameManager.Instance.bossIsVulnerable = false;
         GameManager.Instance.hit234 = true;
-        lg.SpawnPowerOrbRandom();
+        lg.SpawnPowerOrbRandom(GameManager.Instance.orbspawnAmount);
         if(hp <= 0)
         {
             Destroy(this.gameObject);

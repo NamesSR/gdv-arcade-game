@@ -8,6 +8,7 @@ using UnityEngine.InputSystem.XR;
 
 public class PlayerMovent : MonoBehaviour
 {
+    public ability[] abilitySlots = new ability[2];
     public float speed = 8f;
     public int value = 10;
     public float groundDamping = 20f;
@@ -17,11 +18,11 @@ public class PlayerMovent : MonoBehaviour
     public Vector3 dir2;
     public float angle;
     public GameObject FireBallPrefab;
-    public LayerMask enemyLayers ;
+    public LayerMask enemyLayers;
     public Transform AttackPoint;
     public Transform sword;
     public int damage = 1;
-
+    public bool buy = false;
     private Vector3 velocity;
     private Vector3 velocity2;
 
@@ -29,14 +30,16 @@ public class PlayerMovent : MonoBehaviour
     private CharacterController2D Controller2D;
     float nextAttackTime = 0f;
     public float AttackRate = 2f;
+    public float MageAttackRate = 2f;
     private SpriteRenderer Coller;
     public WayPoints hunter;
     public WayPoints enemy1;
     public Color mainColer;
     Transform transform23;
-    bool Iframs = false;
+    public bool Iframs = false;
     shoot shoot;
-
+    bool canbuy = false;
+    ability a;
 
 
 
@@ -46,6 +49,7 @@ public class PlayerMovent : MonoBehaviour
         Controller2D.onControllerCollidedEvent += onControllerCollider;
         Controller2D.onTriggerEnterEvent += onTriggerEnterEvent;
         Controller2D.onTriggerStayEvent += onTriggerStayEvent;
+        Controller2D.onTriggerExitEvent += onTriggerExitEvent;
         LevelGenerator.startgame += loaddateforenemy;
 
         AttackPoint = GameObject.FindGameObjectWithTag("attackPoint").transform;
@@ -120,6 +124,7 @@ public class PlayerMovent : MonoBehaviour
             }
 
         }
+        
     }
     void onControllerCollider(RaycastHit2D hit)
     {
@@ -163,7 +168,7 @@ public class PlayerMovent : MonoBehaviour
         {
             if (Iframs == false)
             {
-                
+
                 GameManager.Instance.TakeDamage(10);
                 nockback(5f, col.gameObject.tag, col);
                 StartCoroutine(Iframsv2());
@@ -204,37 +209,97 @@ public class PlayerMovent : MonoBehaviour
 
             }
         }
+        if (col.CompareTag("ability"))
+        {
+            canbuy = true;
+           a = col.GetComponent<ability>();
+        }
+
     }
 
 
     void onTriggerExitEvent(Collider2D col)
     {
         Debug.Log("onTriggerExitEvent: " + col.gameObject.name);
+        if (col.CompareTag("ability"))
+        {
+            canbuy = false;
+        }
     }
 
     void Update()
     {
 
-        if (GameManager.Instance.Mele == true)
+
+        if (Time.time >= nextAttackTime)
         {
-            if (Time.time >= nextAttackTime)
+            if (Input.GetMouseButton(0))
             {
-                if (Input.GetMouseButton(0))
-                {
 
 
-                    Attack();
-                    nextAttackTime = Time.time + 1f / AttackRate;
-                }
+                Attack();
+                nextAttackTime = Time.time + 1f / AttackRate;
             }
-        }
-        else
-        {
             ShootFireBall();
         }
 
+        if (Input.GetKeyDown(KeyCode.LeftShift) && abilitySlots[0] != null)
+        {
+            abilitySlots[0].abilitys();
+            Debug.Log(abilitySlots[0].id);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftControl) && abilitySlots[1] != null)
+        {
+            abilitySlots[1].abilitys();
+            Debug.Log(abilitySlots[1].id);
+        }
+        if(canbuy == true)
+        {
+            Debug.Log("asdasdsds");
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                buy = true;
+                Debug.Log("sadsdadsdsasffwqr323");
+            }
+            if (buy)
+            {
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    abilitySlots[0] = a;
+                    abilitySlots[0].slot = 1;
+                    abilitySlots[0].startupabilty();
+                    abilitySlots[0].gameObject.tag = "abilityinUse";
 
 
+                    buy = false;
+                   // a.gameObject.SetActive(false);
+                }
+                if (Input.GetKeyDown(KeyCode.LeftControl))
+                {
+                    abilitySlots[1] = a;
+                    abilitySlots[1].slot = 2;
+                    abilitySlots[1].startupabilty();
+                    abilitySlots[1].gameObject.tag = "abilityinUse";
+
+                    buy = false;
+                   //a.gameObject.SetActive(false);
+                }
+            }
+        }
+
+
+
+    }
+    void ability1()
+    {
+        abilitySlots[0].abilitys();
+        Debug.Log(abilitySlots[0].id);
+
+    }
+    void ability2()
+    {
+        abilitySlots[1].abilitys();
+        Debug.Log(abilitySlots[1].id);
     }
 
     private void FixedUpdate()
@@ -261,7 +326,7 @@ public class PlayerMovent : MonoBehaviour
 
 
         Controller2D.move(velocity * Time.deltaTime);
-       //velocity = Controller2D.velocity;//.normalized;
+        //velocity = Controller2D.velocity;//.normalized;
     }
     void rotations(float x, float y)
     {
@@ -287,30 +352,33 @@ public class PlayerMovent : MonoBehaviour
     }
     void ShootFireBall()
     {
-        if (CanShoot == true)
+
+        if (Input.GetMouseButton(1))
         {
-            if (Input.GetMouseButton(0))
-            {
-                dir2 = dir;
-                GameObject projectile = Instantiate(FireBallPrefab);
-                transform23 = projectile.transform;
-                transform23.position = transform.position;
-                shoot = projectile.GetComponent<shoot>();
-                shoot.dir2 = dir;
+            dir2 = dir;
+            GameObject projectile = Instantiate(FireBallPrefab);
+            transform23 = projectile.transform;
+            transform23.position = transform.position;
+            shoot = projectile.GetComponent<shoot>();
+            shoot.dir2 = dir;
+            shoot.boom = false;
+            nextAttackTime = Time.time + 1f / MageAttackRate;
 
-                CanShoot = false;
-                StartCoroutine(AttackCoolDown());
-            }
         }
+
     }
-    IEnumerator AttackCoolDown()
+   public void shootBom()
     {
-
-
-        yield return new WaitForSeconds(1f);
-        CanShoot = true;
+        dir2 = dir;
+        GameObject projectile = Instantiate(FireBallPrefab);
+        transform23 = projectile.transform;
+        transform23.position = transform.position;
+        shoot = projectile.GetComponent<shoot>();
+        shoot.dir2 = dir;
+        shoot.boom = true;
 
     }
+
     IEnumerator Iframsv2()
     {
         Iframs = true;
@@ -331,8 +399,9 @@ public class PlayerMovent : MonoBehaviour
             if (GameManager.Instance.vulnerable == true && (enemy.tag == "Enemy" || enemy.tag == "hunter"))
             {
                 Debug.Log("vunerable");
-                
-                enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage, 30f);
+
+                enemy.GetComponent<WayPoints>().takeDamage(GameManager.Instance.damage * GameManager.Instance.extraDamageX, 30f);
+                GameManager.Instance.hit235 = true;
             }
             if (GameManager.Instance.bossIsVulnerable == true && enemy.tag == "boss")
             {
@@ -349,14 +418,14 @@ public class PlayerMovent : MonoBehaviour
 
         Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
-    void nockback(float knockBack, string tag,Collider2D dsw)
+    void nockback(float knockBack, string tag, Collider2D dsw)
     {
-        
-        
-            
-        if(tag == "EnemyAttack")
+
+
+
+        if (tag == "EnemyAttack")
         {
-           var swe =  dsw.gameObject.GetComponent<shoot>();
+            var swe = dsw.gameObject.GetComponent<shoot>();
             for (int i = 0; i < 3; i++)
             {
 
@@ -369,7 +438,7 @@ public class PlayerMovent : MonoBehaviour
                 //velocity = Controller2D.velocity;
             }
         }
-        else if(tag == "Enemy")
+        else if (tag == "Enemy")
         {
             for (int i = 0; i < 3; i++)
             {
@@ -380,10 +449,10 @@ public class PlayerMovent : MonoBehaviour
 
 
                 Controller2D.move(velocity2 * Time.deltaTime);
-               // velocity2 = Controller2D.velocity;
+                // velocity2 = Controller2D.velocity;
             }
         }
-        else if(tag == "boss")
+        else if (tag == "boss")
         {
             for (int i = 0; i < 3; i++)
             {
@@ -394,7 +463,7 @@ public class PlayerMovent : MonoBehaviour
 
 
                 Controller2D.move(velocity2 * Time.deltaTime);
-               // velocity2 = Controller2D.velocity;
+                // velocity2 = Controller2D.velocity;
             }
         }
 

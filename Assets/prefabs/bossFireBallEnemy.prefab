@@ -111,6 +111,7 @@ MonoBehaviour:
   go: {fileID: 0}
   dir2: {x: 0, y: 0, z: 0}
   velosty: {x: 0, y: 0, z: 0}
+  boom: 0
 --- !u!61 &237676702349324934
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -123,10 +123,13 @@ MonoBehaviour:
   AttackPoint: {fileID: 4836111770518251302}
   sword: {fileID: 8911927683241424134}
   damage: 1
+  buy: 0
   AttackRate: 3
+  MageAttackRate: 2
   hunter: {fileID: 8089858873837670657, guid: 7491ce0823d488e4aa841c5408fd030e, type: 3}
   enemy1: {fileID: 4605030662261421260, guid: f7a27890873c3814e9966860e377b476, type: 3}
   mainColer: {r: 0, g: 0.18431373, b: 1, a: 1}
+  Iframs: 0
 --- !u!61 &1488163860176197407
 BoxCollider2D:
   m_ObjectHideFlags: 0

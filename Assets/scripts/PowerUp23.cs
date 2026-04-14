@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class PowerUp23 : MonoBehaviour
@@ -6,13 +7,15 @@ public class PowerUp23 : MonoBehaviour
     public int hp;
     public int damage;
     public float speed;
+  
     void Start()
     {
         
     }
     private void Awake()
     {
-        
+       
+       
     }
     
     // Update is called once per frame

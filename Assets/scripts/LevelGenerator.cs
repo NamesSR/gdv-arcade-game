@@ -15,16 +15,19 @@ public class LevelGenerator : MonoBehaviour
     WayPoints way;
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
-    public GameObject waypointPrefab;
+   
     public GameObject enemy2Prefab;
     public GameObject PowerOrbPrefab;
     public GameObject groundTilePrefab;
     public GameObject NextlevelTilePrefab;
     public GameObject BossPrefab;
     public Node nodePrefab;
+    public GameObject abiltyprefab;
     public List<Node> nodeList;
     private SpriteRenderer TileColor;
     GameObject sd;
+    
+    List<int> shop = new List<int> { 0, 1, 2, 3};
 
     public static event Action startgame;
 
@@ -41,7 +44,7 @@ public class LevelGenerator : MonoBehaviour
 
     string[][] levelData = {new string[]
       {
-       ",#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
+       "k#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
 "#gTgTgTg#gdTgTgTg#gdTgTgTgTg#gdTgTg#gdTgTgTgTg#gdTgTgTg#gdTgTgTgTg#gd",
 "#gTgTg#gd#gd#gdTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTgTgTgTgTgTg#gdTgTgTg#g",
 "#g#gdTgTg#gdTgTgTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTy#y",
@@ -176,7 +179,26 @@ public class LevelGenerator : MonoBehaviour
 "#d#bTyTyTyyTyEy4Ty#bTyTyTyTyTyTyTyTyTy#b#bTyEy3TyTyTyTyTyTyy#b#b#d",
 "#d#bTyTyTyTyTyTy#bTyTyTyTyTyTyTyyTy#b#b#bTyTyTyy#bTyTyTy#b#b#b#d",
 "#d#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#b#d",
-}
+}, new string[]
+      {
+       "k#g#g#g#g#g#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#gd#gd",
+"#gTgTgTg#gdTgTgTg#gdTgTgTgTg#gdTgTg#gdTgTgTgTg#gdTgTgTg#gdTgTgTgTg#gd",
+"#gTgTg#gd#gd#gdTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTgTgTgTgTgTg#gdTgTgTg#g",
+"#g#gdTgTg#gdTgTgTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTgTgTg#gdTgTgTg#gdTy#y",
+"#gTgTgTgTgTgTgTg#gdTgTg#gd#gd#gdTgTyTyTyyTyTyTgTg#gdTgTgTgTgTgTyTy#y",
+"#gTgTgTgTgTg#gdTgTg#gdTgTg#gdTgTyKyTyTyTyTyTyTgTgTgTgTg#gdTyTyTyy#y",
+"#yTyyTyTg#gdTgTgTgTgTgTgTyTyTyTyTyyTyTyTyyTyTyTyTyTyTyTgTgTyTyTyFyd",
+"#yTyTyyTyTgTgTgTgTgTyTyTyTyyTyTyyTyTyTyyTyTyTyyKyTyyTyTyTyTyTyTyyTyyFyd",
+"#yPyTyTyTyTyyTgTgTyTyTyyTyTyTyTyTyTyyTyTyTyTyTyTyTyyTyTyyTyTyyTyTyyFyd",
+"#yTyTyTyyTyTyTyTyTyTyyTyTyTyyTyTyyTgTgTgTgTgTyTyyTyTyTyyTyTyTyTyyTyyFyd",
+"#yTyyTyTyTyTyyTyTyyTyTyTyyTyTyTyTgTgTgTgTg#gdTgTyTyTyTyTgTgTyTyTyFyd",
+"#g#gdTgTyTyyTyTyTyyTyTyTyTgTg#gdTgTg#gdTgTgTgTgTgTgTgTgTg#gdTyTyTyy#y",
+"#gTgTgTgTyTyTyTyTyTg#gdTgTgTgTg#gd#gd#gdTgTgTgTgTg#gdTgTgTgTgTyTy#y",
+"#gTg#gdTgTgTgTyTyyTgTgTgTgTgTgTgTg#gdTgTg#gdTgTgTgTgTgTgTgTgTgTy#y",
+"#g#gd#gd#gdTgTgTgTgTgTg#gdTgTgTg#gdTgTgTgTgTgTgTg#gdTgTgTg#gdTg#gdTg#g",
+"#gTg#gdTgTgTg#gdTg#gdTgTgTg#gdTgTgTgTg#gdTgTgTg#gd#gd#gdTg#gdTgTgTgTg#g",
+"#g#g#g#g#g#g#g#g#g#g#g#gd#gd#gd#g#g#g#g#g#g#g#g#gd#g#g#g#g#g#gd#g#g"
+      },
 
     };
 
@@ -200,7 +222,7 @@ public class LevelGenerator : MonoBehaviour
         gridx = 0;
         if (l == 0)
         {
-            Genlevel = 3;// UnityEngine.Random.Range(0, levelData.Length);
+            Genlevel = 7;// UnityEngine.Random.Range(0, levelData.Length);
         }
         else
         { 
@@ -228,6 +250,10 @@ public class LevelGenerator : MonoBehaviour
                     {
                         GameManager.Instance.bossLevel = true;
                         GameManager.Instance.addEnemyHp += 10;
+                    }
+                    else if(row[0] == 'k')
+                    {
+                        GameManager.Instance.saveFlool = true;
                     }
                     x++;
                 }
@@ -300,6 +326,14 @@ public class LevelGenerator : MonoBehaviour
                         GameManager.Instance.bosscount++;
                         gridx++;
                         break;
+                    case 'K':
+                        var s = Instantiate(abiltyprefab, position, Quaternion.identity, this.transform);
+                        var b = s.GetComponent<ability>();
+                        int sd = UnityEngine.Random.Range(1, shop.Count);
+                        shop.Remove(sd);
+                        b.id = sd;
+                        gridx++;
+                        break;
 
                 }
                 if (tile != '#' && tile != 'F')
@@ -325,6 +359,8 @@ public class LevelGenerator : MonoBehaviour
             gridx = 0;
         }
         ConnectNodes();
+        shop.Clear();
+        shop = new List<int> { 0, 1, 2, 3 };
         startgame.Invoke();
     }
     public void destroyLevel()
@@ -332,7 +368,7 @@ public class LevelGenerator : MonoBehaviour
 
         foreach (Transform t in this.transform)
         {
-            if (t != null)
+            if (t != null && t.gameObject.tag != "abilityinUse")
             {
                 Destroy(t.gameObject);
 
@@ -418,15 +454,19 @@ public class LevelGenerator : MonoBehaviour
 
         }
     }
-    public void SpawnPowerOrbRandom()
+    public void SpawnPowerOrbRandom(int spawnamount)
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < spawnamount; i++)
         {
 
 
             Node randoSpawn = nodeList[UnityEngine.Random.Range(0, nodeList.Count)];
             Instantiate(PowerOrbPrefab, randoSpawn.transform.position, Quaternion.identity, this.transform);
             GameManager.Instance.powerOrbCountAdd(1);
+        }
+        if(GameManager.Instance.orbspawnAmount > 3)
+        {
+            GameManager.Instance.orbspawnAmount = 3;
         }
     }
     public void ConnectNodes()

@@ -5,7 +5,7 @@ public class buttonUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       if ((GameManager.Instance.currentState == GameState.Menu && this.gameObject.tag == "menu") || (GameManager.Instance.currentState == GameState.ClassSlect && (this.gameObject.tag == "mage" || this.gameObject.tag == "knight")))
+       if ((GameManager.Instance.currentState == GameState.Menu && this.gameObject.tag == "menu"))
         {
             this.gameObject.SetActive(true); 
         }

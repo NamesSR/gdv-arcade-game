@@ -13,14 +13,21 @@ public class ScoreUI : MonoBehaviour
     public TextMeshProUGUI SpeedText;
     public TextMeshProUGUI damageText;
     public TextMeshProUGUI timeEndText;
+    public TextMeshProUGUI ability1text;
+    public TextMeshProUGUI ability2text;
     private TimeSpan timdeed;
+    public static ScoreUI Instance;
+    string sd23;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         scoreText.text = "0";
     }
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -67,6 +74,43 @@ public class ScoreUI : MonoBehaviour
     public void endtimeAndFloor(string time, int floor)
     {
         timeEndText.text = $"Died At: {floor} Time: {time}";
+    }
+    public void abliltyTextUpdate(string name, int slot)
+    {
+        if (slot == 1)
+        {
+            ability1text.text = $"{name}: Ready ";
+        }
+        else if (slot == 2)
+        {
+            ability2text.text = $"{name}: Ready ";
+        }
+            
+    }
+    public void abliltyspecialtext( int slot, string swe)
+    {
+        if (slot == 1)
+        {
+            ability1text.text = swe;
+        }
+        else if(slot == 2)
+        {
+            ability2text.text = swe;
+        }
+    }
+    public void abilityCooldown(TimeSpan cooldown, int slot)
+    {
+        if(slot == 1)
+        {
+            
+            //sd23 = cooldown.ToString("mm':'ss");
+            ability1text.text = $"{cooldown.ToString("mm':'ss")}";
+        }
+        else if(slot == 2)
+        {
+            //sd23 = cooldown.ToString("mm':'ss");
+            ability2text.text = $"{cooldown.ToString("mm':'ss")}"; ;
+        }
     }
 }
 

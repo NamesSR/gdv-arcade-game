@@ -141,7 +141,7 @@ public class WayPoints : MonoBehaviour
                 Debug.Log($"check 1: s.dir2: {playerMovent.dir2} dir: {dir}");
                 //dir = playerMovent.dir2;
                 Debug.Log($"check 2: s.dir2: {playerMovent.dir2} dir: {dir}");
-                takeDamage(GameManager.Instance.FireBallDagame, 15f);
+                takeDamage(GameManager.Instance.damage * GameManager.Instance.extraDamageX, 15f);
             }
         }
 
@@ -329,10 +329,12 @@ public class WayPoints : MonoBehaviour
     {
         if (Iframs == false)
         {
+            GameManager.Instance.hit235 = true;
             enemyHp -= Damage;
             Debug.Log($"check 1: s.dir2: {playerMovent.dir2} dir: {dir}");
              knoback2 = true;
             Debug.Log($"check 2: s.dir2: {playerMovent.dir2} dir: {dir}");
+            GameManager.Instance.hit235 = false;
             for (int i = 0; i < 3; i++)
             {
                 velocity2.x = Mathf.Lerp(velocity2.x, playerMovent.dir.x * knockback, Time.deltaTime * 20f);
