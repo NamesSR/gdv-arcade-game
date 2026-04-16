@@ -3,6 +3,7 @@ using Prime31;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using static UnityEditor.PlayerSettings;
 
 //using static UnityEngine.RuleTile.TilingRuleOutput;
 
@@ -25,7 +26,7 @@ public class PlayerMovent : MonoBehaviour
     public bool buy = false;
     private Vector3 velocity;
     private Vector3 velocity2;
-
+    public GameObject bomsprefab;
     private RaycastHit2D _lastControllerColliderHit;
     private CharacterController2D Controller2D;
     float nextAttackTime = 0f;
@@ -40,6 +41,7 @@ public class PlayerMovent : MonoBehaviour
     shoot shoot;
     bool canbuy = false;
     ability a;
+    shoot bshoot;
 
 
 
@@ -241,16 +243,44 @@ public class PlayerMovent : MonoBehaviour
                 nextAttackTime = Time.time + 1f / AttackRate;
             }
             ShootFireBall();
+            //shootBom();
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && abilitySlots[0] != null)
         {
-            abilitySlots[0].abilitys();
+            if(abilitySlots[0].id != 2)
+            {
+                abilitySlots[0].abilitys();
+            }
+            else if (abilitySlots[0].id == 2)
+            {
+                abilitySlots[0].abilitys();
+                if (abilitySlots[0].bomscanshoot == true)
+                {
+                    shootBom();
+                    abilitySlots[0].bomscanshoot = false;
+                }
+
+            }
+
             Debug.Log(abilitySlots[0].id);
         }
         if (Input.GetKeyDown(KeyCode.LeftControl) && abilitySlots[1] != null)
         {
-            abilitySlots[1].abilitys();
+            if (abilitySlots[1].id != 2)
+            {
+                abilitySlots[1].abilitys();
+            }
+            else if(abilitySlots[1].id == 2)
+            {
+                abilitySlots[1].abilitys();
+                if (abilitySlots[1].bomscanshoot == true)
+                {
+                    shootBom();
+                    abilitySlots[1].bomscanshoot = false;
+                }
+                
+            }
             Debug.Log(abilitySlots[1].id);
         }
         if(canbuy == true)
@@ -290,17 +320,7 @@ public class PlayerMovent : MonoBehaviour
 
 
     }
-    void ability1()
-    {
-        abilitySlots[0].abilitys();
-        Debug.Log(abilitySlots[0].id);
-
-    }
-    void ability2()
-    {
-        abilitySlots[1].abilitys();
-        Debug.Log(abilitySlots[1].id);
-    }
+   
 
     private void FixedUpdate()
     {
@@ -369,13 +389,15 @@ public class PlayerMovent : MonoBehaviour
     }
    public void shootBom()
     {
+        
+        Debug.Log("shootingbom");
         dir2 = dir;
-        GameObject projectile = Instantiate(FireBallPrefab);
-        transform23 = projectile.transform;
-        transform23.position = transform.position;
-        shoot = projectile.GetComponent<shoot>();
-        shoot.dir2 = dir;
-        shoot.boom = true;
+        GameObject bom = Instantiate(bomsprefab, this.transform.position, Quaternion.identity);
+        
+        bshoot = bom.GetComponent<shoot>();
+        bshoot.dir2 = dir;
+        bshoot.boom = true;
+
 
     }
 

@@ -108,6 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78925dcd83121649a718d5082956f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovent
+  abilitySlots:
+  - {fileID: 0}
+  - {fileID: 0}
   speed: 6
   value: 10
   groundDamping: 20
@@ -124,6 +127,7 @@ MonoBehaviour:
   sword: {fileID: 8911927683241424134}
   damage: 1
   buy: 0
+  bomsprefab: {fileID: 6277787174836207797, guid: 29d918031f2cea049a9a8d9a279297f3, type: 3}
   AttackRate: 3
   MageAttackRate: 2
   hunter: {fileID: 8089858873837670657, guid: 7491ce0823d488e4aa841c5408fd030e, type: 3}

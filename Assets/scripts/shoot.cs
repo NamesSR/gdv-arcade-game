@@ -18,8 +18,10 @@ public class shoot : MonoBehaviour
     bool stop = false;
     SpriteRenderer sr;
     public bool boom = false;
-    Vector3 target;
+   
     Transform scale23;
+
+   
     void Start()
     {
         // transform.position = go.transform.position;
@@ -32,6 +34,8 @@ public class shoot : MonoBehaviour
         scale23.localScale = new Vector3(0.6f, 0.6f, 0.6f); 
         bc2d.enabled = true;
         sr.enabled = true;
+      
+        
     }
     private void Awake()
     {
@@ -41,7 +45,11 @@ public class shoot : MonoBehaviour
         //g = go.GetComponent<PlayerMovent>();
 
         Destroy(this.gameObject, 5f);
+        if(boom == true)
+        {
+         StartCoroutine(expodeCooldown());
 
+        }
     }
 
     void onTriggerEnterEvent3(Collider2D col)
@@ -49,7 +57,7 @@ public class shoot : MonoBehaviour
         // Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
         if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "Wall" || col.gameObject.tag == "hunter" || col.gameObject.tag == "nextlevel")
         {
-
+            Debug.Log(col.gameObject.name);
             stop = true;
             sr.enabled = false;
             bc2d.enabled = false;
@@ -62,38 +70,30 @@ public class shoot : MonoBehaviour
 
 
 
+
     private void FixedUpdate()
     {
         if (stop == false)
         {
-            if (boom == false)
-            {
-                velosty = dir2 * speed;
-                Controller2D3.move(velosty * Time.deltaTime);
-
-            }
-            else
-            {
-                target = dir2 * speed;
-                bool expolde = Vector3.Distance(transform.position, target) > 0.1f;
-                if (expolde)
-                {
+              
                     velosty = dir2 * speed;
                     Controller2D3.move(velosty * Time.deltaTime);
-                }
-                else
-                {
-                    StartCoroutine(expodeCooldown());
-                }
-
-
-            }
+     
         }
     }
     IEnumerator expodeCooldown()
     {
-        yield return new WaitForSeconds(1f);
+        Debug.Log("wait for Exploding");
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("start Exploding");
         scale23.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        stop = true;
+        sr.enabled = false;
+        bc2d.enabled = false;
+        PS?.Stop();
+        PS?.Play();
+        Destroy(this.gameObject, 0.3f);
     }
+   
 }
 

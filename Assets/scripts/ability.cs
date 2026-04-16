@@ -14,7 +14,7 @@ public class ability : MonoBehaviour
     public int slot;
     string names;
     int striks = 0;
-
+   public  bool bomscanshoot = true;
     TimeSpan times;
     CircleCollider2D circle;
     SpriteRenderer sr;
@@ -62,6 +62,7 @@ public class ability : MonoBehaviour
             {
                 oncooldown = false;
                 ScoreUI.Instance.abliltyTextUpdate(names, slot);
+                
             }
 
         }
@@ -85,6 +86,12 @@ public class ability : MonoBehaviour
                 }
                 break;
             case 2:
+                if (Time.time >= canusebailty)
+                {
+
+                    bomscanshoot = true;
+                }
+               
                 break;
             case 3:
                 break;
@@ -147,10 +154,11 @@ public class ability : MonoBehaviour
                 if (Time.time >= canusebailty)
                 {
                     Debug.Log("useAbility");
-                    pm.shootBom();
-
-                    canusebailty = Time.time + 15f;
-                    oncooldown = true;
+                    //pm.shootBom();
+                   
+                   canusebailty = Time.time + 15f;
+                    
+                   oncooldown = true;
                 }
                 break;
             case 3:
